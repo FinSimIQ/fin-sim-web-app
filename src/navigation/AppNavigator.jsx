@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Example from "../screens/Example";
 import Home from "../screens/Home";
+import Learning from "../screens/Learning";
 
 const AppNavigator = (props) => {
   const routes = createBrowserRouter([
@@ -12,6 +13,8 @@ const AppNavigator = (props) => {
       path: "/home",
       element: <Home />,
     },
+    {path: "/learning",
+    element: <Learning />},
   ]);
 
   return <RouterProvider router={routes} />;
