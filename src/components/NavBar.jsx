@@ -14,7 +14,7 @@ const Navbar = () => {
         </Text>
       </Flex>
 
-      <Box display="flex" width="auto" alignItems="center" flexGrow={1} justifyContent="center">
+      <Box display="flex" width="auto" alignItems="center" flexGrow={1} justifyContent="right">
         <Link as={RouterLink} to="/home" p={2} mx={2} rounded="md" _hover={{ bg: 'gray.100' }}>
           Home
         </Link>

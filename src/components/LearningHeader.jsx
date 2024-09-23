@@ -1,24 +1,31 @@
-import { Box, Heading, Text } from '@chakra-ui/react';
+import { Box, Flex, Heading, Image, Text } from '@chakra-ui/react';
 
 const LearningHeader = () => {
   return (
-    <Box
+    <Flex
       bg="#316D60"
       borderRadius="20px"
       p={5}
       color="white"
-      textAlign="center"
+      align="center"
       position="relative"
-      height="304px"
-      width="100%"
+      height="400px"
     >
-      <Heading as="h1" size="2xl" mb={3}>
-        Learn
-      </Heading>
-      <Text fontSize="lg" px={12}>
-        Test your knowledge with Quizzes and learn along the way! Quizzes are adaptive to user skill levels and tailored to the content and level of difficulty.
-      </Text>
-    </Box>
+      <Image
+        src="/images/learning-header/learning_header.png"
+        alt="Learning illustration"
+        objectFit="cover"
+        h="100%"
+      />
+      <Box textAlign="center" flex="1" p={5}>
+        <Heading as="h1" size="2xl" mb={3}>
+          Learn
+        </Heading>
+        <Text fontSize="lg">
+          Test your knowledge with Quizzes and learn along the way! Quizzes are adaptive to user skill levels and tailored to the content and level of difficulty.
+        </Text>
+      </Box>
+    </Flex>
   );
 };
 

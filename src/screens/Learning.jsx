@@ -37,25 +37,23 @@ const Learning = () => {
   
 
   return (
-    <Container maxW="unset" p={50} background="#F1F1F1">
+    <Container maxW="1400px" margin="0 auto" p={5} background="#F1F1F1">
       <VStack spacing={4} align="stretch">
         <Box>
           <Navbar></Navbar>
         </Box>
-
-        <Box>
+        <Box pl={8} pr={8}>
             <LearningHeader></LearningHeader>
         </Box>
-
         <HStack justifyContent="space-between" alignItems="center" px={4} py={2}>
-  <Heading as="h2" size="lg" color="#3B3B3B">
+  <Heading as="h2" size="lg" color="#3B3B3B" pl={5}>
     Explore Quizzes
   </Heading>
 
-  <InputGroup maxW="400px"> {/* Set a max width to the InputGroup for better responsiveness */}
+  <InputGroup maxW="400px" pr={4}>
     <InputLeftElement
-      pointerEvents="none" // Makes the icon non-interactive
-      children={<Icon as={SearchIcon} color="#5D5D5D" />} // Use the SearchIcon
+      pointerEvents="none"
+      children={<Icon as={SearchIcon} color="#5D5D5D" />}
     />
     <Input
       placeholder="Search"
@@ -68,8 +66,8 @@ const Learning = () => {
   </InputGroup>
 </HStack>
 
-        <Box>
-          <SimpleGrid columns={"3"} spacingX={20} spacingY={40}>
+        <Box display="flex" justifyContent="center">
+          <SimpleGrid columns={"3"} spacingX={20} spacingY={10}>
         {quizzes.map(quiz => (
           <QuizCard key={quiz.id} title={quiz.title} difficulty={quiz.difficulty} imageSrc={quiz.imageSrc} description={quiz.description} />
         ))}
