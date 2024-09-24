@@ -1,15 +1,10 @@
 import {
-	Box,
 	Button,
-	Center,
 	Container,
 	Flex,
-	Grid,
-	GridItem,
 	HStack,
 	Image,
 	Spacer,
-	Square,
 	Text,
 	VStack,
 } from "@chakra-ui/react";
@@ -21,9 +16,13 @@ import RightLandingCard from "../assets/rightLandingCard.svg";
 import LeftLandingCardImage from "../assets/leftLandingCardImage.svg";
 import MiddleLandingCardImage from "../assets/middleLandingCardImage.svg";
 import RightLandingCardImage from "../assets/rightLandingCardImage.svg";
-import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { ArrowForwardIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import { Link as ReactRouterLink } from "react-router-dom";
+import { Link as ChakraLink } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 const Landing = () => {
+	const navigate = useNavigate();
 	return (
 		<Container minW="100%" p="0" m="0" bg="brand.600" fontFamily="poppins">
 			<Flex
@@ -44,20 +43,55 @@ const Landing = () => {
 			>
 				<Image src={LogoImage} alt="Logo" h="12" draggable="false" />
 				<Spacer />
-				<Text my="4">Home</Text>
+				<ChakraLink
+					as={ReactRouterLink}
+					to="/home"
+					my="4"
+					_hover={{ color: "brand.500", textDecoration: "none" }}
+				>
+					Home
+				</ChakraLink>
 				<Spacer />
-				<Text my="4">Learn</Text>
+				<ChakraLink
+					as={ReactRouterLink}
+					to="/learn"
+					my="4"
+					_hover={{ color: "brand.500", textDecoration: "none" }}
+				>
+					Learn
+				</ChakraLink>
 				<Spacer />
-				<Text my="4">Challenges</Text>
+				<ChakraLink
+					as={ReactRouterLink}
+					to="/challenges"
+					my="4"
+					_hover={{ color: "brand.500", textDecoration: "none" }}
+				>
+					Challenges
+				</ChakraLink>
 				<Spacer />
-				<Text my="4">Leaderboard</Text>
+				<ChakraLink
+					as={ReactRouterLink}
+					to="/leaderboard"
+					my="4"
+					_hover={{ color: "brand.500", textDecoration: "none" }}
+				>
+					Leaderboard
+				</ChakraLink>
 				<Spacer />
-				<Button colorScheme="brand" variant="primary" borderRadius="20">
+				<Button
+					colorScheme="brand"
+					variant="primary"
+					borderRadius="20"
+					onClick={() => {
+						navigate("/signin");
+					}}
+				>
 					Sign In
 				</Button>
 			</Flex>
-			<Container minW="100%">
-				<HStack px="4" mt="20" mb="32" justify="center">
+			<Container minW="100%" py="8" align="center">
+				<HStack px="4" mt="12" mb="12" justify="center">
 					<Image src={HeaderImage} alt="Header" w="50%" draggable="false" />
 					<VStack textAlign="center">
 						<HStack spacing="0" fontWeight="bold" letterSpacing="tightest">
@@ -85,16 +119,25 @@ const Landing = () => {
 							letterSpacing="tightish"
 							fontSize="lg"
 							variant="primary"
-							rightIcon={<ArrowForwardIcon boxSize={6} />}
+							rightIcon={<ArrowForwardIcon boxSize="6" />}
+							onClick={() => {
+								navigate("/register");
+							}}
 						>
 							Get Started
 						</Button>
 					</VStack>
 				</HStack>
+				<ChevronDownIcon boxSize="12" color="white" onClick={() => {}} />
 			</Container>
 			<Container minW="100%" py="6" px="16" bg="#F4F4F4">
-				<HStack pb="16" align="baseline">
-					<Container maxW="lg" fontSize="4xl" fontWeight="semibold">
+				<HStack pb="8" align="baseline">
+					<Container
+						maxW="lg"
+						fontSize="4xl"
+						fontWeight="semibold"
+						letterSpacing="tightish"
+					>
 						Learn Finance and Stock Market Concepts
 					</Container>
 					<Spacer />
@@ -106,94 +149,115 @@ const Landing = () => {
 					</Text>
 				</HStack>
 				<HStack justify="space-between">
-					<Container
-						minH="xs"
-						maxH="xl"
-						maxW="xs"
-						px="8"
-						py="4"
-						m="0"
-						bgImage={LeftLandingCard}
-						bgRepeat="no-repeat"
-						bgSize="contain"
-						bgPos="center"
+					<ChakraLink
+						as={ReactRouterLink}
+						to="/learn"
+						my="4"
+						_hover={{ textDecoration: "none" }}
 					>
-						<Text maxW="sm" fontWeight="medium" fontSize="2xl">
-							Interactive Finance Quizzes
-						</Text>
-						<Text maxW="sm" py="2" fontFamily="metrophobic" fontSize="md">
-							Learn finance and stock market concepts through complex and
-							interactive quizzes
-						</Text>
-						<HStack>
-							<Image
-								src={LeftLandingCardImage}
-								alt="Header"
-								w="40%"
-								draggable="false"
-							/>
-							<Spacer />
-						</HStack>
-					</Container>
-					<Container
-						minH="xs"
-						maxH="xl"
-						maxW="xs"
-						px="8"
-						py="8"
-						m="0"
-						bgImage={MiddleLandingCard}
-						bgRepeat="no-repeat"
-						bgSize="contain"
-						bgPos="center"
+						<Container
+							minH="sm"
+							maxH="xl"
+							maxW="sm"
+							px="8"
+							py="4"
+							m="0"
+							bgImage={LeftLandingCard}
+							bgRepeat="no-repeat"
+							bgSize="contain"
+							bgPos="center"
+						>
+							<Text maxW="sm" fontWeight="medium" fontSize="3xl">
+								Interactive Finance Quizzes
+							</Text>
+							<Text maxW="sm" py="2" fontFamily="metrophobic" fontSize="lg">
+								Learn finance and stock market concepts through complex and
+								interactive quizzes
+							</Text>
+							<HStack>
+								<Image
+									src={LeftLandingCardImage}
+									alt="Header"
+									w="50%"
+									draggable="false"
+								/>
+								<Spacer />
+							</HStack>
+						</Container>
+					</ChakraLink>
+					<ChakraLink
+						as={ReactRouterLink}
+						to="/leaderboard"
+						my="4"
+						_hover={{ textDecoration: "none" }}
 					>
-						<HStack>
-							<Image
-								src={MiddleLandingCardImage}
-								alt="Header"
-								w="40%"
-								draggable="false"
-							/>
-							<Spacer />
-						</HStack>
-						<Text maxW="md" pt="4" pb="2" fontWeight="medium" fontSize="2xl">
-							Learn with Friends
-						</Text>
-						<Text maxW="sm" fontFamily="metrophobic" fontSize="md">
-							Discover friends to learn with and find encouragement along the
-							way by earning badges with completed lessons
-						</Text>
-					</Container>
-					<Container
-						minH="xs"
-						maxH="xl"
-						maxW="xs"
-						px="8"
-						py="4"
-						m="0"
-						textAlign="right"
-						bgImage={RightLandingCard}
-						bgRepeat="no-repeat"
-						bgSize="contain"
-						bgPos="center"
+						<Container
+							minH="sm"
+							maxH="xl"
+							maxW="sm"
+							px="8"
+							py="8"
+							m="0"
+							bgImage={MiddleLandingCard}
+							bgRepeat="no-repeat"
+							bgSize="contain"
+							bgPos="center"
+						>
+							<HStack>
+								<Image
+									src={MiddleLandingCardImage}
+									alt="Header"
+									w="50%"
+									draggable="false"
+								/>
+								<Spacer />
+							</HStack>
+							<Text maxW="md" pt="4" pb="2" fontWeight="medium" fontSize="3xl">
+								Learn with Friends
+							</Text>
+							<Text maxW="sm" fontFamily="metrophobic" fontSize="lg">
+								Discover friends to learn with and find encouragement along the
+								way by earning badges with completed lessons
+							</Text>
+						</Container>
+					</ChakraLink>
+					<ChakraLink
+						as={ReactRouterLink}
+						to="/challenges"
+						my="4"
+						_hover={{ textDecoration: "none" }}
 					>
-						<Text maxW="sm" fontWeight="medium" fontSize="2xl">
-							Weekly Market Challenges
-						</Text>
-						<Text maxW="sm" py="2" fontFamily="metrophobic" fontSize="md">
-							Enhance your strategy development and critical thinking skills by
-							engaging in virtual trading scenarios
-						</Text>
-						<HStack>
-							<Spacer />
-							<Image
-								src={RightLandingCardImage}
-								alt="Header"
-								w="40%"
-								draggable="false"
-							/>
-						</HStack>
-					</Container>
+						<Container
+							minH="sm"
+							maxH="xl"
+							maxW="sm"
+							px="8"
+							py="4"
+							m="0"
+							textAlign="right"
+							bgImage={RightLandingCard}
+							bgRepeat="no-repeat"
+							bgSize="contain"
+							bgPos="center"
+						>
+							<Text maxW="sm" fontWeight="medium" fontSize="3xl">
+								Weekly Market Challenges
+							</Text>
+							<Text maxW="sm" py="2" fontFamily="metrophobic" fontSize="lg">
+								Enhance your strategy development and critical thinking skills
+								by engaging in virtual trading scenarios
+							</Text>
+							<HStack>
+								<Spacer />
+								<Image
+									src={RightLandingCardImage}
+									alt="Header"
+									w="50%"
+									draggable="false"
+								/>
+							</HStack>
+						</Container>
+					</ChakraLink>
 				</HStack>
 			</Container>
 		</Container>

@@ -1,26 +1,26 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Example from "../screens/Example";
 import Home from "../screens/Home";
-import Learning from "../screens/Learning";
+import Learn from "../screens/Learn";
 import Landing from "../screens/Landing";
 
 const AppNavigator = (props) => {
 	const routes = createBrowserRouter([
 		{
 			path: "/",
-			element: <Example />,
+			element: <Landing />,
 		},
 		{
-			path: "/landing",
-			element: <Landing />,
+			path: "/example",
+			element: <Example />,
 		},
 		{
 			path: "/home",
 			element: <Home />,
 		},
 		{
-			path: "/learning",
-			element: <Learning />,
+			path: "/learn",
+			element: <Learn />,
 		},
 	]);
 

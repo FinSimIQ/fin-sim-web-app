@@ -1,28 +1,21 @@
-import React from "react";
 import {
 	Box,
 	Container,
 	SimpleGrid,
-	GridItem,
 	Heading,
-	Image,
-	Text,
 	VStack,
 	HStack,
-	Button,
-	background,
 	Input,
 	InputGroup,
 	InputLeftElement,
 	Icon,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
 import QuizCard from "../components/QuizCard";
-import LearningHeader from "../components/LearningHeader";
+import LearnHeader from "../components/LearnHeader";
 import Navbar from "../components/NavBar";
 
-const Learning = () => {
+const Learn = () => {
 	const quizzes = [
 		{
 			id: 1,
@@ -105,7 +98,7 @@ const Learning = () => {
 					<Navbar></Navbar>
 				</Box>
 				<Box pl={8} pr={8}>
-					<LearningHeader></LearningHeader>
+					<LearnHeader></LearnHeader>
 				</Box>
 				<HStack
 					justifyContent="space-between"
@@ -151,4 +144,4 @@ const Learning = () => {
 	);
 };
 
-export default Learning;
+export default Learn;
