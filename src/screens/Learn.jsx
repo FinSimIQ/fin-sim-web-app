@@ -21,7 +21,7 @@ const Learn = () => {
 			id: 1,
 			title: "Stock Market",
 			difficulty: "Beginner",
-			imageSrc: "/images/quiz-covers/stock_market.png",
+			imageSrc: "/images/quiz-covers/stock_market.svg",
 			description:
 				"Overview of stock market operations, exchanges, and types of securities.",
 		},
@@ -29,7 +29,7 @@ const Learn = () => {
 			id: 2,
 			title: "Personal Finance",
 			difficulty: "Beginner",
-			imageSrc: "/images/quiz-covers/personal_finance.png",
+			imageSrc: "/images/quiz-covers/personal_finance.svg",
 			description:
 				"Core principles of budgeting, saving, investing, and debt management.",
 		},
@@ -37,7 +37,7 @@ const Learn = () => {
 			id: 3,
 			title: "Fintech",
 			difficulty: "Beginner",
-			imageSrc: "/images/quiz-covers/fintech.png",
+			imageSrc: "/images/quiz-covers/fintech.svg",
 			description:
 				"Insights into technology’s impact on finance, including digital payments and blockchain.",
 		},

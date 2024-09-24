@@ -1,7 +1,7 @@
 import { extendTheme, withDefaultColorScheme } from '@chakra-ui/react'
 
 
-// Refer to this file for the branding colors
+// Refer to this file for the branding colors used throughout the website
 const customTheme = extendTheme({
     colors: {
         // Base:
