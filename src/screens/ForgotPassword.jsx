@@ -9,8 +9,10 @@ import {
   Box,
   Container,
   Flex,
+  Image,
 } from "@chakra-ui/react";
 import { EmailIcon, ArrowBackIcon } from "@chakra-ui/icons";
+import { Link } from "react-router-dom";
 
 const ForgotPassword = () => {
   return (
@@ -25,23 +27,42 @@ const ForgotPassword = () => {
               <Stack spacing={1}>
                 <Text fontSize="xl">Enter Email</Text>
                 <InputGroup>
-                  <InputLeftElement pointerEvents="none">
+                  <InputLeftElement
+                    pointerEvents="none"
+                    height="full"
+                    display="flex"
+                    alignItems="center"
+                    justifyItems="center"
+                  >
                     <EmailIcon color="gray.300" boxSize="2rem" />
                   </InputLeftElement>
                   <Input placeholder="Enter Email Here" size="lg" />
                 </InputGroup>
               </Stack>
               <Button colorScheme="green">Reset Password</Button>
-              <Box display="flex" alignItems="center">
-                <ArrowBackIcon />
-                <Text fontSize="sm">Back to Sign In</Text>
-              </Box>
+              <Link to="/home">
+                <Box>
+                  <Stack
+                    direction="row"
+                    spacing={1}
+                    display="flex"
+                    alignItems="center"
+                  >
+                    <ArrowBackIcon />
+                    <Text fontSize="sm">Back to Sign In</Text>
+                  </Stack>
+                </Box>
+              </Link>
             </Stack>
           </Container>
         </Box>
-        <Box width="50%" bg="green.500" p={4}>
-          Image here
-        </Box>
+        <Box
+          width="50%"
+          h="100%"
+          backgroundImage="url('images/Group 298(1).svg')"
+          backgroundSize="cover"
+          backgroundPosition="center"
+        ></Box>
       </Flex>
     </div>
   );
