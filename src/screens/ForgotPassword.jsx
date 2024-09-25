@@ -59,7 +59,7 @@ const ForgotPassword = () => {
         <Box
           width="50%"
           h="100%"
-          backgroundImage="url('images/Group 298(1).svg')"
+          backgroundImage="url('images/password_reset_background.svg')"
           backgroundSize="cover"
           backgroundPosition="center"
         ></Box>
