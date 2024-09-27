@@ -37,7 +37,7 @@ const Learning = () => {
   
 
   return (
-    <Container maxW="1400px" margin="0 auto" p={5} background="#F1F1F1">
+    <Container minW="100%" margin="0 auto" p={0} m={0} background="#F1F1F1" fontFamily="poppins">
       <VStack spacing={4} align="stretch">
         <Box>
           <Navbar></Navbar>
@@ -46,7 +46,7 @@ const Learning = () => {
             <LearningHeader></LearningHeader>
         </Box>
         <HStack justifyContent="space-between" alignItems="center" px={4} py={2}>
-  <Heading as="h2" size="lg" color="#3B3B3B" pl={5}>
+  <Heading as="h2" size="lg" color="#3B3B3B" pl={5} >
     Explore Quizzes
   </Heading>
 
