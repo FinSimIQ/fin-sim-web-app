@@ -28,7 +28,7 @@ const Navbar = () => {
           Leaderboard
         </Link>
         <Button as={RouterLink} to="/login" bg="#42D674" color="white" size="md" mr={4} _hover={{ bg: 'teal.300' }}>
-          Log In
+          Sign In
         </Button>
       </Box>
     </Flex>
