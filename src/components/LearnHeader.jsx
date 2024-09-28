@@ -12,7 +12,7 @@ const LearnHeader = () => {
 			height="400px"
 		>
 			<Image
-				src="/images/learning-header/learning_header.png"
+				src="/images/learning-header/learning_header.svg"
 				alt="Learning illustration"
 				objectFit="cover"
 				h="100%"
