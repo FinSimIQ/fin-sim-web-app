@@ -18,7 +18,7 @@ const Navbar = () => {
         <Link as={RouterLink} to="/" p={2} mx={4} rounded="md" width="8%" align="center" _hover={{ bg: 'gray.100' }} fontWeight="medium" fontSize="18px" color="#3B3B3B0">
           Home
         </Link>
-        <Link as={RouterLink} to="/learning" p={2} mx="2%" rounded="md" width="8%" align="center"_hover={{ bg: 'gray.100' }} fontWeight="medium" fontSize="18px" color="#3B3B3B">
+        <Link as={RouterLink} to="/learn" p={2} mx="2%" rounded="md" width="8%" align="center"_hover={{ bg: 'gray.100' }} fontWeight="medium" fontSize="18px" color="#3B3B3B">
           Learn
         </Link>
         <Link as={RouterLink} to="/challenges" p={2} mx="2%" rounded="md" width="8%" align="center" _hover={{ bg: 'gray.100' }} fontWeight="medium" fontSize="18px" color="#3B3B3B">

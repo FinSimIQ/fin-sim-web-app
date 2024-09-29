@@ -94,7 +94,7 @@ const Learn = () => {
 	return (
 		<Container minW="100%" p="0" m="0">
 			<Navbar></Navbar>
-		<Container maxW="100%" align="center" py="8" background="#F1F1F1">
+		<Container maxW="100%" align="center" py="65" background="#F1F1F1">
 			<VStack spacing={4} align="stretch">
 				<Box pl={8} pr={8}>
 					<LearnHeader></LearnHeader>
