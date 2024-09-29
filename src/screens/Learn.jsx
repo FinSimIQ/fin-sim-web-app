@@ -105,7 +105,7 @@ const Learn = () => {
 					px={4}
 					py={2}
 				>
-					<Heading as="h2" size="lg" color="#3B3B3B" pl={5}>
+					<Heading as="h2" size="2xl" color="#3B3B3B" pl={5} fontFamily="poppins" fontWeight="semibold">
 						Explore Quizzes
 					</Heading>
 
@@ -120,13 +120,13 @@ const Learn = () => {
 							bg="#E3E3E3"
 							textColor="#AAAAAA"
 							pl="2.5rem" // Padding left to make room for the icon inside the input
-							fontSize="md" // Font size of the input text
+							fontSize="xl" // Font size of the input text
 						/>
 					</InputGroup>
 				</HStack>
 
-				<Box display="flex" justifyContent="center">
-					<SimpleGrid columns={"3"} spacingX={20} spacingY={10}>
+				<Box display="flex" justifyContent="center" width="100%">
+					<SimpleGrid columns={"3"} spacingX={20} spacingY={10} width="auto" pl="12" >
 						{quizzes.map((quiz) => (
 							<QuizCard
 								key={quiz.id}
