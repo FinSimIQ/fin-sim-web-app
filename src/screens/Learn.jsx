@@ -45,7 +45,7 @@ const Learn = () => {
 			id: 4,
 			title: "Investment",
 			difficulty: "Intermediate",
-			imageSrc: "/images/quiz-covers/investment.png",
+			imageSrc: "/images/quiz-covers/investment.svg",
 			description:
 				"Concepts of asset classes, portfolio diversification, and wealth-building strategies.",
 		},
@@ -53,7 +53,7 @@ const Learn = () => {
 			id: 5,
 			title: "Risk Management",
 			difficulty: "Intermediate",
-			imageSrc: "/images/quiz-covers/risk_management.png",
+			imageSrc: "/images/quiz-covers/risk_management.svg",
 			description:
 				"Strategies for identifying and mitigating financial risks across various contexts.",
 		},
@@ -61,7 +61,7 @@ const Learn = () => {
 			id: 6,
 			title: "Financial Analysis",
 			difficulty: "Intermediate",
-			imageSrc: "/images/quiz-covers/financial_analysis.png",
+			imageSrc: "/images/quiz-covers/financial_analysis.svg",
 			description:
 				"Overview of financial statements and using metrics to evaluate performance.",
 		},
@@ -69,7 +69,7 @@ const Learn = () => {
 			id: 7,
 			title: "Quantitative Finance",
 			difficulty: "Advanced",
-			imageSrc: "/images/quiz-covers/quantitative_finance.png",
+			imageSrc: "/images/quiz-covers/quantitative_finance.svg",
 			description:
 				"Mathematical methods for pricing financial instruments and managing risk.",
 		},
@@ -77,7 +77,7 @@ const Learn = () => {
 			id: 8,
 			title: "Financial Modeling",
 			difficulty: "Advanced",
-			imageSrc: "/images/quiz-covers/financial_modeling.png",
+			imageSrc: "/images/quiz-covers/financial_modeling.svg",
 			description:
 				"Techniques for creating financial models to forecast performance and value companies.",
 		},
@@ -85,18 +85,17 @@ const Learn = () => {
 			id: 9,
 			title: "Trading",
 			difficulty: "Advanced",
-			imageSrc: "/images/quiz-covers/trading.png",
+			imageSrc: "/images/quiz-covers/trading.svg",
 			description:
 				"Understanding market mechanics, order types, and strategies for buying and selling securities.",
 		},
 	];
 
 	return (
-		<Container maxW="1400px" margin="0 auto" p={5} background="#F1F1F1">
+		<Container minW="100%" p="0" m="0">
+			<Navbar></Navbar>
+		<Container maxW="100%" align="center" py="65" background="#F1F1F1">
 			<VStack spacing={4} align="stretch">
-				<Box>
-					<Navbar></Navbar>
-				</Box>
 				<Box pl={8} pr={8}>
 					<LearnHeader></LearnHeader>
 				</Box>
@@ -141,6 +140,7 @@ const Learn = () => {
 				</Box>
 			</VStack>
 		</Container>
+	</Container>
 	);
 };
 
