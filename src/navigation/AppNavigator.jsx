@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Example from "../screens/Example";
 import Home from "../screens/Home";
+import Challenges from "../screens/Challenges";
 
 const AppNavigator = (props) => {
   const routes = createBrowserRouter([
@@ -11,6 +12,10 @@ const AppNavigator = (props) => {
     {
       path: "/home",
       element: <Home />,
+    },
+    {
+      path: "/challenges",
+      element: <Challenges />,
     },
   ]);
 

@@ -16,6 +16,9 @@ const Example = (props) => {
         <ListItem>
           <Link to="/home">Home</Link>
         </ListItem>
+        <ListItem>
+          <Link to="/challenges">Challenges</Link>
+        </ListItem>
       </UnorderedList>
     </Container>
   );
