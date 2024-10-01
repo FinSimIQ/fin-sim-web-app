@@ -7,16 +7,12 @@ import Landing from "../screens/Landing";
 const AppNavigator = (props) => {
 	const routes = createBrowserRouter([
 		{
-			path: "/",
+			path: "/home",
 			element: <Landing />,
 		},
 		{
 			path: "/example",
 			element: <Example />,
-		},
-		{
-			path: "/home",
-			element: <Home />,
 		},
 		{
 			path: "/learn",
