@@ -3,6 +3,8 @@ import Example from "../screens/Example";
 import Home from "../screens/Home";
 import Learn from "../screens/Learn";
 import Landing from "../screens/Landing";
+import Login from "../screens/Login";
+import Signup from "../screens/Signup";
 
 const AppNavigator = (props) => {
 	const routes = createBrowserRouter([
@@ -21,6 +23,18 @@ const AppNavigator = (props) => {
 		{
 			path: "/learn",
 			element: <Learn />,
+		},
+		{
+			path: "/learn",
+			element: <Learn />,
+		},
+		{
+			path: "/login",
+			element: <Login />,
+		},
+		{
+			path: "/signup",
+			element: <Signup />,
 		},
 	]);
 

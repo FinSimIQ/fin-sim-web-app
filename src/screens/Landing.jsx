@@ -84,7 +84,7 @@ const Landing = () => {
 					variant="primary"
 					borderRadius="20"
 					onClick={() => {
-						navigate("/signin");
+						navigate("/login");
 					}}
 				>
 					Sign In
