@@ -1,0 +1,13 @@
+.answerButtons {
+  color: "#111111";
+  outline-color: "#E3E3E3";
+}
+
+.answerButtons:hover {
+  background-color: "#E3E3E3";
+}
+
+.answerButtonGreen {
+  background-color: "#42D674";
+  border-color: "#51B276";
+}
