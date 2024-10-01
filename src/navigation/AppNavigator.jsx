@@ -15,6 +15,10 @@ const AppNavigator = (props) => {
 			element: <Example />,
 		},
 		{
+			path: "/home",
+			element: <Home />,
+		},
+		{
 			path: "/learn",
 			element: <Learn />,
 		},
