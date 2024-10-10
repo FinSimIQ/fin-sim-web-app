@@ -3,11 +3,11 @@ import React, { useState } from "react";
 
 const Challenges = (props) => {
   // for question 1
-  const [selectedAnswer1, setSelectedAnswer1] = useState(null);
-  const [isSelected1, setIsSubmitted1] = useState(false);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   // assign the correct answer for question 1 to check later
-  const correctAnswer1 = "A";
+  const correctAnswer1 = "D";
 
   // handle answer selection
   const handleAnswerClick = (answer) => {
@@ -21,18 +21,24 @@ const Challenges = (props) => {
     setIsSubmitted(true);
   };
 
-  // getting and setting answer button color
+  // getting and setting answer button bg color
+  // hover and pressed
   const getButtonColor = (answer) => {
     if (isSubmitted) {
-      return answer === correctAnswer1 ? "green" : "red"; // Green if correct, red if wrong
+      return answer === correctAnswer1 ? "#42D674" : "#FFADA8"; // Green if correct, red if wrong
     }
-    return selectedAnswer1 === answer ? "gray" : "#FFFFFF"; // Gray when selected before submission
+    /* if (!isSubmitted & (selectedAnswer != null)) {
+      return "#E3E3E3";
+    }
+    if (!isSubmitted & (selectedAnswer == null)) {
+      return "#FFFFFF";
+    } */
   };
 
   return (
     <Flex
       width={"100vw"}
-      height={"100wh"}
+      height={"100vh"}
       justifyContent={"center"}
       bg="#D9D9D9"
     >
@@ -98,7 +104,7 @@ const Challenges = (props) => {
               </Text>
             </Button>
             <Button
-              bg="#FFFFFF"
+              bg={getButtonColor("C")}
               borderColor="#E3E3E3"
               _hover={{ bg: "#E3E3E3" }}
               _active={{
@@ -116,7 +122,7 @@ const Challenges = (props) => {
               </Text>
             </Button>
             <Button
-              bg="#FFFFFF"
+              bg={getButtonColor("D")}
               borderColor="#E3E3E3"
               _hover={{ bg: "#E3E3E3" }}
               _active={{
