@@ -1,11 +1,4 @@
-import {
-  Text,
-  Container,
-  Heading,
-  VStack,
-  Button,
-  Flex,
-} from "@chakra-ui/react";
+import { Text, Container, Heading, Button, Flex } from "@chakra-ui/react";
 import React, { useState } from "react";
 
 const Challenges = (props) => {
@@ -13,29 +6,37 @@ const Challenges = (props) => {
   const [selectedAnswer1, setSelectedAnswer1] = useState(null);
   const [isSelected1, setIsSubmitted1] = useState(false);
 
-  // Assign the correct answer for question 1 to check later
-  const correctAnswer1 = "2";
+  // assign the correct answer for question 1 to check later
+  const correctAnswer1 = "A";
 
-  // Handle answer selection
+  // handle answer selection
   const handleAnswerClick = (answer) => {
     if (!isSubmitted) {
       setSelectedAnswer(answer);
     }
   };
 
-  // Handle submission
+  // handle submission
   const handleSubmit = () => {
     setIsSubmitted(true);
   };
 
+  // getting and setting answer button color
+  const getButtonColor = (answer) => {
+    if (isSubmitted) {
+      return answer === correctAnswer1 ? "green" : "red"; // Green if correct, red if wrong
+    }
+    return selectedAnswer1 === answer ? "gray" : "#FFFFFF"; // Gray when selected before submission
+  };
+
   return (
-    <Flex bg="#D9D9D9">
-      <Flex
-        padding="10"
-        spacing="10"
-        flexDirection={"column"}
-        direction={"LTR"}
-      >
+    <Flex
+      width={"100vw"}
+      height={"100wh"}
+      justifyContent={"center"}
+      bg="#D9D9D9"
+    >
+      <Flex padding="10" spacing="10" flexDirection={"column"}>
         <Container bg="#316D60" color="#FFFFFF" borderRadius="15" padding="4">
           <Heading fontSize="32px">Weekly Market Challenge</Heading>
           <Text fontSize="18px">
@@ -126,6 +127,7 @@ const Challenges = (props) => {
               display="inline-block"
               overflow="hidden"
               whiteSpace="normal"
+              onClick={() => handleAnswerClick("D")}
             >
               <Text fontSize="12px" textAlign="left">
                 Hold your current position in XYZ Corp and wait for the market
