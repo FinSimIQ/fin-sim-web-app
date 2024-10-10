@@ -1,16 +1,48 @@
-import { Text, Container, Heading, VStack, Button } from "@chakra-ui/react";
+import {
+  Text,
+  Container,
+  Heading,
+  VStack,
+  Button,
+  Flex,
+} from "@chakra-ui/react";
+import React, { useState } from "react";
 
 const Challenges = (props) => {
+  // for question 1
+  const [selectedAnswer1, setSelectedAnswer1] = useState(null);
+  const [isSelected1, setIsSubmitted1] = useState(false);
+
+  // Assign the correct answer for question 1 to check later
+  const correctAnswer1 = "2";
+
+  // Handle answer selection
+  const handleAnswerClick = (answer) => {
+    if (!isSubmitted) {
+      setSelectedAnswer(answer);
+    }
+  };
+
+  // Handle submission
+  const handleSubmit = () => {
+    setIsSubmitted(true);
+  };
+
   return (
-    <Container bg="#D9D9D9" m={0} maxW="container.2xl" height="100vh">
-      <VStack padding="10" spacing="10">
+    <Flex bg="#D9D9D9">
+      <Flex
+        padding="10"
+        spacing="10"
+        flexDirection={"column"}
+        direction={"LTR"}
+      >
         <Container bg="#316D60" color="#FFFFFF" borderRadius="15" padding="4">
           <Heading fontSize="32px">Weekly Market Challenge</Heading>
           <Text fontSize="18px">
             Test your market analysis skills with this week's challenge.
           </Text>
         </Container>
-        // Question Container 1
+        {/* Question Container 1 */}
         <Container bg="#FFFFFF" color="#3B3B3B" borderRadius="15" padding="4">
           <Heading fontSize="28px">Market Volatility Analysis</Heading>
           <Text fontSize="18px">Scenario:</Text>
@@ -28,7 +60,7 @@ const Challenges = (props) => {
             What is the best approach to mitigate the impact of market
             volatility on your portfolio in this scenario?
           </Text>
-          <VStack>
+          <Flex flexDirection={"column"} direction={"LTR"} flexWrap={true}>
             <Button
               bg="#FFFFFF"
               borderColor="#E3E3E3"
@@ -38,8 +70,11 @@ const Challenges = (props) => {
                 transform: "scale(0.98)",
                 borderColor: "#51B276",
               }}
+              display="inline-block"
+              overflow="hidden"
+              whiteSpace="normal"
             >
-              <Text fontSize="12px" textAlign="right">
+              <Text fontSize="12px" textAlign="left">
                 Buy more shares of XYZ Corp, taking advantage of the price dip
                 in hopes of long-term growth.
               </Text>
@@ -53,9 +88,11 @@ const Challenges = (props) => {
                 transform: "scale(0.98)",
                 borderColor: "#51B276",
               }}
-              maxW="xl"
+              display="inline-block"
+              overflow="hidden"
+              whiteSpace="normal"
             >
-              <Text fontSize="12px" textAlign="right">
+              <Text fontSize="12px" textAlign="left">
                 Sell all shares of XYZ Corp to avoid further potential losses.
               </Text>
             </Button>
@@ -68,8 +105,11 @@ const Challenges = (props) => {
                 transform: "scale(0.98)",
                 borderColor: "#51B276",
               }}
+              display="inline-block"
+              overflow="hidden"
+              whiteSpace="normal"
             >
-              <Text fontSize="12px" textAlign="right">
+              <Text fontSize="12px" textAlign="left">
                 Diversify your portfolio by investing in a mix of low-volatility
                 assets, such as bonds and utilities.
               </Text>
@@ -83,8 +123,11 @@ const Challenges = (props) => {
                 transform: "scale(0.98)",
                 borderColor: "#51B276",
               }}
+              display="inline-block"
+              overflow="hidden"
+              whiteSpace="normal"
             >
-              <Text fontSize="12px" textAlign="right">
+              <Text fontSize="12px" textAlign="left">
                 Hold your current position in XYZ Corp and wait for the market
                 to stabilize before making any changes.
               </Text>
@@ -97,15 +140,19 @@ const Challenges = (props) => {
                 color="#FFFFFF"
                 borderRadius="20"
                 fontSize="14px"
+                display="inline-block"
+                overflow="hidden"
+                whiteSpace="normal"
+                onClick={handleSubmit}
               >
                 Submit Answer
               </Button>
             </Container>
-          </VStack>
+          </Flex>
         </Container>
-        // Question Container 2 // Question Container 3
-      </VStack>
-    </Container>
+        {/*// Question Container 2 // Question Container 3*/}
+      </Flex>
+    </Flex>
   );
 };
 
