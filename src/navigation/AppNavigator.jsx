@@ -8,7 +8,7 @@ import Challenges from "../screens/Challenges";
 const AppNavigator = (props) => {
 	const routes = createBrowserRouter([
 		{
-			path: "/home",
+			path: "/",
 			element: <Landing />,
 		},
 		{
@@ -23,10 +23,10 @@ const AppNavigator = (props) => {
 			path: "/learn",
 			element: <Learn />,
 		},
-    {
-      path: "/challenges",
-      element: <Challenges />,
-    },
+    	{
+      	path: "/challenges",
+      	element: <Challenges />,
+    	},
 	]);
 
 	return <RouterProvider router={routes} />;
