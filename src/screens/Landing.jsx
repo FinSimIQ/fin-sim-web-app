@@ -40,6 +40,7 @@ const Landing = () => {
 				fontSize="lg"
 				boxShadow="md"
 				zIndex="1"
+				color="#262626"
 			>
 				<Image src={LogoImage} alt="Logo" h="12" draggable="false" />
 				<Spacer />
@@ -137,11 +138,12 @@ const Landing = () => {
 						fontSize="4xl"
 						fontWeight="semibold"
 						letterSpacing="tightish"
+						color="#3B3B3B"
 					>
 						Learn Finance and Stock Market Concepts
 					</Container>
 					<Spacer />
-					<Text maxW="3xl" fontFamily="metrophobic" fontSize="xl">
+					<Text maxW="3xl" fontFamily="metrophobic" fontSize="xl" color="#5D5D5D">
 						Explore real-world stock simulations, tackle interactive finance
 						quizzes, and navigate dynamic market challenges. Enhance your
 						strategy development, refine your decision-making skills, and build
