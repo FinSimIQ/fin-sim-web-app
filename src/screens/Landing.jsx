@@ -46,7 +46,7 @@ const Landing = () => {
 				<Spacer />
 				<ChakraLink
 					as={ReactRouterLink}
-					to="/home"
+					to="/"
 					my="4"
 					_hover={{ color: "brand.500", textDecoration: "none" }}
 				>
