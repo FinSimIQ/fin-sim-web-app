@@ -1,12 +1,54 @@
 import React, { useState } from 'react';
-import { Flex, Box, Input, InputGroup, InputLeftElement, InputRightElement, Button, Text, Link, FormControl, FormLabel } from '@chakra-ui/react';
+import { Flex, Box, Input, InputGroup, InputLeftElement, InputRightElement, Button, Text, Link, FormControl, FormLabel, Spinner } from '@chakra-ui/react';
 import { EmailIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import wave from "../assets/wave.svg";
 
 const Signup = () => {
-  // password visibility
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+
+  // password visibility
   const handlePasswordToggle = () => setShowPassword(!showPassword);
+
+  // handle form submission
+  const handleSignup = async () => {
+    setIsLoading(true);
+    setError('');
+    setSuccessMessage('');
+
+    const signupData = {
+      fullName,
+      email,
+      password,
+    };
+
+    try {
+      const response = await fetch('http://localhost:5173/createUser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(signupData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setSuccessMessage('Account created successfully! You can now sign in.');
+      } else {
+        setError(result.message || 'An error occurred during signup.');
+      }
+    } catch (err) {
+      setError('Failed to connect to the server. Please try again later.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <Flex h="100vh">
@@ -16,10 +58,19 @@ const Signup = () => {
           <Text fontSize="4xl" fontWeight="bold" textAlign="center" mb="4" color="gray.600">
             Create Your Account
           </Text>
-          
+
+          {/* display error or success message */}
+          {error && <Text color="red.500" mb="4">{error}</Text>}
+          {successMessage && <Text color="green.500" mb="4">{successMessage}</Text>}
+
           <FormControl mb="4" isRequired>
             <FormLabel fontWeight="bold">Full Name</FormLabel>
-            <Input type="text" placeholder="Full Name" />
+            <Input
+              type="text"
+              placeholder="Full Name"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+            />
           </FormControl>
 
           <FormControl mb="4" isRequired>
@@ -28,7 +79,12 @@ const Signup = () => {
               <InputLeftElement pointerEvents="none">
                 <EmailIcon color="gray.400" />
               </InputLeftElement>
-              <Input type="email" placeholder="Enter Your Email" />
+              <Input
+                type="email"
+                placeholder="Enter Your Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </InputGroup>
           </FormControl>
 
@@ -41,6 +97,8 @@ const Signup = () => {
               <Input
                 type={showPassword ? 'text' : 'password'}
                 placeholder="Enter Your Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <InputRightElement width="4.5rem">
                 <Button h="1.75rem" size="sm" onClick={handlePasswordToggle} variant="ghost">
@@ -50,9 +108,16 @@ const Signup = () => {
             </InputGroup>
           </FormControl>
 
-
-          <Button colorScheme="green" size="lg" w="100%" mb="4" marginTop="5">
-            Sign Up
+          <Button
+            colorScheme="green"
+            size="lg"
+            w="100%"
+            mb="4"
+            marginTop="5"
+            onClick={handleSignup}
+            isDisabled={isLoading}
+          >
+            {isLoading ? <Spinner size="sm" /> : 'Sign Up'}
           </Button>
 
           <Text textAlign="center" color="gray.500">

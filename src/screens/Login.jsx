@@ -1,12 +1,69 @@
 import React, { useState } from 'react';
-import { Flex, Box, Input, InputGroup, InputLeftElement, InputRightElement, Button, Text, Link, FormControl, FormLabel } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
+import { Flex, Box, Input, InputGroup, InputLeftElement, InputRightElement, Button, Text, Link, FormControl, FormLabel, useToast } from '@chakra-ui/react';
 import { EmailIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import wave from "../assets/wave.svg";
 
 const Login = () => {
-  // password visibility
   const [showPassword, setShowPassword] = useState(false);
   const handlePasswordToggle = () => setShowPassword(!showPassword);
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const toast = useToast();
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    try {
+      const response = await fetch('http://localhost:5173/loginUser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      // check if login was successful
+      if (response.ok && data.message !== 'Invalid credentials' && data.message !== 'Account not found') {
+        // success handling
+        toast({
+          title: "Login successful!",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+
+        // redirect to landing page after toast notification
+        setTimeout(() => {
+          navigate('/');
+        }, 3000);  // wait 3 seconds
+
+      } else {
+        // error handling (invalid credentials or account not found)
+        toast({
+          title: "Login failed",
+          description: data.message || 'Please check your credentials.',
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      console.error('Error logging in:', error);
+      toast({
+        title: "Error",
+        description: "Something went wrong, please try again later.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
 
   return (
     <Flex h="100vh">
@@ -26,7 +83,12 @@ const Login = () => {
               <InputLeftElement pointerEvents="none">
                 <EmailIcon color="gray.400" />
               </InputLeftElement>
-              <Input type="email" placeholder="Enter Your Email" />
+              <Input
+                type="email"
+                placeholder="Enter Your Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </InputGroup>
           </FormControl>
 
@@ -39,6 +101,8 @@ const Login = () => {
               <Input
                 type={showPassword ? 'text' : 'password'}
                 placeholder="Enter Your Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <InputRightElement width="4.5rem">
                 <Button h="1.75rem" size="sm" onClick={handlePasswordToggle} variant="ghost">
@@ -54,7 +118,7 @@ const Login = () => {
             </Link>
           </Box>
 
-          <Button colorScheme="green" size="lg" w="100%" mb="4">
+          <Button colorScheme="green" size="lg" w="100%" mb="4" onClick={handleLogin}>
             Sign In
           </Button>
 
