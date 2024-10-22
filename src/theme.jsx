@@ -11,7 +11,8 @@ const theme = extendTheme({
 		brand: {
 			400: "#75FB4C",
 			500: "#42D674",
-			600: "#316D60",
+			600: "#316D60", // Dark Green
+			700: "#51B276", // Light Green
 		},
 	},
 	fonts: {
