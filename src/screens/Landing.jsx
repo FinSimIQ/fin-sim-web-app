@@ -28,13 +28,13 @@ const Landing = () => {
 			<Flex
 				spacing="24px"
 				bg="white"
-				maxW="50%"
+				maxW={{ base: "70%", sm: "70%", md: "70%", lg: "60%", xl: "50%" }}
 				borderRadius="24"
 				px="6"
 				alignItems="center"
 				position="sticky"
 				top="3%"
-				left="25%"
+				left={{ base: "15%", sm: "15%", md: "15%", lg: "20%", xl: "25%" }}
 				fontWeight="semibold"
 				letterSpacing="tightish"
 				fontSize="lg"
@@ -130,10 +130,15 @@ const Landing = () => {
 				</HStack>
 				<ChevronDownIcon boxSize="12" color="white" onClick={() => {}} />
 			</Container>
-			<Container minW="100%" py="6" px="16" bg="#F4F4F4">
+			<Container
+				minW="100%"
+				py="12"
+				px={{ base: "8", sm: "8", md: "8", lg: "16" }}
+				bg="#F4F4F4"
+			>
 				<HStack pb="8" align="baseline">
 					<Container
-						maxW="lg"
+						maxW={{ base: "xl", sm: "xl", md: "xl", lg: "lg" }}
 						fontSize="4xl"
 						fontWeight="semibold"
 						letterSpacing="tightish"
@@ -141,7 +146,11 @@ const Landing = () => {
 						Learn Finance and Stock Market Concepts
 					</Container>
 					<Spacer />
-					<Text maxW="3xl" fontFamily="metrophobic" fontSize="xl">
+					<Text
+						maxW={{ base: "sm", sm: "sm", md: "sm", lg: "xl" }}
+						fontFamily="metrophobic"
+						fontSize="xl"
+					>
 						Explore real-world stock simulations, tackle interactive finance
 						quizzes, and navigate dynamic market challenges. Enhance your
 						strategy development, refine your decision-making skills, and build
@@ -231,8 +240,10 @@ const Landing = () => {
 							minH="sm"
 							maxH="xl"
 							maxW="sm"
-							px="8"
-							py="4"
+							pl={{ md: "4", lg: "8" }}
+							pr={{ md: "4", lg: "8" }}
+							pt={{ md: "14", lg: "4" }}
+							pb={{ md: "4", lg: "4" }}
 							m="0"
 							textAlign="right"
 							bgImage={RightLandingCard}
@@ -240,10 +251,19 @@ const Landing = () => {
 							bgSize="contain"
 							bgPos="center"
 						>
-							<Text maxW="sm" fontWeight="medium" fontSize="3xl">
+							<Text
+								maxW="sm"
+								fontWeight="medium"
+								fontSize={{ md: "2xl", lg: "3xl" }}
+							>
 								Weekly Market Challenges
 							</Text>
-							<Text maxW="sm" py="2" fontFamily="metrophobic" fontSize="lg">
+							<Text
+								maxW="sm"
+								py="2"
+								fontFamily="metrophobic"
+								fontSize={{ md: "md", lg: "lg" }}
+							>
 								Enhance your strategy development and critical thinking skills
 								by engaging in virtual trading scenarios
 							</Text>
@@ -252,7 +272,7 @@ const Landing = () => {
 								<Image
 									src={RightLandingCardImage}
 									alt="Header"
-									w="50%"
+									w={{ md: "40%", lg: "50%" }}
 									draggable="false"
 								/>
 							</HStack>
