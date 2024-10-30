@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box } from "@chakra-ui/react";
-import Navbar from "./NavBar"; // Import the Navbar component
+import Navbar from "../components/NavBar"; // Import the Navbar component
 import TopMembers from "../components/TopMembers"; // Assume you have a TopMembers component for the top 3 members
 import Leaderboard from "../components/Leaderboard"; // Import the Leaderboard component
 
