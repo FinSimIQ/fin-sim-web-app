@@ -75,7 +75,7 @@ const ForgotPassword = () => {
             Forgot Password
           </Text>
           <Text textAlign="center" mb="8" color="gray.600">
-            Enter your email to receive password reset instructions
+            Enter your email to receive password reset instructions.
           </Text>
 
           <FormControl mb="6">
@@ -114,7 +114,8 @@ const ForgotPassword = () => {
               _hover={{ color: 'green.500' }}
             >
               <ArrowBackIcon mr="2" />
-              <Text>Back to Sign In</Text>
+              <Link fontWeight="bold" href="/login">Back to Sign In
+              </Link>
             </Flex>
           </Link>
         </Box>
