@@ -76,7 +76,7 @@ const Login = () => {
           <Text textAlign="center" mb="8" color="gray.600">
             Welcome back! Please enter your details.
           </Text>
-          
+
           <FormControl mb="4">
             <FormLabel fontWeight="bold">Email</FormLabel>
             <InputGroup>
@@ -113,7 +113,7 @@ const Login = () => {
           </FormControl>
 
           <Box textAlign="right" mb="6">
-            <Link color="gray.600" fontWeight="bold" href="/forgotpassword">
+            <Link color="gray.600" fontWeight="bold" href="/forgot_password">
               Forgot Password?
             </Link>
           </Box>

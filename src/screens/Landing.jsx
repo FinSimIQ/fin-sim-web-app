@@ -54,53 +54,6 @@ const Landing = () => {
 			>
 				<Image src={LogoImage} alt="Logo" h="12" draggable="false" />
 				<Spacer />
-// 				<ChakraLink
-// 					as={ReactRouterLink}
-// 					to="/home"
-// 					my="4"
-// 					_hover={{ color: "brand.500", textDecoration: "none" }}
-// 				>
-// 					Home
-// 				</ChakraLink>
-// 				<Spacer />
-// 				<ChakraLink
-// 					as={ReactRouterLink}
-// 					to="/learn"
-// 					my="4"
-// 					_hover={{ color: "brand.500", textDecoration: "none" }}
-// 				>
-// 					Learn
-// 				</ChakraLink>
-// 				<Spacer />
-// 				<ChakraLink
-// 					as={ReactRouterLink}
-// 					to="/challenges"
-// 					my="4"
-// 					_hover={{ color: "brand.500", textDecoration: "none" }}
-// 				>
-// 					Challenges
-// 				</ChakraLink>
-// 				<Spacer />
-// 				<ChakraLink
-// 					as={ReactRouterLink}
-// 					to="/leaderboard"
-// 					my="4"
-// 					_hover={{ color: "brand.500", textDecoration: "none" }}
-// 				>
-// 					Leaderboard
-// 				</ChakraLink>
-// 				<Spacer />
-// 				<Button
-// 					colorScheme="brand"
-// 					variant="primary"
-// 					borderRadius="20"
-// 					onClick={() => {
-// 						navigate("/login");
-// 					}}
-// 				>
-// 					Sign In
-// 				</Button>
-
 
 				{isMobile ? (
 					<IconButton
@@ -254,7 +207,7 @@ const Landing = () => {
 							variant="primary"
 							rightIcon={<ArrowForwardIcon boxSize="6" />}
 							onClick={() => {
-								navigate("/register");
+								navigate("/signup");
 							}}
 						>
 							Get Started
