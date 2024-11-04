@@ -207,7 +207,7 @@ const Landing = () => {
 							variant="primary"
 							rightIcon={<ArrowForwardIcon boxSize="6" />}
 							onClick={() => {
-								navigate("/register");
+								navigate("/signup");
 							}}
 						>
 							Get Started
