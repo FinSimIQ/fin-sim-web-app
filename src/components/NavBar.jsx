@@ -42,11 +42,12 @@ const Navbar = () => {
       fontFamily="poppins"
       fontWeight="bold"
       boxShadow="0px 2px 5px rgba(0, 0, 0, 0.1)"
+      height="auto"
     >
       {/* Logo Section */}
       <Flex align="center" letterSpacing="tight">
         <Text
-          fontSize={{ base: '3xl', md: '5xl', lg: '7xl' }}
+          fontSize={{ base: '2xl', md: '4xl', lg: '6xl' }}
           fontWeight="bold"
           ml={3}
           textShadow="1px 1px 1px gray"
@@ -55,7 +56,7 @@ const Navbar = () => {
           finsim
         </Text>
         <Text
-          fontSize={{ base: '3xl', md: '5xl', lg: '7xl' }}
+          fontSize={{ base: '2xl', md: '4xl', lg: '6xl' }}
           fontWeight="bold"
           textShadow="1px 1px 1px gray"
           color="#42D674"
@@ -177,7 +178,7 @@ const Navbar = () => {
             fontSize={{ base: '14px', md: '18px' }}
             borderRadius="30px"
             ml={{ base: 2, md: 6, lg: 10 }} 
-            width="10%"
+            width="15%"
           >
             Log In
           </Button>

@@ -1,18 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { Box } from "@chakra-ui/react";
-import Navbar from "./NavBar"; // Import the Navbar component
-import TopMembers from "../components/TopMembers"; // Assume you have a TopMembers component for the top 3 members
-import Leaderboard from "../components/Leaderboard"; // Import the Leaderboard component
+import {
+  Box,
+  Container,
+  VStack,
+  HStack,
+  Heading,
+  useBreakpointValue,
+} from "@chakra-ui/react";
+import Navbar from "../components/NavBar";
+import TopMembers from "../components/TopMembers";
+import LeaderboardItem from "../components/LeaderboardItem";
+import LeaderboardToggle from "../components/LeaderboardToggle";
 
 const LeaderboardPage = () => {
   const [members, setMembers] = useState([]);
+  const [activeButton, setActiveButton] = useState("weekly");
 
   useEffect(() => {
     const fetchMembers = async () => {
       try {
         const response = await fetch("http://localhost:8081/api/leaderboard");
         const data = await response.json();
-        setMembers(data); // Set the members from the fetched data
+        setMembers(data);
       } catch (error) {
         console.error("Error fetching leaderboard data:", error);
       }
@@ -21,26 +30,81 @@ const LeaderboardPage = () => {
     fetchMembers();
   }, []);
 
-  // Get the top 3 members for display in the TopMembers component
-  const topMembers = members.slice(0, 3); // Get top 3 members
-  const remainingMembers = members.slice(3); // Get members from rank 4 to 10
+
+  const sampleMembers = [
+    { image: "/images/placeHolderImage.jpg", name: "John Doe", points: 4500, rank: 1 },
+    { image: "/images/placeHolderImage.jpg", name: "Jane Smith", points: 4400, rank: 2 },
+    { image: "/images/placeHolderImage.jpg", name: "Sam Wilson", points: 4300, rank: 3 },
+    { image: "/images/placeHolderImage.jpg", name: "Chris Brown", points: 4200, rank: 4 },
+    { image: "/images/placeHolderImage.jpg", name: "Alex Johnson", points: 4100, rank: 5 },
+    { image: "/images/placeHolderImage.jpg", name: "Taylor White", points: 4000, rank: 6 },
+    { image: "/images/placeHolderImage.jpg", name: "Jordan Green", points: 3900, rank: 7 },
+    { image: "/images/placeHolderImage.jpg", name: "Morgan Blue", points: 3800, rank: 8 },
+    { image: "/images/placeHolderImage.jpg", name: "Riley Red", points: 3700, rank: 9 },
+    { image: "/images/placeHolderImage.jpg", name: "Casey Black", points: 3600, rank: 10 },
+  ];
+
+  const topMembers = sampleMembers.slice(0, 3);
+  const remainingMembers = sampleMembers.slice(3, 10);
+  const headingSize = useBreakpointValue({ base: "xl", md: "2xl" });
+
+  const handleToggle = (button) => {
+    setActiveButton(button);
+  };
 
   return (
-    <Box>
-      {/* Navigation Bar */}
+    <Container minW="100%" p="0" m="0">
       <Navbar />
+      <Container maxW="100%" align="center" py="65px" background="#F1F1F1">
+        <VStack spacing={4} align="center" width="100%">
+          {/* Top Members Section */}
+          <Box
+            bg="#316D60"
+            borderRadius="lg"
+            p={6}
+            w="95%"
+          >
+            <TopMembers topMembers={topMembers} />
+          </Box>
 
-      {/* Top Members Box */}
-      <Box marginTop="20px" padding="20px">
-        <TopMembers topMembers={topMembers} /> {/* Pass top members as prop */}
-      </Box>
+          {/* Leaderboard Header and Toggle */}
+          <HStack
+            justifyContent="space-between"
+            alignItems="center"
+            width="98%"
+            px={[4, 8]}
+            py={4}
+          >
+            <Heading
+              as="h2"
+              size={headingSize}
+              color="#3B3B3B"
+              fontFamily="Poppins"
+              fontWeight="semibold"
+            >
+              Leaderboard
+            </Heading>
+            <LeaderboardToggle
+              activeButton={activeButton}
+              handleToggle={handleToggle}
+            />
+          </HStack>
 
-      {/* Leaderboard for Remaining Members */}
-      <Box marginTop="20px">
-        <Leaderboard remainingMembers={remainingMembers} />{" "}
-        {/* Pass remaining members as prop */}
-      </Box>
-    </Box>
+          {/* Leaderboard Items */}
+          <Box width="100%" px={[4, 8]}>
+            {remainingMembers.map((member, index) => (
+              <LeaderboardItem
+                key={index}
+                image={member.image}
+                name={member.name}
+                points={member.points}
+                rank={index + 4} // Ranks start from 4 for the remaining members
+              />
+            ))}
+          </Box>
+        </VStack>
+      </Container>
+    </Container>
   );
 };
 

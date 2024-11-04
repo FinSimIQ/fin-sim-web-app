@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Button } from '@chakra-ui/react';
 
 const LeaderboardToggle = () => {
-  const [activeButton, setActiveButton] = useState('weekly'); // Default to 'weekly'
+  const [activeButton, setActiveButton] = useState('weekly');
 
   const handleToggle = (button) => {
     setActiveButton(button);
@@ -12,37 +12,28 @@ const LeaderboardToggle = () => {
     <Box 
       display="flex" 
       justifyContent="center" 
-      alignItems="center" 
-      bgColor="rgba(49, 109, 96, 0.7)" // 70% of #316D60
-      borderRadius="8px" 
-      padding="5px"
-      width={{ base: "200px", md: "300px" }} // Responsive width
-      marginBottom="20px"
+      align="center" 
+      bg="rgba(49, 109, 96, 0.7)" 
+      borderRadius="md" 
+      p="5px"
+      w={{ base: "200px", md: "300px" }}
+      mb="20px"
     >
-      <Button
-        onClick={() => handleToggle('weekly')}
-        bg={activeButton === 'weekly' ? '#316D60' : 'rgba(49, 109, 96, 0.7)'} // Active color
-        color="white"
-        width="50%"
-        borderRadius="8px 0 0 8px"
-        aria-pressed={activeButton === 'weekly'} // Accessibility
-        _hover={{ bg: "#2A8D77" }} // Hover effect
-        _active={{ bg: "#1F705A" }} // Active state effect
-      >
-        Weekly
-      </Button>
-      <Button
-        onClick={() => handleToggle('all-time')}
-        bg={activeButton === 'all-time' ? '#316D60' : 'rgba(49, 109, 96, 0.7)'} // Active color
-        color="white"
-        width="50%"
-        borderRadius="0 8px 8px 0"
-        aria-pressed={activeButton === 'all-time'} // Accessibility
-        _hover={{ bg: "#2A8D77" }} // Hover effect
-        _active={{ bg: "#1F705A" }} // Active state effect
-      >
-        All Time
-      </Button>
+      {['weekly', 'all-time'].map((period) => (
+        <Button
+          key={period}
+          onClick={() => handleToggle(period)}
+          bg={activeButton === period ? '#316D60' : 'transparent'}
+          color="white"
+          w="50%"
+          borderRadius={period === 'weekly' ? 'md 0 0 md' : '0 md md 0'}
+          aria-pressed={activeButton === period}
+          _hover={{ bg: "#2A8D77" }}
+          _active={{ bg: "#1F705A" }}
+        >
+          {period === 'weekly' ? 'Weekly' : 'All Time'}
+        </Button>
+      ))}
     </Box>
   );
 };
