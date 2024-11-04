@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text, Flex } from '@chakra-ui/react';
+import { Box, Text, Flex, background } from '@chakra-ui/react';
 import LeaderboardItem from './LeaderboardItem';
 import ToggleButton from './LeaderboardToggle'; // Import your ToggleButton component here
 
