@@ -15,7 +15,7 @@ import {
   import QuizCard from "../components/QuizCard";
   import LearnHeader from "../components/LearnHeader";
   import Navbar from "../components/NavBar";
-  
+
   const Learn = () => {
 	const quizzes = [
 	  {
@@ -91,10 +91,10 @@ import {
 		  "Understanding market mechanics, order types, and strategies for buying and selling securities.",
 	  },
 	];
-  
+
 	const headingSize = useBreakpointValue({ base: "xl", md: "2xl" });
 	const gridColumns = useBreakpointValue({ base: 1, md: 2, lg: 3 });
-  
+
 	return (
 	  <Container minW="100%" p="0" m="0">
 		<Navbar></Navbar>
@@ -164,6 +164,5 @@ import {
 	  </Container>
 	);
   };
-  
+
   export default Learn;
-  
