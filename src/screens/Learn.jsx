@@ -98,8 +98,8 @@ import {
 	return (
 	  <Container minW="100%" p="0" m="0">
 		<Navbar></Navbar>
-		<Container maxW="100%" align="center" py="65" background="#F1F1F1">
-		  <VStack spacing={4} align="center">
+		<Container maxW="100%" align="center" py="65px" background="#F1F1F1">
+		<VStack spacing={4} align="center">
 			<Box pl={[4, 8]} pr={[4, 8]}>
 			  <LearnHeader></LearnHeader>
 			</Box>
@@ -118,7 +118,7 @@ import {
 					fontFamily="poppins"
 					fontWeight="semibold"
 				>
-					Explore Quizzes
+					Explore Courses
 				</Heading>
 
 				<InputGroup size="lg" maxW="400px" pr={4} height="48px"> // Adjusting the height to match typical heading height
