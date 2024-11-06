@@ -46,7 +46,7 @@ const LeaderboardPage = () => {
 
   const topMembers = sampleMembers.slice(0, 3);
   const remainingMembers = sampleMembers.slice(3, 10);
-  const headingSize = useBreakpointValue({ base: "xl", md: "2xl" });
+  const headingSize = useBreakpointValue({ base: "xl", md: "xl" });
 
   const handleToggle = (button) => {
     setActiveButton(button);

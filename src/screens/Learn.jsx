@@ -92,7 +92,7 @@ import {
 	  },
 	];
 
-	const headingSize = useBreakpointValue({ base: "xl", md: "2xl" });
+	const headingSize = useBreakpointValue({ base: "xl", md: "xl" });
 	const gridColumns = useBreakpointValue({ base: 1, md: 2, lg: 3 });
 
 	return (
@@ -142,7 +142,7 @@ import {
 			<Box display="flex" justifyContent="center" width="100%">
 			  <SimpleGrid
 				columns={gridColumns}
-				spacingX={60}
+				spacingX={58}
 				spacingY={10}
 				width="auto"
 				justifyItems="center"
