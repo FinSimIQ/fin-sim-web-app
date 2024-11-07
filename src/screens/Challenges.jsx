@@ -205,7 +205,7 @@ const Challenges = (props) => {
     return (
       <Container minW="100%" p="0" m="0">
         <Navbar></Navbar>
-        <Container bg="#D9D9D9" m={0} maxW="container.2xl" height="100vh">
+        <Container bg="#F1F1F1" m={0} maxW="container.2xl" height="100vh">
           <VStack padding="10" spacing="10">
             <Container
               minW="container.xl"
