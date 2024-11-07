@@ -11,21 +11,21 @@ const QuizCard = ({ title, difficulty, imageSrc, description }) => {
     const { bgColor, textColor } = colorSchemeMap[difficulty] || { bgColor: 'gray.200', textColor: 'gray.800' };
   return (
     <VStack
-      w="85%"
+      w="100%"
       h="100%"
       bg="#FFFFFF"
       boxShadow="2xl"
-      rounded="50px"
+      rounded="30px"
       overflow="hidden"
       align="stretch"
-      m="4"
+      m="1.5"
 
     >
       <Box pl="5"pr="5" pt="6">
         <Image
           src={imageSrc}
           alt={`Cover image for ${title}`}
-          borderRadius="2xl"
+          borderRadius="20px"
           objectFit="cover"
           boxSize="100%"
         />
@@ -34,7 +34,7 @@ const QuizCard = ({ title, difficulty, imageSrc, description }) => {
         <Heading size="lg" color="#3B3B3B" textAlign="left" fontFamily="poppins" fontWeight="semibold" >{title}</Heading>
         <Text fontFamily="metrophobic" fontSize="md" color="#5D5D5D" textAlign="left">{description}</Text>
         <Button
-          size="sm"
+          size="md"
           rounded="xl"
           bg={bgColor}
           color={textColor}

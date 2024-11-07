@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
 	Button,
 	Container,
@@ -7,6 +8,8 @@ import {
 	Spacer,
 	Text,
 	VStack,
+	useMediaQuery,
+	IconButton,
 } from "@chakra-ui/react";
 import LogoImage from "../assets/logo.svg";
 import HeaderImage from "../assets/header.svg";
@@ -16,21 +19,33 @@ import RightLandingCard from "../assets/rightLandingCard.svg";
 import LeftLandingCardImage from "../assets/leftLandingCardImage.svg";
 import MiddleLandingCardImage from "../assets/middleLandingCardImage.svg";
 import RightLandingCardImage from "../assets/rightLandingCardImage.svg";
-import { ArrowForwardIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import {
+	ArrowForwardIcon,
+	ChevronDownIcon,
+	HamburgerIcon,
+	CloseIcon,
+} from "@chakra-ui/icons";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 const Landing = () => {
 	const navigate = useNavigate();
+	const [isOpen, setIsOpen] = useState(false);
+	const [isMobile] = useMediaQuery("(max-width: 960px)");
+
+	const toggleMenu = () => {
+		setIsOpen(!isOpen);
+	};
+
 	return (
 		<Container minW="100%" p="0" m="0" bg="brand.600" fontFamily="poppins">
 			<Flex
-				spacing="24px"
+				spacing="10%"
 				bg="white"
 				maxW={{ base: "70%", sm: "70%", md: "70%", lg: "60%", xl: "50%" }}
 				borderRadius="24"
-				px="6"
+				px="1%"
 				alignItems="center"
 				position="sticky"
 				top="3%"
@@ -40,56 +55,132 @@ const Landing = () => {
 				fontSize="lg"
 				boxShadow="md"
 				zIndex="1"
+				color="#262626"
 			>
 				<Image src={LogoImage} alt="Logo" h="12" draggable="false" />
 				<Spacer />
-				<ChakraLink
-					as={ReactRouterLink}
-					to="/home"
-					my="4"
-					_hover={{ color: "brand.500", textDecoration: "none" }}
-				>
-					Home
-				</ChakraLink>
-				<Spacer />
-				<ChakraLink
-					as={ReactRouterLink}
-					to="/learn"
-					my="4"
-					_hover={{ color: "brand.500", textDecoration: "none" }}
-				>
-					Learn
-				</ChakraLink>
-				<Spacer />
-				<ChakraLink
-					as={ReactRouterLink}
-					to="/challenges"
-					my="4"
-					_hover={{ color: "brand.500", textDecoration: "none" }}
-				>
-					Challenges
-				</ChakraLink>
-				<Spacer />
-				<ChakraLink
-					as={ReactRouterLink}
-					to="/leaderboard"
-					my="4"
-					_hover={{ color: "brand.500", textDecoration: "none" }}
-				>
-					Leaderboard
-				</ChakraLink>
-				<Spacer />
-				<Button
-					colorScheme="brand"
-					variant="primary"
-					borderRadius="20"
-					onClick={() => {
-						navigate("/signin");
-					}}
-				>
-					Sign In
-				</Button>
+
+				{isMobile ? (
+					<IconButton
+						icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+						onClick={toggleMenu}
+						variant="outline"
+						aria-label="Toggle Navigation"
+						bg="transparent"
+						border="none"
+						_hover={{ bg: "gray.100" }}
+						color="#262626"
+					/>
+				) : (
+					// Regular navigation links for larger screens
+					<>
+						<ChakraLink
+							as={ReactRouterLink}
+							to="/"
+							my="4"
+							_hover={{ color: "brand.500", textDecoration: "none" }}
+						>
+							Home
+						</ChakraLink>
+						<Spacer />
+						<ChakraLink
+							as={ReactRouterLink}
+							to="/learn"
+							my="4"
+							_hover={{ color: "brand.500", textDecoration: "none" }}
+						>
+							Learn
+						</ChakraLink>
+						<Spacer />
+						<ChakraLink
+							as={ReactRouterLink}
+							to="/challenges"
+							my="4"
+							_hover={{ color: "brand.500", textDecoration: "none" }}
+						>
+							Challenges
+						</ChakraLink>
+						<Spacer />
+						<ChakraLink
+							as={ReactRouterLink}
+							to="/leaderboard"
+							my="4"
+							_hover={{ color: "brand.500", textDecoration: "none" }}
+						>
+							Leaderboard
+						</ChakraLink>
+						<Spacer />
+						<Button
+							colorScheme="brand"
+							variant="primary"
+							borderRadius="20"
+							onClick={() => {
+								navigate("/login");
+							}}
+						>
+							Sign In
+						</Button>
+					</>
+				)}
 			</Flex>
+
+			{/* Dropdown menu for mobile */}
+			{isMobile && isOpen && (
+				<Flex
+					direction="column"
+					bg="white"
+					rounded="md"
+					p="4"
+					mt="2"
+					boxShadow="md"
+					width="100%"
+					color="#262626"
+				>
+					<ChakraLink
+						as={ReactRouterLink}
+						to="/"
+						my="2"
+						_hover={{ color: "brand.500", textDecoration: "none" }}
+					>
+						Home
+					</ChakraLink>
+					<ChakraLink
+						as={ReactRouterLink}
+						to="/learn"
+						my="2"
+						_hover={{ color: "brand.500", textDecoration: "none" }}
+					>
+						Learn
+					</ChakraLink>
+					<ChakraLink
+						as={ReactRouterLink}
+						to="/challenges"
+						my="2"
+						_hover={{ color: "brand.500", textDecoration: "none" }}
+					>
+						Challenges
+					</ChakraLink>
+					<ChakraLink
+						as={ReactRouterLink}
+						to="/leaderboard"
+						my="2"
+						_hover={{ color: "brand.500", textDecoration: "none" }}
+					>
+						Leaderboard
+					</ChakraLink>
+					<Button
+						colorScheme="brand"
+						variant="primary"
+						borderRadius="20"
+						onClick={() => {
+							navigate("/signin");
+						}}
+						mt="2"
+					>
+						Sign In
+					</Button>
+				</Flex>
+			)}
 			<Container minW="100%" py="8" align="center">
 				<HStack px="4" mt="12" mb="12" justify="center">
 					<Image src={HeaderImage} alt="Header" w="50%" draggable="false" />
@@ -121,7 +212,7 @@ const Landing = () => {
 							variant="primary"
 							rightIcon={<ArrowForwardIcon boxSize="6" />}
 							onClick={() => {
-								navigate("/register");
+								navigate("/signup");
 							}}
 						>
 							Get Started
@@ -142,6 +233,7 @@ const Landing = () => {
 						fontSize="4xl"
 						fontWeight="semibold"
 						letterSpacing="tightish"
+						color="#3B3B3B"
 					>
 						Learn Finance and Stock Market Concepts
 					</Container>
@@ -150,6 +242,7 @@ const Landing = () => {
 						maxW={{ base: "sm", sm: "sm", md: "sm", lg: "xl" }}
 						fontFamily="metrophobic"
 						fontSize="xl"
+						color="#5D5D5D"
 					>
 						Explore real-world stock simulations, tackle interactive finance
 						quizzes, and navigate dynamic market challenges. Enhance your

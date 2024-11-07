@@ -5,19 +5,21 @@ const LearnHeader = () => {
 		<Flex
 			bg="brand.600"
 			borderRadius="20px"
-			p={5}
+			p={0}
 			color="white"
 			align="center"
 			position="relative"
-			height={{ base: "400px", md: "800px", lg: "1000px" }} // Responsive height
+			height="100%"// {{ base: "400px", md: "800px", lg: "1000px" }} // Responsive height
 			flexDirection={{ base: "column", md: "row" }} // Flex column on small screens, row on larger
+			overflow="hidden"
 		>
 			<Image
 				src="/images/learning-header/learning_header.svg"
 				alt="Learning illustration"
-				objectFit="cover"
+				objectFit="contain"
+				//objectPosition="left top"
 				h={{ base: "50%", md: "100%" }} // Adjust height based on screen size
-				w={{ base: "100%", md: "50%" }} // Full width on small screens, half on larger screens
+				w= {{ base: "100%", md: "50%" }} // Full width on small screens, half on larger screens
 			/>
 			<Box
 				textAlign="center"
@@ -43,22 +45,27 @@ const LearnHeader = () => {
 					spacing="0"
 					fontWeight="bold"
 					as="h1"
-					size={{ base: "xl", md: "2xl" }} // Smaller font size for mobile
+					size={{ base: "2xl", md: "2xl" }} // Smaller font size for mobile
 					mb={3}
 					fontFamily="poppins"
-					pt={{ base: 5, md: 10 }} // Adjust top padding for smaller screens
+					pt={{ base: 7, md: 10 }} // Adjust top padding for smaller screens
 					zIndex="1"
 				>
 					Learn
 				</Heading>
 				<Text
-					fontSize={{ base: "lg", md: "2xl", lg: "3xl" }} // Responsive font size
+					fontSize={{
+						base: "3vw",
+						md: "lg",
+						lg: "2xl",
+					  }} // responsive font sizing
 					fontFamily="metrophobic"
 					px={5}
 					maxWidth={{ base: "90%", md: "80%", lg: "70%" }}
 					mx="auto"
+					p="1"
 				>
-					Test your knowledge with Quizzes and learn along the way! Quizzes are adaptive to user skill levels and tailored to the content and level of difficulty.
+					Test your knowledge with courses and learn along the way! Courses are adaptive to user skill levels and tailored to the level of difficulty.
 				</Text>
 			</Box>
 		</Flex>

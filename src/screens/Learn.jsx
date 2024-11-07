@@ -15,7 +15,7 @@ import {
   import QuizCard from "../components/QuizCard";
   import LearnHeader from "../components/LearnHeader";
   import Navbar from "../components/NavBar";
-  
+
   const Learn = () => {
 	const quizzes = [
 	  {
@@ -91,15 +91,15 @@ import {
 		  "Understanding market mechanics, order types, and strategies for buying and selling securities.",
 	  },
 	];
-  
-	const headingSize = useBreakpointValue({ base: "xl", md: "2xl" });
+
+	const headingSize = useBreakpointValue({ base: "xl", md: "xl" });
 	const gridColumns = useBreakpointValue({ base: 1, md: 2, lg: 3 });
-  
+
 	return (
 	  <Container minW="100%" p="0" m="0">
 		<Navbar></Navbar>
-		<Container maxW="100%" align="center" py="65" background="#F1F1F1">
-		  <VStack spacing={4} align="center">
+		<Container maxW="100%" align="center" py="65px" background="#F1F1F1">
+		<VStack spacing={4} align="center">
 			<Box pl={[4, 8]} pr={[4, 8]}>
 			  <LearnHeader></LearnHeader>
 			</Box>
@@ -118,7 +118,7 @@ import {
 					fontFamily="poppins"
 					fontWeight="semibold"
 				>
-					Explore Quizzes
+					Explore Courses
 				</Heading>
 
 				<InputGroup size="lg" maxW="400px" pr={4} height="48px"> // Adjusting the height to match typical heading height
@@ -142,7 +142,7 @@ import {
 			<Box display="flex" justifyContent="center" width="100%">
 			  <SimpleGrid
 				columns={gridColumns}
-				spacingX={60}
+				spacingX={58}
 				spacingY={10}
 				width="auto"
 				justifyItems="center"
@@ -164,6 +164,5 @@ import {
 	  </Container>
 	);
   };
-  
+
   export default Learn;
-  

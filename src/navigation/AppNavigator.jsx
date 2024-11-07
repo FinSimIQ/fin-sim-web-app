@@ -4,6 +4,8 @@ import Home from "../screens/Home";
 import ForgotPassword from "../screens/ForgotPassword";
 import Learn from "../screens/Learn";
 import Landing from "../screens/Landing";
+import Login from "../screens/Login";
+import Signup from "../screens/Signup";
 import Challenges from "../screens/Challenges";
 import LeaderboardPage from "../screens/LeaderboardPage";
 
@@ -41,6 +43,14 @@ const AppNavigator = (props) => {
       path: "/leaderboard",
       element: <LeaderboardPage />,
     },
+    {
+			path: "/login",
+			element: <Login />,
+		},
+		{
+			path: "/signup",
+			element: <Signup />,
+		},
   ]);
 
   return <RouterProvider router={routes} />;
