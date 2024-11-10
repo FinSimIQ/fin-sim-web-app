@@ -178,7 +178,7 @@ const Navbar = () => {
             variant="solid"
             bg="#42D674"
             color="white"
-            _hover={{ bg: '#36b96c' }}
+            _hover={{ bg: "rgba(66, 214, 116, 0.5)", color: "#3b3b3b" }}
             size={{ base: 'sm', md: 'md', lg: 'lg' }}
             px={{ base: 4, md: 6 }}
             py={3}

@@ -53,14 +53,11 @@ const FriendSearch = ({ onSearch, onAddFriend }) => {
           </Flex>
         </Box>
 
-        {/* Spacer to push main content down from the top */}
         <Box mt="250px">
-          {/* Call-to-action text */}
           <Text fontSize="lg" color="gray.500" mb={4}>
             Add your friends to see what they are doing
           </Text>
 
-          {/* Search Input */}
           <VStack spacing={4} align="stretch" mb={4}>
             <Input
               placeholder="Search for friends..."
@@ -76,17 +73,16 @@ const FriendSearch = ({ onSearch, onAddFriend }) => {
             <Button
               onClick={handleSearch}
               isLoading={isLoading}
-              colorScheme="purple"
               bg="brand.500"
               size="lg"
               borderRadius="20px"
               fontWeight="semibold"
+              _hover={{ bg: "rgba(66, 214, 116, 0.5)", color: "#3b3b3b" }}
             >
               Search
             </Button>
           </VStack>
 
-          {/* Friends List and Add Button */}
           {friendsList.length > 0 && (
             <Box mt={6}>
               {friendsList.map((friend) => (
