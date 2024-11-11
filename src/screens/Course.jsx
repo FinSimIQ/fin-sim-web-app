@@ -1,15 +1,16 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import react from "react";
+import { ArrowBackIcon } from "@chakra-ui/icons";
 import {
+  Icon,
   Box,
-  Image,
-  Text,
   VStack,
   Heading,
+  Text,
   Button,
+  HStack,
   Link,
-  useColorModeValue,
 } from "@chakra-ui/react";
+import { Link as RouterLink, useParams, useLocation } from "react-router-dom";
 
 const colorSchemeMap = {
   Beginner: {
@@ -26,44 +27,34 @@ const colorSchemeMap = {
   },
 };
 
-const QuizCard = ({ title, difficulty, imageSrc, description }) => {
+const Course = () => {
+  const { title, difficulty, imageSrc, description } = useLocation().state;
+
   const { bgColor, textColor } = colorSchemeMap[difficulty] || {
     bgColor: "gray.200",
     textColor: "gray.800",
   };
 
-  const navigate = useNavigate();
-
   return (
-    <VStack
-      w="100%"
-      h="100%"
-      bg="#FFFFFF"
-      boxShadow="2xl"
-      rounded="30px"
-      overflow="hidden"
-      align="stretch"
-      m="1.5"
-      onClick={() =>
-        navigate(`/course/${title}`, {
-          state: {
-            title: title,
-            difficulty: difficulty,
-            imageSrc: imageSrc,
-            description: description,
-          },
-        })
-      }
-    >
-      <Box pl="5" pr="5" pt="6">
-        <Image
-          src={imageSrc}
-          alt={`Cover image for ${title}`}
-          borderRadius="20px"
-          objectFit="cover"
-          boxSize="100%"
-        />
-      </Box>
+    <VStack w="100%" h="100%" bg="#FFFFFF" align="stretch" m="10">
+      <HStack>
+        <Link
+          as={RouterLink}
+          to="/learn"
+          p={2}
+          mx={{ base: 2, md: 6, lg: 10 }}
+          rounded="md"
+          display="block"
+          align="center"
+          _hover={{ bg: "gray.100" }}
+          fontWeight="600"
+          fontSize={{ base: "14px", md: "18px" }}
+          color="#3B3B3B"
+        >
+          <Icon as={ArrowBackIcon} w={6} h={6} />
+          Return
+        </Link>
+      </HStack>
       <VStack px={5} py={4} align="stretch" spacing={4} flexGrow={1}>
         <Heading
           size="lg"
@@ -97,4 +88,4 @@ const QuizCard = ({ title, difficulty, imageSrc, description }) => {
   );
 };
 
-export default QuizCard;
+export default Course;
