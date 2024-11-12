@@ -9,8 +9,11 @@ import {
   Button,
   HStack,
   Link,
+  useBreakpointValue,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import { Link as RouterLink, useParams, useLocation } from "react-router-dom";
+import CourseSubtopic from "../components/CourseSubtopic";
 
 const colorSchemeMap = {
   Beginner: {
@@ -28,7 +31,8 @@ const colorSchemeMap = {
 };
 
 const Course = () => {
-  const { title, difficulty, imageSrc, description } = useLocation().state;
+  const { title, difficulty, imageSrc, description, subtopics } =
+    useLocation().state;
 
   const { bgColor, textColor } = colorSchemeMap[difficulty] || {
     bgColor: "gray.200",
@@ -83,6 +87,11 @@ const Course = () => {
         >
           {difficulty}
         </Button>
+        <SimpleGrid width="full" justifyItems="center" spacing="6">
+          {subtopics.map((topic, index) => (
+            <CourseSubtopic index={index + 1} input={topic} />
+          ))}
+        </SimpleGrid>
       </VStack>
     </VStack>
   );

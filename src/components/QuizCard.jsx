@@ -26,7 +26,7 @@ const colorSchemeMap = {
   },
 };
 
-const QuizCard = ({ title, difficulty, imageSrc, description }) => {
+const QuizCard = ({ title, difficulty, imageSrc, description, subtopics }) => {
   const { bgColor, textColor } = colorSchemeMap[difficulty] || {
     bgColor: "gray.200",
     textColor: "gray.800",
@@ -51,6 +51,7 @@ const QuizCard = ({ title, difficulty, imageSrc, description }) => {
             difficulty: difficulty,
             imageSrc: imageSrc,
             description: description,
+            subtopics: subtopics,
           },
         })
       }
