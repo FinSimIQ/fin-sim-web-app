@@ -11,15 +11,40 @@ const FriendSearch = ({ onSearch, onAddFriend }) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
   const navigate = useNavigate();
 
+  // Function to handle search
   const handleSearch = async () => {
     setIsLoading(true);
     try {
-      const results = await onSearch(searchQuery);
-      setFriendsList(results);
+      // Use getUserByName endpoint to search for users by name
+      const response = await fetch(`http://localhost:8081/api/users/name/${searchQuery}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const results = await response.json();
+      setFriendsList(results); // Assuming response is an array of friends
     } catch (error) {
       console.error('Error searching friends:', error);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  // Function to add a friend
+  const handleAddFriend = async (friendId) => {
+    try {
+      const response = await fetch(`http://localhost:8081/api/users/addFriend`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ friendId })
+      });
+      if (!response.ok) {
+        throw new Error('Failed to add friend');
+      }
+      onAddFriend(friendId);
+    } catch (error) {
+      console.error('Error adding friend:', error);
     }
   };
 
@@ -87,7 +112,7 @@ const FriendSearch = ({ onSearch, onAddFriend }) => {
             <Box mt={6}>
               {friendsList.map((friend) => (
                 <Flex
-                  key={friend.id}
+                  key={friend._id}
                   align="center"
                   justify="space-between"
                   p={4}
@@ -96,12 +121,12 @@ const FriendSearch = ({ onSearch, onAddFriend }) => {
                   mb={2}
                   boxShadow="sm"
                 >
-                  <Text fontWeight="medium" color="#262626">{friend.name}</Text>
+                  <Text fontFamily={"poppins"} fontWeight="medium" color="#262626">{friend.fullName}</Text>
                   <Button
-                    colorScheme="purple"
+                    _hover={{ bg: "rgba(66, 214, 116, 0.5)", color: "#3b3b3b" }}
                     bg="brand.500"
                     color="white"
-                    onClick={() => onAddFriend(friend.id)}
+                    onClick={() => handleAddFriend(friend._id)}
                     size={isMobile ? 'sm' : 'md'}
                     borderRadius="20px"
                   >
