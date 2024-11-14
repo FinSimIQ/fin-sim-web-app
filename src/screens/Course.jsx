@@ -11,9 +11,11 @@ import {
   Link,
   useBreakpointValue,
   SimpleGrid,
+  Image,
 } from "@chakra-ui/react";
 import { Link as RouterLink, useParams, useLocation } from "react-router-dom";
 import CourseSubtopic from "../components/CourseSubtopic";
+import QuizIcon from "../assets/quizIcon.svg";
 
 const colorSchemeMap = {
   Beginner: {
@@ -40,26 +42,41 @@ const Course = () => {
   };
 
   return (
-    <VStack w="100%" h="100%" bg="#FFFFFF" align="stretch" m="10">
-      <HStack>
-        <Link
-          as={RouterLink}
-          to="/learn"
-          p={2}
-          mx={{ base: 2, md: 6, lg: 10 }}
-          rounded="md"
-          display="block"
-          align="center"
-          _hover={{ bg: "gray.100" }}
-          fontWeight="600"
-          fontSize={{ base: "14px", md: "18px" }}
-          color="#3B3B3B"
-        >
-          <Icon as={ArrowBackIcon} w={6} h={6} />
-          Return
-        </Link>
-      </HStack>
-      <VStack px={5} py={4} align="stretch" spacing={4} flexGrow={1}>
+    <VStack
+      w="100%"
+      h="100%"
+      bg="#FFFFFF"
+      align="stretch"
+      flexGrow={1}
+      justifyContent="center"
+      alignItems="center"
+      display="flex"
+    >
+      <VStack
+        px={5}
+        py={4}
+        align="stretch"
+        spacing={4}
+        flexGrow={1}
+        width="80%"
+      >
+        <HStack alignItems="left" display="flex" left="0" textAlign="left">
+          <Link
+            as={RouterLink}
+            to="/learn"
+            p={2}
+            rounded="md"
+            display="block"
+            align="center"
+            _hover={{ bg: "gray.100" }}
+            fontWeight="600"
+            fontSize={{ base: "14px", md: "18px" }}
+            color="#3B3B3B"
+          >
+            <Icon as={ArrowBackIcon} w={6} h={6} />
+            Return
+          </Link>
+        </HStack>
         <Heading
           size="lg"
           color="#3B3B3B"
@@ -92,6 +109,50 @@ const Course = () => {
             <CourseSubtopic index={index + 1} input={topic} />
           ))}
         </SimpleGrid>
+        <HStack
+          justify="space-between"
+          width="100%"
+          backgroundColor="#316D60"
+          borderRadius="25px"
+          mt="4"
+        >
+          <VStack align="start" ml="6" my="4" spacing="2">
+            <Heading
+              size="lg"
+              color="white"
+              fontFamily="poppins"
+              fontWeight="semibold"
+            >
+              Course Quiz
+            </Heading>
+            <Text color="white" fontFamily="poppins">
+              Test your knowledge by completing a quiz about the topic and earn
+              points!
+            </Text>
+            <Link
+              as={RouterLink}
+              to="/learn"
+              px={10}
+              py={2}
+              rounded="25px"
+              display="block"
+              align="center"
+              _hover={{ bg: "gray.100" }}
+              backgroundColor="white"
+              fontWeight="600"
+              color="rgba(66, 214, 116, 1)"
+              fontSize={{ base: "14px", md: "18px" }}
+            >
+              Start Quiz
+            </Link>
+          </VStack>
+          <Image
+            src={QuizIcon}
+            alt={`Cover image for quiz icon`}
+            maxWidth="50%"
+            height="auto"
+          />
+        </HStack>
       </VStack>
     </VStack>
   );
