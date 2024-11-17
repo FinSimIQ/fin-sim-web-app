@@ -19,7 +19,12 @@ import RightLandingCard from "../assets/rightLandingCard.svg";
 import LeftLandingCardImage from "../assets/leftLandingCardImage.svg";
 import MiddleLandingCardImage from "../assets/middleLandingCardImage.svg";
 import RightLandingCardImage from "../assets/rightLandingCardImage.svg";
-import { ArrowForwardIcon, ChevronDownIcon, HamburgerIcon, CloseIcon} from "@chakra-ui/icons";
+import {
+	ArrowForwardIcon,
+	ChevronDownIcon,
+	HamburgerIcon,
+	CloseIcon,
+} from "@chakra-ui/icons";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
@@ -228,7 +233,12 @@ const Landing = () => {
 						Learn Finance and Stock Market Concepts
 					</Container>
 					<Spacer />
-					<Text maxW="3xl" fontFamily="metrophobic" fontSize="xl" color="#5D5D5D">
+					<Text
+						maxW="3xl"
+						fontFamily="metrophobic"
+						fontSize="xl"
+						color="#5D5D5D"
+					>
 						Explore real-world stock simulations, tackle interactive finance
 						quizzes, and navigate dynamic market challenges. Enhance your
 						strategy development, refine your decision-making skills, and build
@@ -262,12 +272,7 @@ const Landing = () => {
 								interactive quizzes
 							</Text>
 							<HStack>
-								<Image
-									src={LeftLandingCardImage}
-									alt="Header"
-									w="50%"
-									draggable="false"
-								/>
+								<Image src={LeftLandingCardImage} w="50%" draggable="false" />
 								<Spacer />
 							</HStack>
 						</Container>
@@ -291,12 +296,7 @@ const Landing = () => {
 							bgPos="center"
 						>
 							<HStack>
-								<Image
-									src={MiddleLandingCardImage}
-									alt="Header"
-									w="50%"
-									draggable="false"
-								/>
+								<Image src={MiddleLandingCardImage} w="50%" draggable="false" />
 								<Spacer />
 							</HStack>
 							<Text maxW="md" pt="4" pb="2" fontWeight="medium" fontSize="3xl">
@@ -336,12 +336,7 @@ const Landing = () => {
 							</Text>
 							<HStack>
 								<Spacer />
-								<Image
-									src={RightLandingCardImage}
-									alt="Header"
-									w="50%"
-									draggable="false"
-								/>
+								<Image src={RightLandingCardImage} w="50%" draggable="false" />
 							</HStack>
 						</Container>
 					</ChakraLink>

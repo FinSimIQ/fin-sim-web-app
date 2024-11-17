@@ -12,11 +12,25 @@ import {
 	useBreakpointValue,
 	Button,
 	Tooltip,
+	Modal,
+	ModalOverlay,
+	ModalContent,
+	ModalFooter,
+	ModalBody,
+	ModalHeader,
+	ModalCloseButton,
+	useDisclosure,
+	Center,
+	Image,
+	Text,
 } from "@chakra-ui/react";
-import { AddIcon, SearchIcon } from "@chakra-ui/icons";
+import { AddIcon, ArrowBackIcon, SearchIcon } from "@chakra-ui/icons";
 import QuizCard from "../components/QuizCard";
 import LearnHeader from "../components/LearnHeader";
 import Navbar from "../components/NavBar";
+import { useRef } from "react";
+import createWithAI from "../assets/createWithAI.svg";
+import createFromScratch from "../assets/createFromScratch.svg";
 
 const Learn = () => {
 	const quizzes = [
@@ -545,8 +559,88 @@ const Learn = () => {
 	const headingSize = useBreakpointValue({ base: "xl", md: "xl" });
 	const gridColumns = useBreakpointValue({ base: 1, md: 2, lg: 3 });
 
+	const { isOpen, onOpen, onClose } = useDisclosure();
+	const initialRef = useRef(null);
+	const finalRef = useRef(null);
+
 	return (
 		<Container minW="100%" p="0" m="0">
+			<Modal
+				initialFocusRef={initialRef}
+				finalFocusRef={finalRef}
+				isOpen={isOpen}
+				onClose={onClose}
+				size="full"
+			>
+				<ModalOverlay />
+				<ModalContent h="full">
+					<ModalHeader>
+						<Button
+							variant=""
+							leftIcon={<ArrowBackIcon boxSize={8} />}
+							mr={3}
+							onClick={onClose}
+						>
+							Return
+						</Button>
+					</ModalHeader>
+					<ModalBody h="full">
+						<Center h="90%" color="white">
+							<VStack gap={8}>
+								<Heading
+									as="h2"
+									size="2xl"
+									color="#3B3B3B"
+									pl={5}
+									fontFamily="poppins"
+									fontWeight="semibold"
+								>
+									Create a New Quiz
+								</Heading>
+
+								<HStack gap={12}>
+									<VStack
+										bg="brand.700"
+										px={4}
+										pt={14}
+										pb={24}
+										w="275px"
+										borderRadius={24}
+									>
+										<Image
+											src={createWithAI}
+											boxSize="175px"
+											draggable="false"
+										/>
+										<Heading fontSize="2xl" as="b">
+											Generate with AI
+										</Heading>
+									</VStack>
+
+									<VStack
+										bg="brand.700"
+										px={4}
+										pt={14}
+										pb={24}
+										w="275px"
+										borderRadius={24}
+									>
+										<Image
+											src={createFromScratch}
+											boxSize="175px"
+											draggable="false"
+										/>
+										<Heading fontSize="2xl" as="b">
+											Create from Scratch
+										</Heading>
+									</VStack>
+								</HStack>
+							</VStack>
+						</Center>
+					</ModalBody>
+					<ModalFooter></ModalFooter>
+				</ModalContent>
+			</Modal>
 			<Navbar></Navbar>
 			<Container maxW="100%" align="center" py="65px" background="#F1F1F1">
 				<VStack spacing={4} align="center">
@@ -578,7 +672,7 @@ const Learn = () => {
 									variant="primary"
 									size="lg"
 									leftIcon={<AddIcon />}
-									onClick={() => {}}
+									onClick={onOpen}
 								>
 									Create
 								</Button>
