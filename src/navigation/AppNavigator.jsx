@@ -8,6 +8,7 @@ import Login from "../screens/Login";
 import Signup from "../screens/Signup";
 import Challenges from "../screens/Challenges";
 import LeaderboardPage from "../screens/LeaderboardPage";
+import FriendSearch from "../screens/AddFriend";
 import Course from "../screens/Course";
 
 const AppNavigator = (props) => {
@@ -43,6 +44,10 @@ const AppNavigator = (props) => {
     {
       path: "/leaderboard",
       element: <LeaderboardPage />,
+    },
+    {
+      path: "/add-friend",
+      element: <FriendSearch />
     },
     {
       path: "/login",

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Flex, Box, Text, Button, Link, IconButton} from '@chakra-ui/react';
+import { Flex, Box, Text, Button, Link, IconButton, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import { HamburgerIcon, CloseIcon, ChevronDownIcon } from '@chakra-ui/icons';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,7 +25,9 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
-
+  const handleLeaderboardClick = () => {
+    navigate('/leaderboard');
+  };
 
   return (
     <Flex
@@ -73,7 +75,7 @@ const Navbar = () => {
         aria-label="Toggle Navigation"
         bg="transparent"
         border="none"
-        _hover={{ bg: 'gray.100' }}
+        _hover={{ bg: "rgba(66, 214, 116, 0.5)" }}
         color="black"
       />
 
@@ -95,7 +97,7 @@ const Navbar = () => {
           rounded="md"
           display="block"
           align="center"
-          _hover={{ bg: 'gray.100' }}
+          _hover={{ bg: "rgba(66, 214, 116, 0.5)" }}
           fontWeight="600"
           fontSize={{ base: '14px', md: '18px' }}
           color="#3B3B3B"
@@ -110,7 +112,7 @@ const Navbar = () => {
           rounded="md"
           display="block"
           align="center"
-          _hover={{ bg: 'gray.100' }}
+          _hover={{ bg: "rgba(66, 214, 116, 0.5)" }}
           fontWeight="600"
           fontSize={{ base: '14px', md: '18px' }}
           color="#3B3B3B"
@@ -125,28 +127,50 @@ const Navbar = () => {
           rounded="md"
           display="block"
           align="center"
-          _hover={{ bg: 'gray.100' }}
+          _hover={{ bg: "rgba(66, 214, 116, 0.5)" }}
           fontWeight="600"
           fontSize={{ base: '14px', md: '18px' }}
           color="#3B3B3B"
         >
           Challenges
         </Link>
-        <Link
-          as={RouterLink}
-          to="/leaderboard"
-          p={2}
-          mx={{ base: 2, md: 6, lg: 10 }}
-          rounded="md"
-          display="block"
-          align="center"
-          _hover={{ bg: 'gray.100' }}
-          fontWeight="600"
-          fontSize={{ base: '14px', md: '18px' }}
-          color="#3B3B3B"
-        >
-          Leaderboard
-        </Link>
+        
+        {/* Dropdown Menu for Leaderboard */}
+        <Menu>
+          <MenuButton
+            as={Button}
+            onClick={handleLeaderboardClick}
+            p={2}
+            mx={{ base: 2, md: 6, lg: 10 }}
+            rounded="md"
+            bg="transparent"
+            color="#3B3B3B"
+            fontWeight="600"
+            fontSize={{ base: '14px', md: '18px' }}
+            _hover={{ bg: "rgba(66, 214, 116, 0.5)" }}
+            rightIcon={<ChevronDownIcon />}
+          >
+            Leaderboard
+          </MenuButton>
+          <MenuList
+            mt="1"
+            borderRadius="md"
+            boxShadow="md"
+            bg="white"
+            color="black"
+          >
+            <MenuItem
+              as={RouterLink}
+              to="/add-friend"
+              fontWeight="600"
+              color="#3B3B3B"
+              bg = "#FFFFFF"
+              _hover={{ bg: "rgba(66, 214, 116, 0.5)" }}
+            >
+              Add Friends
+            </MenuItem>
+          </MenuList>
+        </Menu>
 
         {isAuthenticated ? (
           <Button
@@ -154,7 +178,7 @@ const Navbar = () => {
             variant="solid"
             bg="#42D674"
             color="white"
-            _hover={{ bg: '#36b96c' }}
+            _hover={{ bg: "rgba(66, 214, 116, 0.5)", color: "#3b3b3b" }}
             size={{ base: 'sm', md: 'md', lg: 'lg' }}
             px={{ base: 4, md: 6 }}
             py={3}
