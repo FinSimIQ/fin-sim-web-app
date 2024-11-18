@@ -1,7 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Flex, Box, Text, Button, Link, IconButton, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { HamburgerIcon, CloseIcon, ChevronDownIcon } from '@chakra-ui/icons';
+import React, { useState, useEffect } from "react";
+import {
+  Flex,
+  Box,
+  Text,
+  Button,
+  Link,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+} from "@chakra-ui/react";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,16 +20,16 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem("authToken");
     if (token) {
       setIsAuthenticated(true);
     }
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('authToken');
+    localStorage.removeItem("authToken");
     setIsAuthenticated(false);
-    navigate('/');
+    navigate("/");
   };
 
   const toggleMenu = () => {
@@ -26,7 +37,7 @@ const Navbar = () => {
   };
 
   const handleLeaderboardClick = () => {
-    navigate('/leaderboard');
+    navigate("/leaderboard");
   };
 
   return (
@@ -35,7 +46,7 @@ const Navbar = () => {
       align="center"
       justify="space-between"
       wrap="wrap"
-      padding={{ base: '1rem', md: '1.5rem' }} 
+      padding={{ base: "1rem", md: "1.5rem" }}
       bg="#FFFFFF"
       color="#102126"
       width="100%"
@@ -49,7 +60,7 @@ const Navbar = () => {
       {/* Logo Section */}
       <Flex align="center" letterSpacing="tight">
         <Text
-          fontSize={{ base: '2xl', md: '4xl', lg: '6xl' }}
+          fontSize={{ base: "2xl", md: "4xl", lg: "6xl" }}
           fontWeight="bold"
           ml={3}
           textShadow="1px 1px 1px gray"
@@ -58,7 +69,7 @@ const Navbar = () => {
           finsim
         </Text>
         <Text
-          fontSize={{ base: '2xl', md: '4xl', lg: '6xl' }}
+          fontSize={{ base: "2xl", md: "4xl", lg: "6xl" }}
           fontWeight="bold"
           textShadow="1px 1px 1px gray"
           color="#42D674"
@@ -69,7 +80,7 @@ const Navbar = () => {
 
       <IconButton
         icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-        display={{ base: 'block', md: 'none' }}
+        display={{ base: "block", md: "none" }}
         onClick={toggleMenu}
         variant="outline"
         aria-label="Toggle Navigation"
@@ -81,12 +92,12 @@ const Navbar = () => {
 
       {/* Links Section */}
       <Box
-        display={{ base: isOpen ? 'block' : 'none', md: 'flex' }}
-        width={{ base: 'full', md: 'auto' }} 
+        display={{ base: isOpen ? "block" : "none", md: "flex" }}
+        width={{ base: "full", md: "auto" }}
         alignItems="center"
         flexGrow={1}
         justifyContent="flex-end"
-        pr={{ base: 0, md: 10 }} 
+        pr={{ base: 0, md: 10 }}
         mt={{ base: isOpen ? 4 : 0, md: 0 }}
       >
         <Link
@@ -99,7 +110,7 @@ const Navbar = () => {
           align="center"
           _hover={{ bg: "rgba(66, 214, 116, 0.5)" }}
           fontWeight="600"
-          fontSize={{ base: '14px', md: '18px' }}
+          fontSize={{ base: "14px", md: "18px" }}
           color="#3B3B3B"
         >
           Home
@@ -108,13 +119,13 @@ const Navbar = () => {
           as={RouterLink}
           to="/learn"
           p={2}
-          mx={{ base: 2, md: 6, lg: 10 }}  
+          mx={{ base: 2, md: 6, lg: 10 }}
           rounded="md"
           display="block"
           align="center"
           _hover={{ bg: "rgba(66, 214, 116, 0.5)" }}
           fontWeight="600"
-          fontSize={{ base: '14px', md: '18px' }}
+          fontSize={{ base: "14px", md: "18px" }}
           color="#3B3B3B"
         >
           Learn
@@ -129,12 +140,12 @@ const Navbar = () => {
           align="center"
           _hover={{ bg: "rgba(66, 214, 116, 0.5)" }}
           fontWeight="600"
-          fontSize={{ base: '14px', md: '18px' }}
+          fontSize={{ base: "14px", md: "18px" }}
           color="#3B3B3B"
         >
           Challenges
         </Link>
-        
+
         {/* Dropdown Menu for Leaderboard */}
         <Menu>
           <MenuButton
@@ -146,7 +157,7 @@ const Navbar = () => {
             bg="transparent"
             color="#3B3B3B"
             fontWeight="600"
-            fontSize={{ base: '14px', md: '18px' }}
+            fontSize={{ base: "14px", md: "18px" }}
             _hover={{ bg: "rgba(66, 214, 116, 0.5)" }}
             rightIcon={<ChevronDownIcon />}
           >
@@ -164,7 +175,7 @@ const Navbar = () => {
               to="/add-friend"
               fontWeight="600"
               color="#3B3B3B"
-              bg = "#FFFFFF"
+              bg="#FFFFFF"
               _hover={{ bg: "rgba(66, 214, 116, 0.5)" }}
             >
               Add Friends
@@ -179,12 +190,12 @@ const Navbar = () => {
             bg="#42D674"
             color="white"
             _hover={{ bg: "rgba(66, 214, 116, 0.5)", color: "#3b3b3b" }}
-            size={{ base: 'sm', md: 'md', lg: 'lg' }}
+            size={{ base: "sm", md: "md", lg: "lg" }}
             px={{ base: 4, md: 6 }}
             py={3}
-            fontSize={{ base: '14px', md: '18px' }}
+            fontSize={{ base: "14px", md: "18px" }}
             borderRadius="30px"
-            ml={{ base: 2, md: 6, lg: 10 }} 
+            ml={{ base: 2, md: 6, lg: 10 }}
           >
             Log Out
           </Button>
@@ -195,13 +206,13 @@ const Navbar = () => {
             variant="solid"
             bg="#42D674"
             color="white"
-            _hover={{ bg: '#36b96c' }}
-            size={{ base: 'sm', md: 'md', lg: 'lg' }}
+            _hover={{ bg: "#36b96c" }}
+            size={{ base: "sm", md: "md", lg: "lg" }}
             px={{ base: 4, md: 6 }}
             py={3}
-            fontSize={{ base: '14px', md: '18px' }}
+            fontSize={{ base: "14px", md: "18px" }}
             borderRadius="30px"
-            ml={{ base: 2, md: 6, lg: 10 }} 
+            ml={{ base: 2, md: 6, lg: 10 }}
             width="15%"
           >
             Log In

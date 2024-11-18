@@ -11,7 +11,6 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/NavBar";
 
 const Challenges = (props) => {
-  // global variable
   const [index, setIndex] = useState(0);
 
   const [questionStr, setQuestion] = useState("");
