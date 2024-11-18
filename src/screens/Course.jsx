@@ -16,6 +16,7 @@ import {
 import { Link as RouterLink, useParams, useLocation } from "react-router-dom";
 import CourseSubtopic from "../components/CourseSubtopic";
 import QuizIcon from "../assets/quizIcon.svg";
+import CourseQuiz from "./CourseQuiz";
 
 const colorSchemeMap = {
   Beginner: {
@@ -131,7 +132,7 @@ const Course = () => {
             </Text>
             <Link
               as={RouterLink}
-              to="/learn"
+              to="/coursequiz"
               px={10}
               py={2}
               rounded="25px"
