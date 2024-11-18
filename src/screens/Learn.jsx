@@ -23,14 +23,17 @@ import {
 	Center,
 	Image,
 	Text,
+	Textarea,
 } from "@chakra-ui/react";
 import { AddIcon, ArrowBackIcon, SearchIcon } from "@chakra-ui/icons";
 import QuizCard from "../components/QuizCard";
 import LearnHeader from "../components/LearnHeader";
 import Navbar from "../components/NavBar";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import createWithAI from "../assets/createWithAI.svg";
 import createFromScratch from "../assets/createFromScratch.svg";
+import PreferencesIcon from "../assets/preferencesIcon.svg";
+import { transparentize } from "@chakra-ui/theme-tools";
 
 const Learn = () => {
 	const quizzes = [
@@ -563,82 +566,304 @@ const Learn = () => {
 	const initialRef = useRef(null);
 	const finalRef = useRef(null);
 
+	const [step, setStep] = useState(0);
+	const [createQuizWithAIInput, setCreateQuizWithAIInput] = useState("");
+	const [createQuizWithAIQuestions, setCreateQuizWithAIQuestions] = useState(0);
+	const [createQuizWithAILevel, setCreateQuizWithAILevel] = useState(0);
+
+	const handleCreateQuizWithAIInputChange = (e) => {
+		setCreateQuizWithAIInput(e.target.value);
+	};
+
 	return (
 		<Container minW="100%" p="0" m="0">
 			<Modal
 				initialFocusRef={initialRef}
 				finalFocusRef={finalRef}
 				isOpen={isOpen}
-				onClose={onClose}
 				size="full"
 			>
 				<ModalOverlay />
-				<ModalContent h="full">
+				<ModalContent h="full" w="full">
 					<ModalHeader>
 						<Button
 							variant=""
 							leftIcon={<ArrowBackIcon boxSize={8} />}
-							mr={3}
-							onClick={onClose}
+							color="#5D5D5D"
+							onClick={() => {
+								onClose();
+								setStep(0);
+								setCreateQuizWithAIInput("");
+								setCreateQuizWithAIQuestions(0);
+								setCreateQuizWithAILevel(0);
+							}}
 						>
 							Return
 						</Button>
 					</ModalHeader>
-					<ModalBody h="full">
-						<Center h="90%" color="white">
-							<VStack gap={8}>
+					<ModalBody h="full" px={12}>
+						{step == 0 && (
+							<Center h="90%" color="white">
+								<VStack gap={8}>
+									<Heading
+										size="2xl"
+										color="#3B3B3B"
+										fontFamily="poppins"
+										fontWeight="semibold"
+									>
+										Create a New Quiz
+									</Heading>
+
+									<HStack gap={12}>
+										<VStack
+											bg="brand.700"
+											px={4}
+											pt={14}
+											pb={24}
+											w="275px"
+											borderRadius={24}
+											onClick={() => setStep(1)}
+										>
+											<Image
+												src={createWithAI}
+												boxSize="175px"
+												draggable="false"
+											/>
+											<Heading fontSize="2xl" fontWeight="bold">
+												Generate with AI
+											</Heading>
+										</VStack>
+
+										<VStack
+											bg="brand.700"
+											px={4}
+											pt={14}
+											pb={24}
+											w="275px"
+											borderRadius={24}
+										>
+											<Image
+												src={createFromScratch}
+												boxSize="175px"
+												draggable="false"
+											/>
+											<Heading fontSize="2xl" fontWeight="bold">
+												Create from Scratch
+											</Heading>
+										</VStack>
+									</HStack>
+								</VStack>
+							</Center>
+						)}
+						{step == 1 && (
+							<>
 								<Heading
-									as="h2"
-									size="2xl"
+									size={{ base: "lg", sm: "lg", md: "lg", lg: "xl", xl: "xl" }}
+									w="full"
 									color="#3B3B3B"
-									pl={5}
 									fontFamily="poppins"
 									fontWeight="semibold"
+									mb={8}
 								>
-									Create a New Quiz
+									Enter quiz topic or paste content to generate using AI
 								</Heading>
 
-								<HStack gap={12}>
-									<VStack
-										bg="brand.700"
-										px={4}
-										pt={14}
-										pb={24}
-										w="275px"
-										borderRadius={24}
-									>
-										<Image
-											src={createWithAI}
-											boxSize="175px"
-											draggable="false"
-										/>
-										<Heading fontSize="2xl" as="b">
-											Generate with AI
-										</Heading>
-									</VStack>
+								<Textarea
+									value={createQuizWithAIInput}
+									onChange={handleCreateQuizWithAIInputChange}
+									placeholder="Enter a quiz topic or paste content"
+									resize="none"
+									size="lg"
+									fontFamily="metrophobic"
+									fontSize="2xl"
+									border="solid 3px"
+									borderColor="#E3E3E3"
+									borderRadius={12}
+									h="50%"
+									w="full"
+									mb={12}
+									_placeholder={{ color: "#D3D3D3" }}
+								/>
 
-									<VStack
-										bg="brand.700"
+								<VStack
+									spacing={0}
+									align="stretch"
+									borderTopRadius={12}
+									border="solid 3px"
+									borderColor="brand.600"
+								>
+									<HStack
+										bg="brand.600"
 										px={4}
-										pt={14}
-										pb={24}
-										w="275px"
-										borderRadius={24}
+										py={4}
+										borderTopRadius={6}
+										border="solid 3px"
+										borderColor="brand.600"
 									>
-										<Image
-											src={createFromScratch}
-											boxSize="175px"
-											draggable="false"
-										/>
-										<Heading fontSize="2xl" as="b">
-											Create from Scratch
-										</Heading>
-									</VStack>
-								</HStack>
-							</VStack>
-						</Center>
+										<Image src={PreferencesIcon} w={5} draggable="false" />
+										<Text
+											fontSize="2xl"
+											fontFamily="poppins"
+											fontWeight="medium"
+											color="white"
+										>
+											Preferences
+										</Text>
+									</HStack>
+									<HStack
+										px={4}
+										py={4}
+										borderBottom="solid 3px"
+										borderColor="brand.600"
+										justify="space-between"
+									>
+										<Text fontSize="xl" fontFamily="metrophobic">
+											Number of Questions
+										</Text>
+
+										<HStack fontSize="lg" color="brand.700" gap={4}>
+											{/* 
+                      not sure what automatic means
+                      <Center
+												as="button"
+												fontWeight="semibold"
+												border="solid 2px"
+												borderRadius={24}
+												bg={
+													createQuizWithAIQuestions == 0
+														? transparentize("brand.700", 0.3)
+														: "transparent"
+												}
+												px={6}
+												py={1}
+											>
+												Automatic
+											</Center> */}
+											<Center
+												as="button"
+												fontWeight="semibold"
+												border="solid 2px"
+												borderRadius={24}
+												bg={
+													createQuizWithAIQuestions == 5
+														? transparentize("brand.700", 0.3)
+														: "transparent"
+												}
+												w={16}
+												py={1}
+												onClick={() => setCreateQuizWithAIQuestions(5)}
+											>
+												5
+											</Center>
+											<Center
+												as="button"
+												fontWeight="semibold"
+												border="solid 2px"
+												borderRadius={24}
+												bg={
+													createQuizWithAIQuestions == 10
+														? transparentize("brand.700", 0.3)
+														: "transparent"
+												}
+												w={16}
+												py={1}
+												onClick={() => setCreateQuizWithAIQuestions(10)}
+											>
+												10
+											</Center>
+											<Center
+												as="button"
+												fontWeight="semibold"
+												border="solid 2px"
+												borderRadius={24}
+												bg={
+													createQuizWithAIQuestions == 15
+														? transparentize("brand.700", 0.3)
+														: "transparent"
+												}
+												w={16}
+												py={1}
+												onClick={() => setCreateQuizWithAIQuestions(15)}
+											>
+												15
+											</Center>
+										</HStack>
+									</HStack>
+									<HStack px={4} py={4} justify="space-between">
+										<Text fontSize="xl" fontFamily="metrophobic">
+											Difficulty Level
+										</Text>
+
+										<HStack fontSize="lg" color="brand.700" gap={4}>
+											<Center
+												as="button"
+												fontWeight="semibold"
+												border="solid 2px"
+												borderRadius={24}
+												bg={
+													createQuizWithAILevel == 1
+														? transparentize("brand.700", 0.3)
+														: "transparent"
+												}
+												px={6}
+												py={1}
+												onClick={() => setCreateQuizWithAILevel(1)}
+											>
+												Beginner
+											</Center>
+											<Center
+												as="button"
+												fontWeight="semibold"
+												border="solid 2px"
+												borderRadius={24}
+												bg={
+													createQuizWithAILevel == 2
+														? transparentize("brand.700", 0.3)
+														: "transparent"
+												}
+												px={6}
+												py={1}
+												onClick={() => setCreateQuizWithAILevel(2)}
+											>
+												Intermediate
+											</Center>
+											<Center
+												as="button"
+												fontWeight="semibold"
+												border="solid 2px"
+												borderRadius={24}
+												bg={
+													createQuizWithAILevel == 3
+														? transparentize("brand.700", 0.3)
+														: "transparent"
+												}
+												px={6}
+												py={1}
+												onClick={() => setCreateQuizWithAILevel(3)}
+											>
+												Advanced
+											</Center>
+										</HStack>
+									</HStack>
+								</VStack>
+							</>
+						)}
 					</ModalBody>
-					<ModalFooter></ModalFooter>
+					<ModalFooter>
+						{step == 1 && (
+							<Button
+								colorScheme="brand"
+								variant="secondary"
+								borderRadius="20"
+								fontWeight="bold"
+								mr={6}
+								mb={4}
+								onClick={() => {}}
+							>
+								Generate
+							</Button>
+						)}
+					</ModalFooter>
 				</ModalContent>
 			</Modal>
 			<Navbar></Navbar>
