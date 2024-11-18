@@ -34,6 +34,7 @@ import createWithAI from "../assets/createWithAI.svg";
 import createFromScratch from "../assets/createFromScratch.svg";
 import PreferencesIcon from "../assets/preferencesIcon.svg";
 import { transparentize } from "@chakra-ui/theme-tools";
+import { useNavigate } from "react-router-dom";
 
 const Learn = () => {
 	const quizzes = [
@@ -562,6 +563,8 @@ const Learn = () => {
 	const headingSize = useBreakpointValue({ base: "xl", md: "xl" });
 	const gridColumns = useBreakpointValue({ base: 1, md: 2, lg: 3 });
 
+	const navigate = useNavigate();
+
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const initialRef = useRef(null);
 	const finalRef = useRef(null);
@@ -573,6 +576,14 @@ const Learn = () => {
 
 	const handleCreateQuizWithAIInputChange = (e) => {
 		setCreateQuizWithAIInput(e.target.value);
+	};
+
+	const handleModalClose = () => {
+		onClose();
+		setStep(0);
+		setCreateQuizWithAIInput("");
+		setCreateQuizWithAIQuestions(0);
+		setCreateQuizWithAILevel(0);
 	};
 
 	return (
@@ -590,13 +601,7 @@ const Learn = () => {
 							variant=""
 							leftIcon={<ArrowBackIcon boxSize={8} />}
 							color="#5D5D5D"
-							onClick={() => {
-								onClose();
-								setStep(0);
-								setCreateQuizWithAIInput("");
-								setCreateQuizWithAIQuestions(0);
-								setCreateQuizWithAILevel(0);
-							}}
+							onClick={handleModalClose}
 						>
 							Return
 						</Button>
@@ -616,6 +621,7 @@ const Learn = () => {
 
 									<HStack gap={12}>
 										<VStack
+											as="button"
 											bg="brand.700"
 											px={4}
 											pt={14}
@@ -635,6 +641,7 @@ const Learn = () => {
 										</VStack>
 
 										<VStack
+											as="button"
 											bg="brand.700"
 											px={4}
 											pt={14}
@@ -858,7 +865,9 @@ const Learn = () => {
 								fontWeight="bold"
 								mr={6}
 								mb={4}
-								onClick={() => {}}
+								onClick={() => {
+									navigate("/library");
+								}}
 							>
 								Generate
 							</Button>
