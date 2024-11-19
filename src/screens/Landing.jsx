@@ -10,6 +10,10 @@ import {
 	VStack,
 	useMediaQuery,
 	IconButton,
+	Menu,
+	MenuButton,
+	MenuList,
+	MenuItem,
 } from "@chakra-ui/react";
 import LogoImage from "../assets/logo.svg";
 import HeaderImage from "../assets/header.svg";
@@ -32,7 +36,7 @@ import { useNavigate } from "react-router-dom";
 const Landing = () => {
 	const navigate = useNavigate();
 	const [isOpen, setIsOpen] = useState(false);
-	const [isMobile] = useMediaQuery("(max-width: 960px)");
+	const [isMobile] = useMediaQuery("(max-width: 48em)");
 
 	const toggleMenu = () => {
 		setIsOpen(!isOpen);
@@ -41,43 +45,103 @@ const Landing = () => {
 	return (
 		<Container minW="100%" p="0" m="0" bg="brand.600" fontFamily="poppins">
 			<Flex
-				spacing="10%"
+				spacing="24px"
 				bg="white"
-				maxW={{ base: "70%", sm: "70%", md: "70%", lg: "60%", xl: "50%" }}
+				maxW={{ base: "36%", sm: "26%", md: "70%", lg: "60%", xl: "50%" }}
 				borderRadius="24"
-				px="1%"
+				px="6"
 				alignItems="center"
 				position="sticky"
 				top="3%"
-				left={{ base: "15%", sm: "15%", md: "15%", lg: "20%", xl: "25%" }}
+				left={{ base: "32%", sm: "32%", md: "15%", lg: "20%", xl: "25%" }}
 				fontWeight="semibold"
 				letterSpacing="tightish"
 				fontSize="lg"
 				boxShadow="md"
 				zIndex="1"
-				color="#262626"
 			>
-				<Image src={LogoImage} alt="Logo" h="12" draggable="false" />
+				<Image src={LogoImage} alt="Logo" h="12" my="2" draggable="false" />
 				<Spacer />
-
 				{isMobile ? (
-					<IconButton
-						icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-						onClick={toggleMenu}
-						variant="outline"
-						aria-label="Toggle Navigation"
-						bg="transparent"
-						border="none"
-						_hover={{ bg: "gray.100" }}
-						color="#262626"
-					/>
+					<Menu>
+						<MenuButton as={IconButton}>
+							<IconButton
+								icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+								onClick={toggleMenu}
+								fontSize="3xl"
+								variant="outline"
+								aria-label="Toggle Navigation"
+								bg="transparent"
+								border="none"
+								_hover={{ bg: "gray.100" }}
+								color="#262626"
+							/>
+						</MenuButton>
+						<MenuList>
+							<MenuItem
+								as={ChakraLink}
+								_hover={{ color: "brand.500", textDecoration: "none" }}
+							>
+								<ChakraLink
+									as={ReactRouterLink}
+									to="/landing"
+									_hover={{ color: "brand.500", textDecoration: "none" }}
+								>
+									Home
+								</ChakraLink>
+							</MenuItem>
+							<MenuItem
+								as={ChakraLink}
+								_hover={{ color: "brand.500", textDecoration: "none" }}
+							>
+								<ChakraLink
+									as={ReactRouterLink}
+									to="/learn"
+									_hover={{ color: "brand.500", textDecoration: "none" }}
+								>
+									Learn
+								</ChakraLink>
+							</MenuItem>
+							<MenuItem
+								as={ChakraLink}
+								_hover={{ color: "brand.500", textDecoration: "none" }}
+							>
+								<ChakraLink
+									as={ReactRouterLink}
+									to="/challenges"
+									_hover={{ color: "brand.500", textDecoration: "none" }}
+								>
+									Challenges
+								</ChakraLink>
+							</MenuItem>
+							<MenuItem
+								as={ChakraLink}
+								_hover={{ color: "brand.500", textDecoration: "none" }}
+							>
+								<ChakraLink
+									as={ReactRouterLink}
+									to="/leaderboard"
+									_hover={{ color: "brand.500", textDecoration: "none" }}
+								>
+									Leaderboard
+								</ChakraLink>
+							</MenuItem>
+							<MenuItem
+								onClick={() => {
+									navigate("/signin");
+								}}
+							>
+								<Button colorScheme="brand" variant="primary" borderRadius="8">
+									Sign In
+								</Button>
+							</MenuItem>
+						</MenuList>
+					</Menu>
 				) : (
-					// Regular navigation links for larger screens
 					<>
 						<ChakraLink
 							as={ReactRouterLink}
-							to="/"
-							my="4"
+							to="/home"
 							_hover={{ color: "brand.500", textDecoration: "none" }}
 						>
 							Home
@@ -86,7 +150,6 @@ const Landing = () => {
 						<ChakraLink
 							as={ReactRouterLink}
 							to="/learn"
-							my="4"
 							_hover={{ color: "brand.500", textDecoration: "none" }}
 						>
 							Learn
@@ -95,7 +158,6 @@ const Landing = () => {
 						<ChakraLink
 							as={ReactRouterLink}
 							to="/challenges"
-							my="4"
 							_hover={{ color: "brand.500", textDecoration: "none" }}
 						>
 							Challenges
@@ -104,7 +166,6 @@ const Landing = () => {
 						<ChakraLink
 							as={ReactRouterLink}
 							to="/leaderboard"
-							my="4"
 							_hover={{ color: "brand.500", textDecoration: "none" }}
 						>
 							Leaderboard
@@ -115,7 +176,7 @@ const Landing = () => {
 							variant="primary"
 							borderRadius="20"
 							onClick={() => {
-								navigate("/login");
+								navigate("/signin");
 							}}
 						>
 							Sign In
@@ -181,6 +242,7 @@ const Landing = () => {
 					</Button>
 				</Flex>
 			)}
+
 			<Container minW="100%" py="8" align="center">
 				<HStack px="4" mt="12" mb="12" justify="center">
 					<Image src={HeaderImage} alt="Header" w="50%" draggable="false" />
