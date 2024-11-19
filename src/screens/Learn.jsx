@@ -26,7 +26,7 @@ import {
 	Textarea,
 } from "@chakra-ui/react";
 import { AddIcon, ArrowBackIcon, SearchIcon } from "@chakra-ui/icons";
-import QuizCard from "../components/QuizCard";
+import QuizCard from "../components/LearnQuizCard";
 import LearnHeader from "../components/LearnHeader";
 import Navbar from "../components/NavBar";
 import { useRef, useState } from "react";
@@ -573,6 +573,7 @@ const Learn = () => {
 	const [createQuizWithAIInput, setCreateQuizWithAIInput] = useState("");
 	const [createQuizWithAIQuestions, setCreateQuizWithAIQuestions] = useState(0);
 	const [createQuizWithAILevel, setCreateQuizWithAILevel] = useState(0);
+	const [loading, setLoading] = useState(false);
 
 	const handleCreateQuizWithAIInputChange = (e) => {
 		setCreateQuizWithAIInput(e.target.value);
@@ -584,6 +585,36 @@ const Learn = () => {
 		setCreateQuizWithAIInput("");
 		setCreateQuizWithAIQuestions(0);
 		setCreateQuizWithAILevel(0);
+	};
+
+	const handleGenerateClick = async () => {
+		try {
+			setLoading(true);
+
+			const response = await fetch("http://localhost:8081/api/quiz/create", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					topic: createQuizWithAIInput,
+					numOfQuestions: createQuizWithAIQuestions,
+				}),
+			});
+
+			if (!response.ok) {
+				throw new Error("Network response was not ok");
+			}
+
+			const data = await response.json();
+			console.log(data);
+
+			navigate("/library");
+		} catch (error) {
+			console.error(error);
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	return (
@@ -859,15 +890,15 @@ const Learn = () => {
 					<ModalFooter>
 						{step == 1 && (
 							<Button
+								isLoading={loading}
+								loadingText="Generating"
 								colorScheme="brand"
 								variant="secondary"
 								borderRadius="20"
 								fontWeight="bold"
 								mr={6}
 								mb={4}
-								onClick={() => {
-									navigate("/library");
-								}}
+								onClick={handleGenerateClick}
 							>
 								Generate
 							</Button>

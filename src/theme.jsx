@@ -75,6 +75,24 @@ const theme = extendTheme({
 						bg: "#AAAAAA",
 					},
 				},
+				tertiary: {
+					bg: "white",
+					color: "brand.700",
+					_hover: {
+						bg: transparentize("brand.500", 0.6),
+						color: "white",
+					},
+					_active: {
+						bg: "white",
+						color: "black",
+						outline: "2px solid",
+						outlineColor: "brand.500",
+						opacity: 1,
+					},
+					_disabled: {
+						bg: "#AAAAAA",
+					},
+				},
 			},
 		},
 	},
