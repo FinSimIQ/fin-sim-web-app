@@ -44,6 +44,12 @@ const QuizCard = ({ title, difficulty, imageSrc, description, subtopics }) => {
       overflow="hidden"
       align="stretch"
       m="1.5"
+      _hover={{
+        cursor: "pointer",
+        transform: "translateY(-15px)",
+        transition: "all 0.2s ease-in-out",
+      }}
+      style={{ transition: "all 0.2s ease-in-out" }}
       onClick={() =>
         navigate(`/course/${title}`, {
           state: {

@@ -1,16 +1,33 @@
-import React, { useState } from 'react';
-import { Flex, Box, Input, InputGroup, InputLeftElement, InputRightElement, Button, Text, Link, FormControl, FormLabel, Spinner } from '@chakra-ui/react';
-import { EmailIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import React, { useState } from "react";
+import {
+  Flex,
+  Box,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  Button,
+  Text,
+  Link,
+  FormControl,
+  FormLabel,
+  Spinner,
+  Alert,
+  AlertIcon,
+} from "@chakra-ui/react";
+import { EmailIcon, LockIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import wave from "../assets/wave.svg";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
   // password visibility
   const handlePasswordToggle = () => setShowPassword(!showPassword);
@@ -18,8 +35,8 @@ const Signup = () => {
   // handle form submission
   const handleSignup = async () => {
     setIsLoading(true);
-    setError('');
-    setSuccessMessage('');
+    setError("");
+    setSuccessMessage("");
 
     const signupData = {
       fullName,
@@ -28,23 +45,26 @@ const Signup = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:5173/createUser', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8081/api/users/signup", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(signupData),
       });
 
       const result = await response.json();
 
+      console.log(result);
+
       if (response.ok) {
-        setSuccessMessage('Account created successfully! You can now sign in.');
+        navigate("/");
+        setSuccessMessage("Account created successfully! You can now sign in.");
       } else {
-        setError(result.message || 'An error occurred during signup.');
+        setError(result.message || "An error occurred during signup.");
       }
     } catch (err) {
-      setError('Failed to connect to the server. Please try again later.');
+      setError("Failed to connect to the server. Please try again later.");
     } finally {
       setIsLoading(false);
     }
@@ -52,16 +72,38 @@ const Signup = () => {
 
   return (
     <Flex h="100vh">
-      <Box flex="1" bg="white" p="8" display="flex" alignItems="center" justifyContent="center">
+      <Box
+        flex="1"
+        bg="white"
+        p="8"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
         <Box w="100%" maxW="400px">
-
-          <Text fontSize="4xl" fontWeight="bold" textAlign="center" mb="4" color="gray.600">
+          <Text
+            fontSize="4xl"
+            fontWeight="bold"
+            textAlign="center"
+            mb="4"
+            color="gray.600"
+          >
             Create Your Account
           </Text>
 
           {/* display error or success message */}
-          {error && <Text color="red.500" mb="4">{error}</Text>}
-          {successMessage && <Text color="green.500" mb="4">{successMessage}</Text>}
+          {error && (
+            <Alert status="error">
+              <AlertIcon />
+              {error}
+            </Alert>
+          )}
+          {successMessage && (
+            <Alert status="success">
+              <AlertIcon />
+              {successMessage}
+            </Alert>
+          )}
 
           <FormControl mb="4" isRequired>
             <FormLabel fontWeight="bold">Full Name</FormLabel>
@@ -95,14 +137,23 @@ const Signup = () => {
                 <LockIcon color="gray.400" />
               </InputLeftElement>
               <Input
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 placeholder="Enter Your Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
               <InputRightElement width="4.5rem">
-                <Button h="1.75rem" size="sm" onClick={handlePasswordToggle} variant="ghost">
-                  {showPassword ? <ViewOffIcon color="gray.400" /> : <ViewIcon color="gray.400" />}
+                <Button
+                  h="1.75rem"
+                  size="sm"
+                  onClick={handlePasswordToggle}
+                  variant="ghost"
+                >
+                  {showPassword ? (
+                    <ViewOffIcon color="gray.400" />
+                  ) : (
+                    <ViewIcon color="gray.400" />
+                  )}
                 </Button>
               </InputRightElement>
             </InputGroup>
@@ -117,11 +168,11 @@ const Signup = () => {
             onClick={handleSignup}
             isDisabled={isLoading}
           >
-            {isLoading ? <Spinner size="sm" /> : 'Sign Up'}
+            {isLoading ? <Spinner size="sm" /> : "Sign Up"}
           </Button>
 
           <Text textAlign="center" color="gray.500">
-            Already have an account?{' '}
+            Already have an account?{" "}
             <Link color="green.500" href="/login" fontWeight="bold">
               Sign in
             </Link>
@@ -130,7 +181,7 @@ const Signup = () => {
       </Box>
 
       {/* background */}
-      <Box position="relative" flex="1" display={{ base: 'none', md: 'block' }}>
+      <Box position="relative" flex="1" display={{ base: "none", md: "block" }}>
         <Box
           position="absolute"
           top="0"

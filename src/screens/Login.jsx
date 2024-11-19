@@ -1,24 +1,37 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Flex, Box, Input, InputGroup, InputLeftElement, InputRightElement, Button, Text, Link, FormControl, FormLabel, useToast } from '@chakra-ui/react';
-import { EmailIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  Flex,
+  Box,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  Button,
+  Text,
+  Link,
+  FormControl,
+  FormLabel,
+  useToast,
+} from "@chakra-ui/react";
+import { EmailIcon, LockIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import wave from "../assets/wave.svg";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handlePasswordToggle = () => setShowPassword(!showPassword);
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const toast = useToast();
   const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://localhost:5173/loginUser', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8081/api/users/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           email,
@@ -29,7 +42,11 @@ const Login = () => {
       const data = await response.json();
 
       // check if login was successful
-      if (response.ok && data.message !== 'Invalid credentials' && data.message !== 'Account not found') {
+      if (
+        response.ok &&
+        data.message !== "Invalid credentials" &&
+        data.message !== "Account not found"
+      ) {
         // success handling
         toast({
           title: "Login successful!",
@@ -40,21 +57,20 @@ const Login = () => {
 
         // redirect to landing page after toast notification
         setTimeout(() => {
-          navigate('/');
-        }, 3000);  // wait 3 seconds
-
+          navigate("/");
+        }, 1000); // wait 1 seconds
       } else {
         // error handling (invalid credentials or account not found)
         toast({
           title: "Login failed",
-          description: data.message || 'Please check your credentials.',
+          description: data.message || "Please check your credentials.",
           status: "error",
           duration: 3000,
           isClosable: true,
         });
       }
     } catch (error) {
-      console.error('Error logging in:', error);
+      console.error("Error logging in:", error);
       toast({
         title: "Error",
         description: "Something went wrong, please try again later.",
@@ -67,10 +83,22 @@ const Login = () => {
 
   return (
     <Flex h="100vh">
-      <Box flex="1" bg="white" p="8" display="flex" alignItems="center" justifyContent="center">
+      <Box
+        flex="1"
+        bg="white"
+        p="8"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
         <Box w="100%" maxW="400px">
-
-          <Text fontSize="4xl" fontWeight="bold" textAlign="center" mb="4" color="gray.600">
+          <Text
+            fontSize="4xl"
+            fontWeight="bold"
+            textAlign="center"
+            mb="4"
+            color="gray.600"
+          >
             Sign In
           </Text>
           <Text textAlign="center" mb="8" color="gray.600">
@@ -99,14 +127,23 @@ const Login = () => {
                 <LockIcon color="gray.400" />
               </InputLeftElement>
               <Input
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 placeholder="Enter Your Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
               <InputRightElement width="4.5rem">
-                <Button h="1.75rem" size="sm" onClick={handlePasswordToggle} variant="ghost">
-                  {showPassword ? <ViewOffIcon color="gray.400" /> : <ViewIcon color="gray.400" />}
+                <Button
+                  h="1.75rem"
+                  size="sm"
+                  onClick={handlePasswordToggle}
+                  variant="ghost"
+                >
+                  {showPassword ? (
+                    <ViewOffIcon color="gray.400" />
+                  ) : (
+                    <ViewIcon color="gray.400" />
+                  )}
                 </Button>
               </InputRightElement>
             </InputGroup>
@@ -118,12 +155,18 @@ const Login = () => {
             </Link>
           </Box>
 
-          <Button colorScheme="green" size="lg" w="100%" mb="4" onClick={handleLogin}>
+          <Button
+            colorScheme="green"
+            size="lg"
+            w="100%"
+            mb="4"
+            onClick={handleLogin}
+          >
             Sign In
           </Button>
 
           <Text textAlign="center" color="gray.500">
-            Don't have an account?{' '}
+            Don't have an account?{" "}
             <Link color="green.500" href="/signup" fontWeight="bold">
               Sign up
             </Link>
@@ -132,7 +175,7 @@ const Login = () => {
       </Box>
 
       {/* background */}
-      <Box position="relative" flex="1" display={{ base: 'none', md: 'block' }}>
+      <Box position="relative" flex="1" display={{ base: "none", md: "block" }}>
         <Box
           position="absolute"
           top="0"
@@ -158,7 +201,6 @@ const Login = () => {
           opacity="0.75"
         />
       </Box>
-
     </Flex>
   );
 };

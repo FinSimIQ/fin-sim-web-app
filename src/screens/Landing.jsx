@@ -32,7 +32,7 @@ import { useNavigate } from "react-router-dom";
 const Landing = () => {
 	const navigate = useNavigate();
 	const [isOpen, setIsOpen] = useState(false);
-	const [isMobile] = useMediaQuery("(max-width: 960px)");
+	const [isMobile] = useMediaQuery("(max-width: 1200px)");
 
 	const toggleMenu = () => {
 		setIsOpen(!isOpen);
