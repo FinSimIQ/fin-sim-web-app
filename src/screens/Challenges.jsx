@@ -92,10 +92,11 @@ const Challenges = (props) => {
     submitButtonText = "Correct!";
   }
 
+  const [offset, setOffset] = useState(0);
+
   useEffect(() => {
-    fetch("http://localhost:8081/api/quiz/create", {
-      method: "POST",
-      body: {},
+    fetch(`http://localhost:8081/api/quiz/weekly-quiz/latest`, {
+      method: "GET",
     })
       .then((res) => res.json())
       .then((data) => {
