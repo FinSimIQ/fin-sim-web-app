@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import {
 	Button,
 	Container,
@@ -45,21 +47,20 @@ const Landing = () => {
 	return (
 		<Container minW="100%" p="0" m="0" bg="brand.600" fontFamily="poppins">
 			<Flex
-				spacing="24px"
+				spacing="10%"
 				bg="white"
-				maxW={{ base: "36%", sm: "26%", md: "70%", lg: "60%", xl: "50%" }}
+				maxW="50%"
 				borderRadius="24"
-				px="6"
+				px="1%"
 				alignItems="center"
 				position="sticky"
 				top="3%"
-				left={{ base: "32%", sm: "32%", md: "15%", lg: "20%", xl: "25%" }}
+				left="25%"
 				fontWeight="semibold"
 				letterSpacing="tightish"
 				fontSize="lg"
 				boxShadow="md"
-				zIndex="1"
-			>
+				zIndex="1">
 				<Image src={LogoImage} alt="Logo" h="12" my="2" draggable="false" />
 				<Spacer />
 				{isMobile ? (
@@ -276,12 +277,7 @@ const Landing = () => {
 								interactive quizzes
 							</Text>
 							<HStack>
-								<Image
-									src={LeftLandingCardImage}
-									alt="Header"
-									w="50%"
-									draggable="false"
-								/>
+								<Image src={LeftLandingCardImage} w="50%" draggable="false" />
 								<Spacer />
 							</HStack>
 						</Container>
@@ -305,12 +301,7 @@ const Landing = () => {
 							bgPos="center"
 						>
 							<HStack>
-								<Image
-									src={MiddleLandingCardImage}
-									alt="Header"
-									w="50%"
-									draggable="false"
-								/>
+								<Image src={MiddleLandingCardImage} w="50%" draggable="false" />
 								<Spacer />
 							</HStack>
 							<Text maxW="md" pt="4" pb="2" fontWeight="medium" fontSize="3xl">
@@ -350,12 +341,7 @@ const Landing = () => {
 							</Text>
 							<HStack>
 								<Spacer />
-								<Image
-									src={RightLandingCardImage}
-									alt="Header"
-									w="50%"
-									draggable="false"
-								/>
+								<Image src={RightLandingCardImage} w="50%" draggable="false" />
 							</HStack>
 						</Container>
 					</ChakraLink>
