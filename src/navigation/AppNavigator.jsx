@@ -10,6 +10,8 @@ import Challenges from "../screens/Challenges";
 import LeaderboardPage from "../screens/LeaderboardPage";
 import FriendSearch from "../screens/AddFriend";
 import Course from "../screens/Course";
+import JoinGame from "../screens/JoinGame";
+
 
 const AppNavigator = (props) => {
   const routes = createBrowserRouter([
@@ -61,6 +63,10 @@ const AppNavigator = (props) => {
       path: `/course/:id`,
       element: <Course />,
     },
+    {
+      path: '/join',
+      element: <JoinGame />,  
+    }
   ]);
 
   return <RouterProvider router={routes} />;
