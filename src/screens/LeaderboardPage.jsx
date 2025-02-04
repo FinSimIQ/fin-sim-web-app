@@ -30,18 +30,67 @@ const LeaderboardPage = () => {
     fetchMembers();
   }, []);
 
-
   const sampleMembers = [
-    { image: "/images/placeHolderImage.jpg", name: "John Doe", points: 4500, rank: 1 },
-    { image: "/images/placeHolderImage.jpg", name: "Jane Smith", points: 4400, rank: 2 },
-    { image: "/images/placeHolderImage.jpg", name: "Sam Wilson", points: 4300, rank: 3 },
-    { image: "/images/placeHolderImage.jpg", name: "Chris Brown", points: 4200, rank: 4 },
-    { image: "/images/placeHolderImage.jpg", name: "Alex Johnson", points: 4100, rank: 5 },
-    { image: "/images/placeHolderImage.jpg", name: "Taylor White", points: 4000, rank: 6 },
-    { image: "/images/placeHolderImage.jpg", name: "Jordan Green", points: 3900, rank: 7 },
-    { image: "/images/placeHolderImage.jpg", name: "Morgan Blue", points: 3800, rank: 8 },
-    { image: "/images/placeHolderImage.jpg", name: "Riley Red", points: 3700, rank: 9 },
-    { image: "/images/placeHolderImage.jpg", name: "Casey Black", points: 3600, rank: 10 },
+    {
+      image: "/images/placeHolderImage.jpg",
+      name: "John Doe",
+      points: 4500,
+      rank: 1,
+    },
+    {
+      image: "/images/placeHolderImage.jpg",
+      name: "Jane Smith",
+      points: 4400,
+      rank: 2,
+    },
+    {
+      image: "/images/placeHolderImage.jpg",
+      name: "Sam Wilson",
+      points: 4300,
+      rank: 3,
+    },
+    {
+      image: "/images/placeHolderImage.jpg",
+      name: "Chris Brown",
+      points: 4200,
+      rank: 4,
+    },
+    {
+      image: "/images/placeHolderImage.jpg",
+      name: "Alex Johnson",
+      points: 4100,
+      rank: 5,
+    },
+    {
+      image: "/images/placeHolderImage.jpg",
+      name: "Taylor White",
+      points: 4000,
+      rank: 6,
+    },
+    {
+      image: "/images/placeHolderImage.jpg",
+      name: "Jordan Green",
+      points: 3900,
+      rank: 7,
+    },
+    {
+      image: "/images/placeHolderImage.jpg",
+      name: "Morgan Blue",
+      points: 3800,
+      rank: 8,
+    },
+    {
+      image: "/images/placeHolderImage.jpg",
+      name: "Riley Red",
+      points: 3700,
+      rank: 9,
+    },
+    {
+      image: "/images/placeHolderImage.jpg",
+      name: "Casey Black",
+      points: 3600,
+      rank: 10,
+    },
   ];
 
   const topMembers = sampleMembers.slice(0, 3);
@@ -58,12 +107,7 @@ const LeaderboardPage = () => {
       <Container maxW="100%" align="center" py="65px" background="#F1F1F1">
         <VStack spacing={4} align="center" width="100%">
           {/* Top Members Section */}
-          <Box
-            bg="#316D60"
-            borderRadius="lg"
-            p={6}
-            w="95%"
-          >
+          <Box bg="#316D60" borderRadius="lg" p={6} w="95%">
             <TopMembers topMembers={topMembers} />
           </Box>
 
