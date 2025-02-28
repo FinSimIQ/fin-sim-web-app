@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Example from "../screens/Example";
 import Home from "../screens/Home";
 import ForgotPassword from "../screens/ForgotPassword";
+import ResetPassword from "../screens/ResetPassword";
 import Learn from "../screens/Learn";
 import Landing from "../screens/Landing";
 import Login from "../screens/Login";
@@ -65,6 +66,10 @@ const AppNavigator = (props) => {
 		{
 			path: `/course/:id`,
 			element: <Course />,
+		},
+		{
+			path: "/resetPassword",
+			element: <ResetPassword />, 
 		},
 	]);
 
