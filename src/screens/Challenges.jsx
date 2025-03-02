@@ -7,7 +7,7 @@ import {
   VStack,
   CircularProgress,
 } from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import Navbar from "../components/NavBar";
 
 const Challenges = (props) => {
