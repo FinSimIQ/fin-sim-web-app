@@ -1,6 +1,15 @@
-  import { Container } from "@chakra-ui/react";
-  import Navbar from "../components/NavBar";
-  import QuizContainer from "./QuizContainer";
+import {
+  Text,
+  Container,
+  Heading,
+  Button,
+  Flex,
+  VStack,
+  CircularProgress,
+} from "@chakra-ui/react";
+import React, { useState, useEffect, useReducer } from "react";
+import Navbar from "../components/NavBar";
+import QuizContainer from "./QuizContainer";
 
   const Challenges = () => {
     return (
