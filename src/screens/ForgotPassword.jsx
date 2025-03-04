@@ -23,7 +23,7 @@ const ForgotPassword = () => {
 
   const handleResetPassword = async () => {
     try {
-      const response = await fetch('http://localhost:5173/resetPassword', {
+      const response = await fetch('http://localhost:8081/api/users/forgotPassword', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
