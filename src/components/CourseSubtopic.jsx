@@ -41,10 +41,10 @@ const CourseSubtopic = ({ index, input }) => {
           fontWeight="semibold"
           textAlign="center"
         >
-          {index}.{currentIndex + 1}: {input.name}
+          {index}.{currentIndex + 1}: {input.title}
         </Heading>
         <Box mt="4" mx="8rem" fontFamily="poppins" textAlign="center">
-          {input.contents[currentIndex]}
+          {input.description}
         </Box>
         <HStack justify="space-between" width="100%">
           <IconButton

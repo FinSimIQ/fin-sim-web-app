@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Flex,
@@ -54,6 +54,7 @@ const Login = () => {
           duration: 3000,
           isClosable: true,
         });
+        localStorage.setItem("authToken", "1234");
 
         // redirect to landing page after toast notification
         setTimeout(() => {
