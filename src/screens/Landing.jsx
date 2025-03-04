@@ -205,7 +205,7 @@ const Landing = () => {
       </Flex>
 
       <Container minW="100%" py="8" align="center">
-        <HStack 
+        <HStack
           px={{ base: "4", md: "8", lg: "12" }}
           mt={{ base: "8", md: "12" }}
           mb={{ base: "8", md: "12" }}
@@ -213,14 +213,14 @@ const Landing = () => {
           spacing={{ base: "4", md: "8", lg: "12" }}
           flexDirection={{ base: "column", md: "row" }}
         >
-          <Image 
-            src={HeaderImage} 
-            alt="Header" 
+          <Image
+            src={HeaderImage}
+            alt="Header"
             w={{ base: "90%", sm: "80%", md: "45%", lg: "40%" }}
             maxW="600px"
-            draggable="false" 
+            draggable="false"
           />
-          <VStack 
+          <VStack
             textAlign={{ base: "center", md: "left" }}
             align={{ base: "center", md: "flex-start" }}
             spacing={{ base: "4", md: "6" }}
@@ -260,11 +260,11 @@ const Landing = () => {
             </Button>
           </VStack>
         </HStack>
-        <ChevronDownIcon boxSize="11" color="white" onClick={() => {}} />
+        <ChevronDownIcon boxSize="20" color="white" onClick={() => {}} />
       </Container>
       <Container minW="100%" py={{ base: "4", md: "6" }} px={{ base: "4", md: "8", lg: "16" }} bg="#F4F4F4">
-        <HStack 
-          pb={{ base: "6", md: "8" }} 
+        <HStack
+          pb={{ base: "6", md: "8" }}
           align="baseline"
           spacing="8"
           flexDirection={{ base: "column", lg: "row" }}
@@ -312,28 +312,28 @@ const Landing = () => {
               {...cardBoxStyles}
               bgImage={LeftLandingCard}
             >
-              <VStack 
-                align="flex-start" 
-                h="100%" 
+              <VStack
+                align="flex-start"
+                h="100%"
                 spacing={0}
                 px={{ base: "3", sm: "4", md: "5", lg: "4", xl: "5" }}
                 py={{ base: "3", sm: "4", md: "5", lg: "4", xl: "5" }}
                 justify="space-between"
               >
                 <Box maxW="95%">
-                  <Text 
+                  <Text
                     {...cardTextStyles}
                   >
                     Interactive Finance Quizzes
                   </Text>
-                  <Text 
+                  <Text
                     {...cardDescriptionStyles}
                   >
                     Learn finance and stock market concepts through complex and interactive quizzes
                   </Text>
                 </Box>
-                <Image 
-                  src={LeftLandingCardImage} 
+                <Image
+                  src={LeftLandingCardImage}
                   w={{ base: "40%", sm: "42%", md: "45%", lg: "42%", xl: "45%" }}
                   draggable="false"
                   alignSelf="flex-start"
@@ -342,7 +342,7 @@ const Landing = () => {
               </VStack>
             </Box>
           </ChakraLink>
-          
+
           <ChakraLink
             as={ReactRouterLink}
             to="/leaderboard"
@@ -353,28 +353,28 @@ const Landing = () => {
               {...cardBoxStyles}
               bgImage={MiddleLandingCard}
             >
-              <VStack 
-                align="flex-start" 
-                h="100%" 
+              <VStack
+                align="flex-start"
+                h="100%"
                 spacing={0}
                 px={{ base: "3", sm: "4", md: "5", lg: "4", xl: "5" }}
                 py={{ base: "3", sm: "4", md: "5", lg: "4", xl: "5" }}
                 justify="space-between"
               >
-                <Image 
-                  src={MiddleLandingCardImage} 
+                <Image
+                  src={MiddleLandingCardImage}
                   w={{ base: "40%", sm: "42%", md: "45%", lg: "42%", xl: "45%" }}
                   draggable="false"
                   alignSelf="flex-start"
                   objectFit="contain"
                 />
                 <Box maxW="95%">
-                  <Text 
+                  <Text
                     {...cardTextStyles}
                   >
                     Learn with Friends
                   </Text>
-                  <Text 
+                  <Text
                     {...cardDescriptionStyles}
                   >
                     Discover friends to learn with and find encouragement along the way by earning badges with completed lessons
@@ -394,30 +394,30 @@ const Landing = () => {
               {...cardBoxStyles}
               bgImage={RightLandingCard}
             >
-              <VStack 
-                align="flex-end" 
-                h="100%" 
+              <VStack
+                align="flex-end"
+                h="100%"
                 spacing={0}
                 px={{ base: "3", sm: "4", md: "5", lg: "4", xl: "5" }}
                 py={{ base: "3", sm: "4", md: "5", lg: "4", xl: "5" }}
                 justify="space-between"
               >
                 <Box width="100%">
-                  <Text 
+                  <Text
                     {...cardTextStyles}
                     textAlign="right"
                   >
                     Weekly Market Challenges
                   </Text>
-                  <Text 
+                  <Text
                     {...cardDescriptionStyles}
                     textAlign="right"
                   >
                     Enhance your strategy development and critical thinking skills by engaging in virtual trading scenarios
                   </Text>
                 </Box>
-                <Image 
-                  src={RightLandingCardImage} 
+                <Image
+                  src={RightLandingCardImage}
                   w={{ base: "40%", sm: "42%", md: "45%", lg: "42%", xl: "45%" }}
                   draggable="false"
                   alignSelf="flex-end"

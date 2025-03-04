@@ -50,7 +50,7 @@ const AppNavigator = (props) => {
     {
       path: "/challenges",
       element: <Challenges />,
-      loader: requireAuth,
+      // loader: requireAuth,
     },
     {
       path: "/home",
