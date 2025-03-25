@@ -15,6 +15,7 @@ import {
   Spinner,
   Alert,
   AlertIcon,
+  useToast,
 } from "@chakra-ui/react";
 import { EmailIcon, LockIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import wave from "../assets/wave.svg";
@@ -41,10 +42,6 @@ const Signup = () => {
   // handle form submission
   const handleSignup = async () => {
     clearError();
-
-    setIsLoading(true);
-    setError("");
-    setSuccessMessage("");
 
     const signupData = {
       fullName,
