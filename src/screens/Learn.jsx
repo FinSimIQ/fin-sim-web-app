@@ -63,8 +63,58 @@ const Learn = () => {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        await console.log(data);
-        setQuizzes(data);
+
+        const processedData = data.map(quiz => {
+          // Make sure subtopics exists and is an array
+          if (quiz.subtopics && Array.isArray(quiz.subtopics)) {
+
+          let imageSrc;
+
+          // Map topics to specific images
+          if (quiz.topic === 'Stock Market') {
+            imageSrc = '/images/quiz-covers/stock_market.svg';
+          } else if (quiz.topic === 'Personal Finance') {
+            imageSrc = '/images/quiz-covers/personal_finance.svg';
+          } else if (quiz.topic === 'Fintech') {
+            imageSrc = '/images/quiz-covers/fintech.svg';
+          } else if (quiz.topic === 'Investment') {
+            imageSrc = '/images/quiz-covers/investment.svg';
+          } else if (quiz.topic === 'Risk Management') {
+            imageSrc = '/images/quiz-covers/risk_management.svg';
+          } else if (quiz.topic === 'Financial Analysis') {
+            imageSrc = '/images/quiz-covers/financial_analysis.svg';
+          } else if (quiz.topic === 'Quantitative Finance') {
+            imageSrc = '/images/quiz-covers/quantitative_finance.svg';
+          } else if (quiz.topic === 'Financial Modeling') {
+            imageSrc = '/images/quiz-covers/financial_modeling.svg';
+          } else if (quiz.topic === 'Trading') {
+            imageSrc = '/images/quiz-covers/trading.svg';
+          }
+
+          if (quiz.subtopics && Array.isArray(quiz.subtopics)) {
+            // Process each subtopic
+            return {
+              ...quiz,
+              imageSrc, // Add the hardcoded image
+              subtopics: quiz.subtopics.map(subtopic => {
+                // If contents is an array, join it into a single string
+                if (Array.isArray(subtopic.contents)) {
+                  return {
+                    ...subtopic,
+                    contents: subtopic.contents.join("\n\n")
+                  };
+                }
+                return subtopic;
+              })
+            };
+          }
+          return {
+            quiz,
+            imageSrc
+          };
+        }
+      });
+        setQuizzes(processedData);
       } catch (error) {
         console.error(error);
       }
@@ -83,7 +133,25 @@ const Learn = () => {
   const handleSearchChange = (value) => {
     setSearchValue(value);
     if (value === "") {
-      setQuizzes(q);
+
+      const processedMockData = q.map(quiz => {
+      if (quiz.subtopics && Array.isArray(quiz.subtopics)) {
+        return {
+          ...quiz,
+          subtopics: quiz.subtopics.map(subtopic => {
+            if (Array.isArray(subtopic.contents)) {
+              return {
+                ...subtopic,
+                contents: subtopic.contents.join("\n\n")
+              };
+            }
+            return subtopic;
+          })
+        };
+      }
+      return quiz;
+    });
+      setQuizzes(processedMockData);
     } else {
       searchQuizzes();
     }
@@ -274,7 +342,7 @@ const Learn = () => {
                     </Text>
 
                     <HStack fontSize="lg" color="brand.700" gap={4}>
-                      {/* 
+                      {/*
                       not sure what automatic means
                       <Center
 												as="button"
@@ -492,8 +560,8 @@ const Learn = () => {
             >
               {quizzes.map((quiz) => (
                 <QuizCard
-                  key={quiz._id}
-                  title={quiz.topic}
+                  key={quiz._id || quiz.id}
+                  title={quiz.title || quiz.topic}
                   difficulty={quiz.difficulty}
                   imageSrc={quiz.imageSrc}
                   description={quiz.description}
