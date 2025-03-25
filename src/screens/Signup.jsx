@@ -30,7 +30,7 @@ const Signup = () => {
   const toast = useToast();
 
   // state and actions from store
-  const signup = useStore(state => state.login);
+  const signup = useStore(state => state.signup);
   const clearError = useStore(state => state.clearError);
   const isLoading = useStore(state => state.isLoading);
   const error = useStore(state => state.error);

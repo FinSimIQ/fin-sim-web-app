@@ -21,17 +21,15 @@ const Navbar = () => {
 	const logout = useStore(state => state.logout);
 	const navigate = useNavigate();
 
+	/*
 	useEffect(() => {
 		const token = localStorage.getItem("authToken");
 		if (token) {
 			setIsAuthenticated(true);
 		}
-	}, []);
+	}, []); */
 
 	const handleLogout = () => {
-		/**
-		localStorage.removeItem("authToken");
-		setIsAuthenticated(false); */
 		logout();
 		navigate("/");
 	};
