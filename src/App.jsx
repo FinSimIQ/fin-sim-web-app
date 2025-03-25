@@ -13,7 +13,7 @@ function AppWithTracking() {
 function App() {
 	return (
 		<ChakraProvider theme={theme}>
-			<AppNavigator />
+				<AppWithTracking />
 		</ChakraProvider>
 	);
 }
