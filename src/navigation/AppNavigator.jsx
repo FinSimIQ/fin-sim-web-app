@@ -16,15 +16,21 @@ import LeaderboardPage from "../screens/LeaderboardPage";
 import FriendSearch from "../screens/AddFriend";
 import Course from "../screens/Course";
 import Library from "../screens/Library";
+import { usePageTracking } from "../hooks/usePageTracking";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 const AppNavigator = (props) => {
+
+  /**
   const requireAuth = () => {
     const isAuthenticated = localStorage.getItem("authToken") !== null; //or some other way to authenticate
     if (!isAuthenticated) {
       throw redirect("/login");
     }
     return null;
-  };
+  }; */
+
+  usePageTracking();
   const routes = createBrowserRouter([
     {
       path: "/",
@@ -44,13 +50,24 @@ const AppNavigator = (props) => {
     },
     {
       path: "/library",
-      element: <Library />,
-      loader: requireAuth,
+      // element: <Library />,
+      // loader: requireAuth,
+      element: (
+        <ProtectedRoute>
+          <Library />
+        </ProtectedRoute>
+      ),
+
     },
     {
       path: "/challenges",
-      element: <Challenges />,
+      // element: <Challenges />,
       // loader: requireAuth,
+      element: (
+        <ProtectedRoute>
+          <Challenges />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/home",
@@ -62,13 +79,23 @@ const AppNavigator = (props) => {
     },
     {
       path: "/leaderboard",
-      element: <LeaderboardPage />,
-      loader: requireAuth,
+      // element: <LeaderboardPage />,
+      // loader: requireAuth,
+      element: (
+        <ProtectedRoute>
+          <LeaderboardPage />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/add-friend",
-      element: <FriendSearch />,
-      loader: requireAuth,
+      // element: <FriendSearch />,
+      // loader: requireAuth,
+      element: (
+        <ProtectedRoute>
+          <FriendSearch />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/login",

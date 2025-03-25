@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import useStore from "../store/useStore";
 import {
   Flex,
   Box,
@@ -24,16 +25,23 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
+  const toast = useToast();
+
+  // state and actions from store
+  const signup = useStore(state => state.login);
+  const clearError = useStore(state => state.clearError);
+  const isLoading = useStore(state => state.isLoading);
+  const error = useStore(state => state.error);
 
   // password visibility
   const handlePasswordToggle = () => setShowPassword(!showPassword);
 
   // handle form submission
   const handleSignup = async () => {
+    clearError();
+
     setIsLoading(true);
     setError("");
     setSuccessMessage("");
@@ -44,6 +52,28 @@ const Signup = () => {
       password,
     };
 
+    const success = await signup(signupData);
+
+    if (success) {
+      toast({
+        title: "Account created successfully!",
+        description: "You can now sign in.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      navigate("/login");
+    } else if (error) {
+      toast({
+        title: "Signup failed",
+        description: error,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+
+    /**
     try {
       const response = await fetch("http://localhost:8081/api/users/signup", {
         method: "POST",
@@ -67,7 +97,7 @@ const Signup = () => {
       setError("Failed to connect to the server. Please try again later.");
     } finally {
       setIsLoading(false);
-    }
+    } */
   };
 
   return (
@@ -166,7 +196,7 @@ const Signup = () => {
             mb="4"
             marginTop="5"
             onClick={handleSignup}
-            isDisabled={isLoading}
+            isLoading={isLoading}
           >
             {isLoading ? <Spinner size="sm" /> : "Sign Up"}
           </Button>

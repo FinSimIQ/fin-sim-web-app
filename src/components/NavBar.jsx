@@ -12,11 +12,13 @@ import {
 	MenuItem,
 } from "@chakra-ui/react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
+import useStore from "../store/useStore";
 import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
 
 const Navbar = () => {
 	const [isOpen, setIsOpen] = useState(false);
-	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	const isAuthenticated = useStore(state => state.isAuthenticated);
+	const logout = useStore(state => state.logout);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -27,8 +29,10 @@ const Navbar = () => {
 	}, []);
 
 	const handleLogout = () => {
+		/**
 		localStorage.removeItem("authToken");
-		setIsAuthenticated(false);
+		setIsAuthenticated(false); */
+		logout();
 		navigate("/");
 	};
 
