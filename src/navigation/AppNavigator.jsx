@@ -2,6 +2,9 @@ import {
   createBrowserRouter,
   redirect,
   RouterProvider,
+  createRoutesFromElements,
+  Route,
+  Outlet
 } from "react-router-dom";
 import Example from "../screens/Example";
 import Home from "../screens/Home";
@@ -19,6 +22,12 @@ import Library from "../screens/Library";
 import { usePageTracking } from "../hooks/usePageTracking";
 import ProtectedRoute from "../components/ProtectedRoute";
 
+
+const RootLayout = () => {
+  usePageTracking();
+  return <Outlet />;
+};
+
 const AppNavigator = (props) => {
 
   /**
@@ -30,88 +39,53 @@ const AppNavigator = (props) => {
     return null;
   }; */
 
-  usePageTracking();
-  const routes = createBrowserRouter([
-    {
-      path: "/",
-      element: <Landing />,
-    },
-    {
-      path: "/example",
-      element: <Example />,
-    },
-    {
-      path: "/home",
-      element: <Home />,
-    },
-    {
-      path: "/learn",
-      element: <Learn />,
-    },
-    {
-      path: "/library",
-      // element: <Library />,
-      // loader: requireAuth,
-      element: (
-        <ProtectedRoute>
-          <Library />
-        </ProtectedRoute>
-      ),
-
-    },
-    {
-      path: "/challenges",
-      // element: <Challenges />,
-      // loader: requireAuth,
-      element: (
-        <ProtectedRoute>
-          <Challenges />
-        </ProtectedRoute>
-      ),
-    },
-    {
-      path: "/home",
-      element: <Home />,
-    },
-    {
-      path: "/forgot_password",
-      element: <ForgotPassword />,
-    },
-    {
-      path: "/leaderboard",
-      // element: <LeaderboardPage />,
-      // loader: requireAuth,
-      element: (
-        <ProtectedRoute>
-          <LeaderboardPage />
-        </ProtectedRoute>
-      ),
-    },
-    {
-      path: "/add-friend",
-      // element: <FriendSearch />,
-      // loader: requireAuth,
-      element: (
-        <ProtectedRoute>
-          <FriendSearch />
-        </ProtectedRoute>
-      ),
-    },
-    {
-      path: "/login",
-      element: <Login />,
-    },
-    {
-      path: "/signup",
-      element: <Signup />,
-    },
-    {
-      path: `/course/:id`,
-      element: <Course />,
-    },
-  ]);
-
-  return <RouterProvider router={routes} />;
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route element={<RootLayout />}>
+        <Route path="/" element={<Landing />} />
+        <Route path="/example" element={<Example />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/learn" element={<Learn />} />
+        <Route
+          path="/library"
+          element={
+            <ProtectedRoute>
+              <Library />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/challenges"
+          element={
+            <ProtectedRoute>
+              <Challenges />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/forgot_password" element={<ForgotPassword />} />
+        <Route
+          path="/leaderboard"
+          element={
+            <ProtectedRoute>
+              <LeaderboardPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/add-friend"
+          element={
+            <ProtectedRoute>
+              <FriendSearch />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/course/:id" element={<Course />} />
+      </Route>
+    )
+  );
+  return <RouterProvider router={router} />;
 };
 
 export default AppNavigator;
