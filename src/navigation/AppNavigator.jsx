@@ -16,6 +16,7 @@ import LeaderboardPage from "../screens/LeaderboardPage";
 import FriendSearch from "../screens/AddFriend";
 import Course from "../screens/Course";
 import Library from "../screens/Library";
+import StockExplorer from "../screens/ StockExplorer";
 
 const AppNavigator = (props) => {
   const requireAuth = () => {
@@ -81,6 +82,10 @@ const AppNavigator = (props) => {
     {
       path: `/course/:id`,
       element: <Course />,
+    },
+    {
+      path: "/StockExplorer",
+      element: <StockExplorer />,
     },
   ]);
 
