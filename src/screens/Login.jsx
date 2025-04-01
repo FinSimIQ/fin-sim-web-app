@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import useStore from "../store/useStore";
 import {
   Flex,
   Box,
@@ -25,8 +26,41 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const toast = useToast();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // state and actions from store
+  const login = useStore(state => state.login);
+  const isLoading = useStore(state => state.isLoading);
+  const error = useStore(state => state.error);
+  const clearError = useStore(state => state.clearError);
+
+  const from = location.state?.from || "/";
 
   const handleLogin = async () => {
+    clearError();
+
+    const success = await login(email,password);
+    if (success) {
+      toast({
+        title: "Login successful!",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      setTimeout(() => {
+        navigate(from, { replace: true });
+      }, 1000);
+    } else if (error) {
+      toast({
+        title: "Login failed",
+        description: error,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+
+    /*
     try {
       const response = await fetch("http://localhost:8081/api/users/login", {
         method: "POST",
@@ -79,7 +113,7 @@ const Login = () => {
         duration: 3000,
         isClosable: true,
       });
-    }
+    } */
   };
 
   return (
@@ -162,6 +196,7 @@ const Login = () => {
             w="100%"
             mb="4"
             onClick={handleLogin}
+            isLoading={isLoading}
           >
             Sign In
           </Button>
