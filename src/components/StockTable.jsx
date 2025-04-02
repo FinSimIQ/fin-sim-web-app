@@ -1,8 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
   Table,
   Text,
   TableCaption,
+  Link,
   Thead,
   Tr,
   Th,
@@ -13,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 
 const StockTable = () => {
+  const navigate = useNavigate();
   return (
     <TableContainer>
       <Table variant="simple">
@@ -32,7 +36,11 @@ const StockTable = () => {
           </Tr>
         </Thead>
         <Tbody>
-          <Tr>
+          <Tr
+            onClick={() => {
+              navigate(`/stocks/APPL`);
+            }}
+          >
             <Td>AAPL</Td>
             <Td>Apple Inc</Td>
             <Td isNumeric>100.02</Td>
