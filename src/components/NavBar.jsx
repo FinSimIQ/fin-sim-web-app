@@ -155,6 +155,18 @@ const Navbar = () => {
 						>
 							Library
 						</MenuItem>
+
+						<MenuItem
+							as={RouterLink}
+							to="/library"
+							fontWeight="600"
+							color="#3B3B3B"
+							bg="#FFFFFF"
+							_hover={{ bg: "rgba(66, 214, 116, 0.5)" }}
+						>
+							Challenge Friends
+						</MenuItem>
+
 					</MenuList>
 				</Menu>
 

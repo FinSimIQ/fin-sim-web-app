@@ -15,6 +15,7 @@ import {
   MenuItem,
   Stack,
   Box,
+  Heading,
 } from "@chakra-ui/react";
 import LogoImage from "../assets/logo.svg";
 import HeaderImage from "../assets/header.svg";
@@ -427,6 +428,89 @@ const Landing = () => {
             </Box>
           </ChakraLink>
         </Stack>
+      </Container>
+
+      {/* Stock Simulator Section */}
+      <Container minW="100%" py={{ base: "8", md: "10" }} px={{ base: "4", md: "6", lg: "120" }} position="relative" bg="#F4F4F4">
+        <Box 
+          bg="#316D60" 
+          borderRadius="24px" 
+          px={{ base: "6", md: "8", lg: "20" }}
+          py={{ base: "10", md: "14", lg: "20" }}
+          position="relative"
+          overflow="visible"
+          
+          mx="auto"
+          mt={{ base: "8", md: "12", lg: "16" }}
+        >
+          <Flex 
+            direction={{ base: "column", lg: "row" }}
+            align="center" 
+            justify="space-between"
+            gap={{ base: "8", lg: "6" }}
+          >
+            <VStack 
+              align={{ base: "center", lg: "flex-start" }}
+              spacing={{ base: "4", lg: "5" }}
+              flex="1"
+              maxW={{ lg: "45%" }}
+              zIndex="2"
+            >
+              <Heading
+                fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}
+                fontWeight="bold"
+                color="white"
+                textAlign={{ base: "center", lg: "left" }}
+                lineHeight="1.2"
+              >
+                Practice Your Skills Without the Risks
+              </Heading>
+              <Text
+                fontSize={{ base: "md", md: "lg" }}
+                color="white"
+                textAlign={{ base: "center", lg: "left" }}
+                fontFamily="metrophobic"
+              >
+                Practice and learn the stock market without any risk or loss with our stock market simulator. 
+              </Text>
+              <Button
+                as={ReactRouterLink}
+                to="/learn"
+                variant="outline"
+                bg="white"
+                color="#42D674"
+                borderColor="white"
+                borderRadius="full"
+                size="lg"
+                px="6"
+                mt={{ base: "4", lg: "4" }}
+                _hover={{ bg: "whiteAlpha.200" }}
+                fontWeight="normal"
+              >
+                Learn More
+              </Button>
+            </VStack>
+            
+            <Box 
+              flex="1" 
+              display="flex" 
+              justifyContent={{ base: "center", lg: "flex-end" }}
+              position="relative"
+              h={{ lg: "350px" }}
+              overflow="visible"
+            >
+              <Image
+                src="/images/macbook-simulator.svg"
+                alt="Stock Market Simulator"
+                maxW={{ base: "400px", md: "750px", lg: "1100px" }}
+                position={{ lg: "absolute" }}
+                top={{ lg: "-150px" }}
+                right={{ lg: "-80px" }}
+                draggable="false"
+              />
+            </Box>
+          </Flex>
+        </Box>
       </Container>
     </Container>
   );
