@@ -4,7 +4,7 @@ import {
   RouterProvider,
   createRoutesFromElements,
   Route,
-  Outlet
+  Outlet,
 } from "react-router-dom";
 import Example from "../screens/Example";
 import Home from "../screens/Home";
@@ -19,9 +19,9 @@ import LeaderboardPage from "../screens/LeaderboardPage";
 import FriendSearch from "../screens/AddFriend";
 import Course from "../screens/Course";
 import Library from "../screens/Library";
+import DetailedStock from "../screens/DetailedStock";
 import { usePageTracking } from "../hooks/usePageTracking";
 import ProtectedRoute from "../components/ProtectedRoute";
-
 
 const RootLayout = () => {
   usePageTracking();
@@ -29,7 +29,6 @@ const RootLayout = () => {
 };
 
 const AppNavigator = (props) => {
-
   /**
   const requireAuth = () => {
     const isAuthenticated = localStorage.getItem("authToken") !== null; //or some other way to authenticate
@@ -82,6 +81,14 @@ const AppNavigator = (props) => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/course/:id" element={<Course />} />
+        <Route
+          path="/stock"
+          element={
+            <ProtectedRoute>
+              <DetailedStock />
+            </ProtectedRoute>
+          }
+        />
       </Route>
     )
   );
