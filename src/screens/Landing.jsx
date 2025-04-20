@@ -16,6 +16,7 @@ import {
   Stack,
   Box,
   Heading,
+  Avatar,
 } from "@chakra-ui/react";
 import LogoImage from "../assets/logo.svg";
 import HeaderImage from "../assets/header.svg";
@@ -35,11 +36,34 @@ import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import useStore from "../store/useStore";
 
 const Landing = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile] = useMediaQuery("(max-width: 1200px)");
+
+  const isAuthenticated = useStore(state => state.isAuthenticated);
+  const user = useStore(state => state.user);
+  const logout = useStore(state => state.logout);
+
+  // Get initials for user's avatar
+	const getUserInitials = () => {
+		if (!user || !user.fullName) {
+			// Use email if name not avilable
+			return user?.email?.charAt(0).toUpperCase() || "U";
+		}
+		const nameParts = user.fullName.split(" ");
+		if (nameParts.length === 1) {
+			return nameParts[0].charAt(0).toUpperCase();
+		}
+		return (nameParts[0].charAt(0) + nameParts[nameParts.length - 1].charAt(0)).toUpperCase();
+	};
+
+  	const handleLogout = () => {
+		logout();
+		navigate("/");
+	};
 
   // Common link styles that can be extracted
   const linkStyles = {
@@ -144,21 +168,34 @@ const Landing = () => {
               <MenuItem as={ChakraLink} {...linkStyles}>
                 <ChakraLink
                   as={ReactRouterLink}
-                  to="/leaderboard"
+                  to="/stockexplorer"
                   {...linkStyles}
                 >
-                  Leaderboard
+                  Stock Simulator
                 </ChakraLink>
               </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  navigate("/login");
-                }}
-              >
-                <Button colorScheme="brand" variant="primary" borderRadius="8">
-                  Sign In
-                </Button>
-              </MenuItem>
+              {isAuthenticated ? (
+                <>
+                  <MenuItem as={ChakraLink} {...linkStyles}>
+                    <ChakraLink as={ReactRouterLink} to="/profile" {...linkStyles}>
+                      Profile
+                    </ChakraLink>
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout}>
+                    Log Out
+                  </MenuItem>
+                </>
+              ) : (
+                <MenuItem
+                  onClick={() => {
+                    navigate("/login");
+                  }}
+                >
+                  <Button colorScheme="brand" variant="primary" borderRadius="8">
+                    Sign In
+                  </Button>
+                </MenuItem>
+              )}
             </MenuList>
           </Menu>
         ) : (
@@ -185,22 +222,47 @@ const Landing = () => {
             <Spacer />
             <ChakraLink
               as={ReactRouterLink}
-              to="/leaderboard"
+              to="/stockexplorer"
               {...linkStyles}
             >
-              Leaderboard
+              Stock Simulator
             </ChakraLink>
             <Spacer />
-            <Button
-              colorScheme="brand"
-              variant="primary"
-              borderRadius="20"
-              onClick={() => {
-                navigate("/login");
-              }}
-            >
-              Sign In
-            </Button>
+            {isAuthenticated ? (
+              <Menu>
+                <MenuButton
+                  aria-label="User profile menu"
+                >
+                  <Avatar
+                    size="md"
+                    name={getUserInitials()}
+                    bg="#42D674"
+                    color="white"
+                    cursor="pointer"
+                    _hover={{
+                      boxShadow: "0px 0px 5px rgba(66, 214, 116, 0.8)"
+                    }}
+                  />
+                </MenuButton>
+                <MenuList>
+                  <MenuItem as={ReactRouterLink} to="/profile" fontWeight="600">Profile</MenuItem>
+                  <MenuItem fontWeight="600" onClick={handleLogout}>
+                    Log Out
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            ) : (
+              <Button
+                colorScheme="brand"
+                variant="primary"
+                borderRadius="20"
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                Sign In
+              </Button>
+            )}
           </>
         )}
       </Flex>
@@ -378,7 +440,7 @@ const Landing = () => {
                   <Text
                     {...cardDescriptionStyles}
                   >
-                    Discover friends to learn with and find encouragement along the way by earning badges with completed lessons
+                    Discover friends to learn with and find encouragement along the way
                   </Text>
                 </Box>
               </VStack>
@@ -431,25 +493,26 @@ const Landing = () => {
       </Container>
 
       {/* Stock Simulator Section */}
-      <Container minW="100%" py={{ base: "8", md: "10" }} px={{ base: "4", md: "6", lg: "120" }} position="relative" bg="#F4F4F4">
-        <Box 
-          bg="#316D60" 
-          borderRadius="24px" 
+      <Container minW="100%" py={{ base: "8", md: "10" }} px={{ base: "4", md: "6", lg: "120" }} position="relative" bg="#F4F4F4" overflow="hidden">
+        <Box
+          bg="#316D60"
+          borderRadius="24px"
           px={{ base: "6", md: "8", lg: "20" }}
           py={{ base: "10", md: "14", lg: "20" }}
           position="relative"
           overflow="visible"
-          
+          mb="0"
+
           mx="auto"
           mt={{ base: "8", md: "12", lg: "16" }}
         >
-          <Flex 
+          <Flex
             direction={{ base: "column", lg: "row" }}
-            align="center" 
+            align="center"
             justify="space-between"
             gap={{ base: "8", lg: "6" }}
           >
-            <VStack 
+            <VStack
               align={{ base: "center", lg: "flex-start" }}
               spacing={{ base: "4", lg: "5" }}
               flex="1"
@@ -471,11 +534,11 @@ const Landing = () => {
                 textAlign={{ base: "center", lg: "left" }}
                 fontFamily="metrophobic"
               >
-                Practice and learn the stock market without any risk or loss with our stock market simulator. 
+                Practice and learn the stock market without any risk or loss with our stock market simulator.
               </Text>
               <Button
                 as={ReactRouterLink}
-                to="/learn"
+                to="/stockexplorer"
                 variant="outline"
                 bg="white"
                 color="#42D674"
@@ -485,27 +548,27 @@ const Landing = () => {
                 px="6"
                 mt={{ base: "4", lg: "4" }}
                 _hover={{ bg: "whiteAlpha.200" }}
-                fontWeight="normal"
+                fontWeight="semibold"
               >
                 Learn More
               </Button>
             </VStack>
-            
-            <Box 
-              flex="1" 
-              display="flex" 
+
+            <Box
+              flex="1"
+              display="flex"
               justifyContent={{ base: "center", lg: "flex-end" }}
               position="relative"
-              h={{ lg: "350px" }}
+              h={{ lg: "300px" }}
               overflow="visible"
             >
               <Image
                 src="/images/macbook-simulator.svg"
                 alt="Stock Market Simulator"
-                maxW={{ base: "400px", md: "750px", lg: "1100px" }}
+                maxW={{ base: "250px", md: "650px", lg: "950px" }}
                 position={{ lg: "absolute" }}
-                top={{ lg: "-150px" }}
-                right={{ lg: "-80px" }}
+                top={{ lg: "-180px" }}
+                right={{ lg: "-200px" }}
                 draggable="false"
               />
             </Box>

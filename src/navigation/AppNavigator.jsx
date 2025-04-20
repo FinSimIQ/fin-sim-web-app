@@ -19,7 +19,7 @@ import LeaderboardPage from "../screens/LeaderboardPage";
 import FriendSearch from "../screens/AddFriend";
 import Course from "../screens/Course";
 import Library from "../screens/Library";
-import StockExplorer from "../screens/ StockExplorer";
+import StockExplorer from "../screens/StockExplorer";
 import { usePageTracking } from "../hooks/usePageTracking";
 import ProtectedRoute from "../components/ProtectedRoute";
 
@@ -74,6 +74,7 @@ const AppNavigator = (props) => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/course/:id" element={<Course />} />
+        <Route path="/stockexplorer" element={<StockExplorer />} />
       </Route>
     )
   );
