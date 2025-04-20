@@ -19,6 +19,7 @@ import LeaderboardPage from "../screens/LeaderboardPage";
 import FriendSearch from "../screens/AddFriend";
 import Course from "../screens/Course";
 import Library from "../screens/Library";
+import StockExplorer from "../screens/ StockExplorer";
 import { usePageTracking } from "../hooks/usePageTracking";
 import ProtectedRoute from "../components/ProtectedRoute";
 
@@ -29,15 +30,6 @@ const RootLayout = () => {
 };
 
 const AppNavigator = (props) => {
-
-  /**
-  const requireAuth = () => {
-    const isAuthenticated = localStorage.getItem("authToken") !== null; //or some other way to authenticate
-    if (!isAuthenticated) {
-      throw redirect("/login");
-    }
-    return null;
-  }; */
 
   const router = createBrowserRouter(
     createRoutesFromElements(
