@@ -432,24 +432,24 @@ const Landing = () => {
 
       {/* Stock Simulator Section */}
       <Container minW="100%" py={{ base: "8", md: "10" }} px={{ base: "4", md: "6", lg: "120" }} position="relative" bg="#F4F4F4">
-        <Box 
-          bg="#316D60" 
-          borderRadius="24px" 
+        <Box
+          bg="#316D60"
+          borderRadius="24px"
           px={{ base: "6", md: "8", lg: "20" }}
           py={{ base: "10", md: "14", lg: "20" }}
           position="relative"
           overflow="visible"
-          
+
           mx="auto"
           mt={{ base: "8", md: "12", lg: "16" }}
         >
-          <Flex 
+          <Flex
             direction={{ base: "column", lg: "row" }}
-            align="center" 
+            align="center"
             justify="space-between"
             gap={{ base: "8", lg: "6" }}
           >
-            <VStack 
+            <VStack
               align={{ base: "center", lg: "flex-start" }}
               spacing={{ base: "4", lg: "5" }}
               flex="1"
@@ -471,7 +471,7 @@ const Landing = () => {
                 textAlign={{ base: "center", lg: "left" }}
                 fontFamily="metrophobic"
               >
-                Practice and learn the stock market without any risk or loss with our stock market simulator. 
+                Practice and learn the stock market without any risk or loss with our stock market simulator.
               </Text>
               <Button
                 as={ReactRouterLink}
@@ -485,15 +485,15 @@ const Landing = () => {
                 px="6"
                 mt={{ base: "4", lg: "4" }}
                 _hover={{ bg: "whiteAlpha.200" }}
-                fontWeight="normal"
+                fontWeight="semibold"
               >
                 Learn More
               </Button>
             </VStack>
-            
-            <Box 
-              flex="1" 
-              display="flex" 
+
+            <Box
+              flex="1"
+              display="flex"
               justifyContent={{ base: "center", lg: "flex-end" }}
               position="relative"
               h={{ lg: "350px" }}
