@@ -13,14 +13,42 @@ import {
   Tbody,
   TableContainer,
   Tfoot,
+  Box,
 } from "@chakra-ui/react";
 
-const StockTable = ({ stocks }) => {
+const StockTable = () => {
   const navigate = useNavigate();
 
   // Sample list
-  // const stocks = [
-  //   {
+  const stocks = [
+    {
+    Symbol: "AAPL",
+      Name: "Apple Inc.",
+      Price: 195.42,
+      Change: "+2.34 (1.21%)",
+      Volume: "45.2M"
+    },
+    {
+      Symbol: "MMM",
+      Name: "3M Company",
+      Price: 133.25,
+      Change: "+0.75 (0.56%)",
+      Volume: "5.8M"
+    },
+    {
+      Symbol: "CVS",
+      Name: "CVS Health Corp",
+      Price: 69.33,
+      Change: "-0.42 (0.61%)",
+      Volume: "12.1M"
+    },
+    {
+      Symbol: "INTC",
+      Name: "Intel Corporation",
+      Price: 22.15,
+      Change: "+0.35 (1.61%)",
+      Volume: "31.7M"
+    }
   //     Symbol: "MMM",
   //     AssetType: "Common Stock",
   //     Name: "3M Company",
@@ -185,48 +213,67 @@ const StockTable = ({ stocks }) => {
   //     DividendDate: "2024-09-01",
   //     ExDividendDate: "2024-08-07",
   //   },
-  // ];
+
+  ];
   return (
-    <TableContainer>
+      <Box
+        borderRadius="md"
+        overflow="hidden"
+        boxShadow="md"
+        mt="6"
+        mb="6"
+        mx="auto"
+        width="full"
+        >
       <Table variant="simple">
         <Thead>
-          <Tr backgroundColor="brand.600">
-            <Th color="white">Symbol</Th>
-            <Th color="white">Name</Th>
-            {/* <Th color="white" isNumeric>
-              Price
-            </Th> */}
-            {/* <Th color="white" isNumeric>
-              Change
-            </Th>
-            <Th color="white" isNumeric>
-              Volume
-            </Th> */}
+        <Tr
+            backgroundColor="brand.600"
+            borderTopLeftRadius="md"
+            borderTopRightRadius="md"
+            sx={{
+              '& th:first-of-type': { borderTopLeftRadius: 'md' },
+              '& th:last-of-type': { borderTopRightRadius: 'md' }
+            }}
+        >
+          <Th color="white">Symbol</Th>
+          <Th color="white">Name</Th>
+          <Th color="white" isNumeric>Price</Th>
+          <Th color="white" isNumeric>Change</Th>
+          <Th color="white" isNumeric>Volume</Th>
+        </Tr>
+      </Thead>
+      <Tbody>
+        {stocks.map((stock, index) => (
+          <Tr
+            key={index} // Add a key prop for React list rendering
+            onClick={() => {
+              navigate(`/stocks/${stock.Symbol}`);
+            }}
+            backgroundColor={index % 2 === 0 ? "white" : "#f9f9f9"}
+            _hover={{ backgroundColor: "#f0f0f0", cursor: "pointer" }}
+          >
+            <Td fontWeight="medium">{stock.Symbol}</Td>
+            <Td>{stock.Name}</Td>
+            <Td isNumeric>${stock.Price}</Td>
+            <Td isNumeric color={stock.Change.includes("+") ? "green.500" : "red.500"}>
+                {stock.Change}
+              </Td>
+            <Td isNumeric>{stock.Volume}</Td>
           </Tr>
-        </Thead>
-        <Tbody>
-          {stocks.map((stock) => (
-            <Tr
-              onClick={() => {
-                navigate(`/stocks/${stock.Symbol}`);
-              }}
-            >
-              <Td>{stock.Symbol}</Td>
-              <Td>{stock.Name}</Td>
-            </Tr>
-          ))}
-        </Tbody>
-        <Tfoot>
-          <Tr>
-            <Th>Symbol</Th>
-            <Th>Name</Th>
-            {/* <Th isNumeric>Price</Th>
-            <Th isNumeric>Change</Th>
-            <Th isNumeric>Volume</Th> */}
-          </Tr>
-        </Tfoot>
+        ))}
+      </Tbody>
+      <Tfoot>
+        <Tr>
+          <Th>Symbol</Th>
+          <Th>Name</Th>
+          <Th isNumeric>Price</Th>
+          <Th isNumeric>Change</Th>
+          <Th isNumeric>Volume</Th>
+        </Tr>
+      </Tfoot>
       </Table>
-    </TableContainer>
+      </Box>
   );
 };
 

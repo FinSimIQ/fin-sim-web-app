@@ -378,7 +378,7 @@ const Landing = () => {
                   <Text
                     {...cardDescriptionStyles}
                   >
-                    Discover friends to learn with and find encouragement along the way by earning badges with completed lessons
+                    Discover friends to learn with and find encouragement along the way
                   </Text>
                 </Box>
               </VStack>
@@ -431,7 +431,7 @@ const Landing = () => {
       </Container>
 
       {/* Stock Simulator Section */}
-      <Container minW="100%" py={{ base: "8", md: "10" }} px={{ base: "4", md: "6", lg: "120" }} position="relative" bg="#F4F4F4">
+      <Container minW="100%" py={{ base: "8", md: "10" }} px={{ base: "4", md: "6", lg: "120" }} position="relative" bg="#F4F4F4" overflow="hidden">
         <Box
           bg="#316D60"
           borderRadius="24px"
@@ -439,6 +439,7 @@ const Landing = () => {
           py={{ base: "10", md: "14", lg: "20" }}
           position="relative"
           overflow="visible"
+          mb="0"
 
           mx="auto"
           mt={{ base: "8", md: "12", lg: "16" }}
@@ -475,7 +476,7 @@ const Landing = () => {
               </Text>
               <Button
                 as={ReactRouterLink}
-                to="/learn"
+                to="/stockexplorer"
                 variant="outline"
                 bg="white"
                 color="#42D674"
@@ -496,16 +497,16 @@ const Landing = () => {
               display="flex"
               justifyContent={{ base: "center", lg: "flex-end" }}
               position="relative"
-              h={{ lg: "350px" }}
+              h={{ lg: "300px" }}
               overflow="visible"
             >
               <Image
                 src="/images/macbook-simulator.svg"
                 alt="Stock Market Simulator"
-                maxW={{ base: "400px", md: "750px", lg: "1100px" }}
+                maxW={{ base: "250px", md: "650px", lg: "950px" }}
                 position={{ lg: "absolute" }}
-                top={{ lg: "-150px" }}
-                right={{ lg: "-80px" }}
+                top={{ lg: "-180px" }}
+                right={{ lg: "-200px" }}
                 draggable="false"
               />
             </Box>
