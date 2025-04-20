@@ -20,6 +20,7 @@ import FriendSearch from "../screens/AddFriend";
 import Course from "../screens/Course";
 import Library from "../screens/Library";
 import DetailedStock from "../screens/DetailedStock";
+import StockExplorer from "../screens/StockExplorer";
 import { usePageTracking } from "../hooks/usePageTracking";
 import ProtectedRoute from "../components/ProtectedRoute";
 
@@ -89,6 +90,7 @@ const AppNavigator = (props) => {
             </ProtectedRoute>
           }
         />
+        <Route path="/stockexplorer" element={<StockExplorer />} />
       </Route>
     )
   );

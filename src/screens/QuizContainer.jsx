@@ -15,7 +15,7 @@
     const [questionStr, setQuestion] = useState("");
     const [loading, setLoading] = useState(true);
     const [allCorrect, setAllCorrect] = useState(false);
-  
+
     useEffect(() => {
       fetch(`http://localhost:8081/api/quiz/weekly-quiz/latest`, {
         method: "GET",
@@ -33,7 +33,7 @@
         setQuestion(quizData.questions[index].question);
       }
     }, [index, quizData]);
-  
+
     const handleNextQuestion = () => {
       if (index + 1 < quizData.questions.length) {
         setIndex((prev) => prev + 1);
@@ -41,7 +41,7 @@
         setAllCorrect(true);
       }
     };
-  
+
     if (loading) {
       return (
          <Container bg="#F1F1F1" m={0} maxW="container.2xl" height="100vh">
@@ -75,7 +75,7 @@
         </Container>
       );
     }
-  
+
     if (allCorrect) {
       return (
         <Container bg="#D9D9D9" m={0} maxW="container.2xl" height="100vh">
@@ -101,11 +101,11 @@
         </Container>
       );
     }
-  
+
     return (
-      <Container bg="#D9D9D9" m={0} maxW="container.2xl" height="100vh">
+      <Container bg="#F1F1F1" m={0} maxW="container.2xl" height="100vh">
         <VStack padding="10" spacing="10">
-          <Container 
+          <Container
             minW="container.xl"
             bg="#316D60"
             color="#FFFFFF"
@@ -118,11 +118,11 @@
                 Test your market analysis skills with this week's challenge.
             </Text>
           </Container>
-          <Container 
-            minW="container.xl" 
-            bg="#FFFFFF" 
-            color="#3B3B3B" 
-            borderRadius="15" 
+          <Container
+            minW="container.xl"
+            bg="#FFFFFF"
+            color="#3B3B3B"
+            borderRadius="15"
             padding="4"
             width="100%"
           >
@@ -152,6 +152,6 @@
         </VStack>
       </Container>
     );
-  };  
-  
+  };
+
   export default QuizContainer;

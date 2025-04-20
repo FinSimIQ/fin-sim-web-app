@@ -65,12 +65,10 @@ const Learn = () => {
         const data = await response.json();
 
         const processedData = data.map(quiz => {
-          // Make sure subtopics exists and is an array
           if (quiz.subtopics && Array.isArray(quiz.subtopics)) {
 
           let imageSrc;
 
-          // Map topics to specific images
           if (quiz.topic === 'Stock Market') {
             imageSrc = '/images/quiz-covers/stock_market.svg';
           } else if (quiz.topic === 'Personal Finance') {
@@ -92,12 +90,10 @@ const Learn = () => {
           }
 
           if (quiz.subtopics && Array.isArray(quiz.subtopics)) {
-            // Process each subtopic
             return {
               ...quiz,
-              imageSrc, // Add the hardcoded image
+              imageSrc, // hardcoded image
               subtopics: quiz.subtopics.map(subtopic => {
-                // If contents is an array, join it into a single string
                 if (Array.isArray(subtopic.contents)) {
                   return {
                     ...subtopic,
