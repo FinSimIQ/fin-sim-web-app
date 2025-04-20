@@ -12,23 +12,25 @@ import {
 	MenuItem,
 } from "@chakra-ui/react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
+import useStore from "../store/useStore";
 import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
 
 const Navbar = () => {
 	const [isOpen, setIsOpen] = useState(false);
-	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	const isAuthenticated = useStore(state => state.isAuthenticated);
+	const logout = useStore(state => state.logout);
 	const navigate = useNavigate();
 
+	/*
 	useEffect(() => {
 		const token = localStorage.getItem("authToken");
 		if (token) {
 			setIsAuthenticated(true);
 		}
-	}, []);
+	}, []); */
 
 	const handleLogout = () => {
-		localStorage.removeItem("authToken");
-		setIsAuthenticated(false);
+		logout();
 		navigate("/");
 	};
 
@@ -153,6 +155,18 @@ const Navbar = () => {
 						>
 							Library
 						</MenuItem>
+
+						<MenuItem
+							as={RouterLink}
+							to="/library"
+							fontWeight="600"
+							color="#3B3B3B"
+							bg="#FFFFFF"
+							_hover={{ bg: "rgba(66, 214, 116, 0.5)" }}
+						>
+							Challenge Friends
+						</MenuItem>
+
 					</MenuList>
 				</Menu>
 
