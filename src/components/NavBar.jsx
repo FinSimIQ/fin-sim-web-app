@@ -10,6 +10,7 @@ import {
 	MenuButton,
 	MenuList,
 	MenuItem,
+	Avatar,
 } from "@chakra-ui/react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import useStore from "../store/useStore";
@@ -18,6 +19,7 @@ import { HamburgerIcon, CloseIcon, ChevronDownIcon } from "@chakra-ui/icons";
 const Navbar = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const isAuthenticated = useStore(state => state.isAuthenticated);
+	const user = useStore(state => state.user);
 	const logout = useStore(state => state.logout);
 	const navigate = useNavigate();
 
@@ -44,6 +46,23 @@ const Navbar = () => {
 
 	const handleLeaderboardClick = () => {
 		navigate("/leaderboard");
+	};
+
+	const handleStockExploreClick = () => {
+		navigate("/stockexplorer");
+	};
+
+	// Get initials for user's avatar
+	const getUserInitials = () => {
+		if (!user || !user.fullName) {
+			// Use email if name not avilable
+			return user?.email?.charAt(0).toUpperCase() || "U";
+		}
+		const nameParts = user.fullName.split(" ");
+		if (nameParts.length === 1) {
+			return nameParts[0].charAt(0).toUpperCase();
+		}
+		return (nameParts[0].charAt(0) + nameParts[nameParts.length - 1].charAt(0)).toUpperCase();
 	};
 
 	return (
@@ -186,7 +205,23 @@ const Navbar = () => {
 					Challenges
 				</Link>
 
-				{/* Dropdown Menu for Leaderboard */}
+				<Link
+					as={RouterLink}
+					to="/stockexplorer"
+					p={2}
+					mx={{ base: 2, md: 6, lg: 10 }}
+					rounded="md"
+					display="block"
+					align="center"
+					_hover={{ bg: "rgba(66, 214, 116, 0.5)" }}
+					fontWeight="600"
+					fontSize={{ base: "14px", md: "18px" }}
+					color="#3B3B3B"
+				>
+					Stock Simulator
+				</Link>
+
+				{/* Dropdown Menu for Leaderboard
 				<Menu>
 					<MenuButton
 						as={Button}
@@ -221,24 +256,32 @@ const Navbar = () => {
 							Add Friends
 						</MenuItem>
 					</MenuList>
-				</Menu>
+				</Menu> */}
 
 				{isAuthenticated ? (
-					<Button
-						onClick={handleLogout}
-						variant="solid"
-						bg="#42D674"
-						color="white"
-						_hover={{ bg: "rgba(66, 214, 116, 0.5)", color: "#3b3b3b" }}
-						size={{ base: "sm", md: "md", lg: "lg" }}
-						px={{ base: 4, md: 6 }}
-						py={3}
-						fontSize={{ base: "14px", md: "18px" }}
-						borderRadius="30px"
-						ml={{ base: 2, md: 6, lg: 10 }}
-					>
-						Log Out
-					</Button>
+					<Menu>
+						<MenuButton
+							ml={{ base: 2, md: 6, lg: 10 }}
+							aria-label="User profile menu"
+						>
+							<Avatar
+								size="md"
+								name={getUserInitials()}
+								bg="#42D674"
+								color="white"
+								cursor="pointer"
+								_hover={{
+									boxShadow: "0px 0px 5px rgba(66, 214, 116, 0.8)"
+								}}
+							/>
+						</MenuButton>
+						<MenuList>
+							<MenuItem fontWeight="600">Profile</MenuItem>
+							<MenuItem fontWeight="600" onClick={handleLogout}>
+								Log Out
+							</MenuItem>
+						</MenuList>
+					</Menu>
 				) : (
 					<Button
 						as={RouterLink}

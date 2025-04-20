@@ -16,6 +16,7 @@ import {
   Stack,
   Box,
   Heading,
+  Avatar,
 } from "@chakra-ui/react";
 import LogoImage from "../assets/logo.svg";
 import HeaderImage from "../assets/header.svg";
@@ -35,11 +36,34 @@ import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import useStore from "../store/useStore";
 
 const Landing = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile] = useMediaQuery("(max-width: 1200px)");
+
+  const isAuthenticated = useStore(state => state.isAuthenticated);
+  const user = useStore(state => state.user);
+  const logout = useStore(state => state.logout);
+
+  // Get initials for user's avatar
+	const getUserInitials = () => {
+		if (!user || !user.fullName) {
+			// Use email if name not avilable
+			return user?.email?.charAt(0).toUpperCase() || "U";
+		}
+		const nameParts = user.fullName.split(" ");
+		if (nameParts.length === 1) {
+			return nameParts[0].charAt(0).toUpperCase();
+		}
+		return (nameParts[0].charAt(0) + nameParts[nameParts.length - 1].charAt(0)).toUpperCase();
+	};
+
+  	const handleLogout = () => {
+		logout();
+		navigate("/");
+	};
 
   // Common link styles that can be extracted
   const linkStyles = {
@@ -144,21 +168,34 @@ const Landing = () => {
               <MenuItem as={ChakraLink} {...linkStyles}>
                 <ChakraLink
                   as={ReactRouterLink}
-                  to="/leaderboard"
+                  to="/stockexplorer"
                   {...linkStyles}
                 >
-                  Leaderboard
+                  Stock Simulator
                 </ChakraLink>
               </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  navigate("/login");
-                }}
-              >
-                <Button colorScheme="brand" variant="primary" borderRadius="8">
-                  Sign In
-                </Button>
-              </MenuItem>
+              {isAuthenticated ? (
+                <>
+                  <MenuItem as={ChakraLink} {...linkStyles}>
+                    <ChakraLink as={ReactRouterLink} to="/profile" {...linkStyles}>
+                      Profile
+                    </ChakraLink>
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout}>
+                    Log Out
+                  </MenuItem>
+                </>
+              ) : (
+                <MenuItem
+                  onClick={() => {
+                    navigate("/login");
+                  }}
+                >
+                  <Button colorScheme="brand" variant="primary" borderRadius="8">
+                    Sign In
+                  </Button>
+                </MenuItem>
+              )}
             </MenuList>
           </Menu>
         ) : (
@@ -185,22 +222,47 @@ const Landing = () => {
             <Spacer />
             <ChakraLink
               as={ReactRouterLink}
-              to="/leaderboard"
+              to="/stockexplorer"
               {...linkStyles}
             >
-              Leaderboard
+              Stock Simulator
             </ChakraLink>
             <Spacer />
-            <Button
-              colorScheme="brand"
-              variant="primary"
-              borderRadius="20"
-              onClick={() => {
-                navigate("/login");
-              }}
-            >
-              Sign In
-            </Button>
+            {isAuthenticated ? (
+              <Menu>
+                <MenuButton
+                  aria-label="User profile menu"
+                >
+                  <Avatar
+                    size="md"
+                    name={getUserInitials()}
+                    bg="#42D674"
+                    color="white"
+                    cursor="pointer"
+                    _hover={{
+                      boxShadow: "0px 0px 5px rgba(66, 214, 116, 0.8)"
+                    }}
+                  />
+                </MenuButton>
+                <MenuList>
+                  <MenuItem as={ReactRouterLink} to="/profile" fontWeight="600">Profile</MenuItem>
+                  <MenuItem fontWeight="600" onClick={handleLogout}>
+                    Log Out
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            ) : (
+              <Button
+                colorScheme="brand"
+                variant="primary"
+                borderRadius="20"
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                Sign In
+              </Button>
+            )}
           </>
         )}
       </Flex>
