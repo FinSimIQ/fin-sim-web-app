@@ -1,11 +1,29 @@
 import StockGraph from "../components/StockGraph";
 
 const DetailedStock = () => {
-  // fetch data from https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&outputsize=full&apikey=demo
+  const [dat, setDat] = useState(data);
+
+  useEffect(() => {
+    fetchStockData();
+  }, []);
+
+  const fetchStockData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8081/api/stocks/${symbol}`
+      );
+      const result = await response.json();
+      console.log(result);
+      setDat(result);
+    } catch (error) {
+      console.error("Error fetching stock data:", error);
+      return null;
+    }
+  };
 
   return (
     <div>
-      <StockGraph stockData={data} isLoading={false} symbol={"IBM"} />
+      <StockGraph stockData={dat} isLoading={false} symbol={dat.Symbol} />
     </div>
   );
 };
