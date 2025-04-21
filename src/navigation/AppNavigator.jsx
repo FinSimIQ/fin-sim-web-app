@@ -19,6 +19,7 @@ import LeaderboardPage from "../screens/LeaderboardPage";
 import FriendSearch from "../screens/AddFriend";
 import Course from "../screens/Course";
 import Library from "../screens/Library";
+import Portfolio from "../screens/Portfolio";
 import { usePageTracking } from "../hooks/usePageTracking";
 import ProtectedRoute from "../components/ProtectedRoute";
 
@@ -59,6 +60,14 @@ const AppNavigator = (props) => {
           element={
             <ProtectedRoute>
               <Challenges />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/portfolio"
+          element={
+            <ProtectedRoute>
+              <Portfolio />
             </ProtectedRoute>
           }
         />

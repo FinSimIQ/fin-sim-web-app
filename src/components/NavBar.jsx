@@ -174,6 +174,22 @@ const Navbar = () => {
 					Challenges
 				</Link>
 
+				<Link
+					as={RouterLink}
+					to="/portfolio"
+					p={2}
+					mx={{ base: 2, md: 6, lg: 10 }}
+					rounded="md"
+					display="block"
+					align="center"
+					_hover={{ bg: "rgba(66, 214, 116, 0.5)" }}
+					fontWeight="600"
+					fontSize={{ base: "14px", md: "18px" }}
+					color="#3B3B3B"
+				>
+					Portfolio
+				</Link>
+
 				{/* Dropdown Menu for Leaderboard */}
 				<Menu>
 					<MenuButton
