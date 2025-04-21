@@ -3,7 +3,31 @@ import { Box, Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react";
 import MarketSellForm from "./MarketSellForm";
 import LimitSellForm from "./LimitSellForm";
 
-const SellTabs = ({ stockData, portfolioData, onSubmitOrder }) => {
+const SellTabs = ({ stockData, portfolioData }) => {
+  const onSubmit = async () => {
+    try {
+      const orderData = {
+        symbol: stockData.symbol,
+        quantity: stockData.quantity,
+        userId: "", // portfolioData.userId,
+      };
+
+      const result = fetch("/api/portfolio/sell", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderData),
+      });
+      const response = await result.json();
+
+      // the response is a new portfolio object
+      // update the portfolio state in the parent component
+    } catch (error) {
+      console.error("Error submitting order:", error);
+    }
+  };
+
   return (
     <Box bg="white" borderRadius="lg" boxShadow="sm" p={4}>
       <Tabs variant="unstyled">
@@ -44,14 +68,14 @@ const SellTabs = ({ stockData, portfolioData, onSubmitOrder }) => {
             <MarketSellForm
               stockData={stockData}
               portfolioData={portfolioData}
-              onSubmit={onSubmitOrder}
+              onSubmit={onSubmit}
             />
           </TabPanel>
           <TabPanel p={0}>
             <LimitSellForm
               stockData={stockData}
               portfolioData={portfolioData}
-              onSubmit={onSubmitOrder}
+              onSubmit={onSubmit}
             />
           </TabPanel>
         </TabPanels>
