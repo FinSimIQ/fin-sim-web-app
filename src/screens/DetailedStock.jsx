@@ -45321,7 +45321,7 @@ import SellTabs from "../components/SellTabs";
                   <Box
                     borderRadius="lg"
                     bg="white"
-                    boxShadow="sm"
+                    boxShadow="0px -1px 3px rgba(0, 0, 0, 0.03), 0px 1px 3px rgba(0, 0, 0, 0.03), -1px 0px 3px rgba(0, 0, 0, 0.03), 1px 0px 3px rgba(0, 0, 0, 0.03)"
                     mb={6}
                     p={4}
                   >
@@ -45370,31 +45370,6 @@ import SellTabs from "../components/SellTabs";
                 </Tabs>
               </TabPanel>
 
-              {/* Analysis Tab */}
-              <TabPanel>
-                <Box
-                  borderRadius="lg"
-                  bg="white"
-                  boxShadow="sm"
-                  p={6}
-                >
-                  <Text fontSize="xl" fontWeight="semibold" mb={4}>Technical Analysis</Text>
-                  <Text>Detailed technical analysis will be displayed here.</Text>
-                </Box>
-              </TabPanel>
-
-              {/* News Tab */}
-              <TabPanel>
-                <Box
-                  borderRadius="lg"
-                  bg="white"
-                  boxShadow="sm"
-                  p={6}
-                >
-                  <Text fontSize="xl" fontWeight="semibold" mb={4}>Recent News</Text>
-                  <Text>Latest news about {displaySymbol} will be displayed here.</Text>
-                </Box>
-              </TabPanel>
             </TabPanels>
           </Tabs>
         </Box>

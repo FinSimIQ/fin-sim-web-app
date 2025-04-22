@@ -33,15 +33,15 @@ const BuyTabs = ({ stockData, portfolioData }) => {
   };
 
   return (
-    <Box bg="white" borderRadius="lg" boxShadow="sm" p={4}>
+    <Box bg="white" borderRadius="lg" boxShadow="md" p={4}>
       <Tabs variant="unstyled">
         <TabList borderBottom="1px solid" borderColor="gray.200" mb={4}>
           <Tab
             _selected={{
               color: "white",
-              bg: "brand.500",
+              bg: "brand.600",
               borderBottom: "3px solid",
-              borderColor: "brand.500",
+              borderColor: "brand.600",
             }}
             borderRadius="none"
             fontWeight="semibold"
@@ -54,9 +54,9 @@ const BuyTabs = ({ stockData, portfolioData }) => {
           <Tab
             _selected={{
               color: "white",
-              bg: "brand.500",
+              bg: "brand.600",
               borderBottom: "3px solid",
-              borderColor: "brand.500",
+              borderColor: "brand.600",
             }}
             borderRadius="none"
             fontWeight="semibold"
