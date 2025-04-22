@@ -1,6 +1,6 @@
 import StockGraph from "../components/StockGraph";
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate} from "react-router-dom";
 import useStore from "../store/useStore";
 import { Container, Box, Spinner, Center, Text, Grid, Flex, Button, Tabs,
   TabList,
@@ -44909,92 +44909,93 @@ import SellTabs from "../components/SellTabs";
     }
   };
 
-const DetailedStock = () => {
-  const [dat, setDat] = useState(data);
-  const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState(0);
-  const [activeTradeTab, setActiveTradeTab] = useState(0); // 0 for buy, 1 for sell
-  const [portfolioData, setPortfolioData] = useState(null);
+  const DetailedStock = () => {
+    // Required hooks
+    const navigate = useNavigate();
+    const location = useLocation();
+    const user = useStore(state => state.user);
 
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const symbol = queryParams.get("symbol");
-  const tabParam = queryParams.get("tab");
-  const user = useStore(state => state.user);
-  // Use a string ID, not the object itself
-  const userId = typeof user === 'string' ? user :
-                (user && user.id ? user.id : "670c998f4cf44cf935375dc0");
+    // Get the userId correctly
+    const userId = user && user.id ? user.id : "670c998f4cf44cf935375dc0";
 
+    // State
+    const [dat, setDat] = useState(data);
+    const [loading, setLoading] = useState(true);
+    const [activeTab, setActiveTab] = useState(0);
+    const [activeTradeTab, setActiveTradeTab] = useState(0); // 0 for buy, 1 for sell
+    const [portfolioData, setPortfolioData] = useState(null);
 
-  /*
-  useEffect(() => {
-    if (symbol) {
-      fetchStockData();
-    } else {
-      setLoading(false);
-      setError("No stock symbol provided");
-    }
-  }, [symbol]);
+    // URL parameters
+    const queryParams = new URLSearchParams(location.search);
+    const symbol = queryParams.get("symbol");
+    const tabParam = queryParams.get("tab");
 
-  const fetchStockData = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(
-        `http://localhost:8081/api/stocks/${symbol}`
-      );
-      const result = await response.json();
-      console.log(result);
-      setDat(result);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching stock data:", error);
-      setError("Failed to fetch stock data");
-      setLoading(false);
-    }
-  };*/
-
-  useEffect(() => {
-    if (tabParam === "sell") {
-      setActiveTab(1); // Set to Trading tab index
-      setActiveTradeTab(1); // Set to Sell tab within Trading
-    }
-  }, [tabParam]);
-
-  useEffect(() => {
-    // using the sample data for loading
-    setLoading(true);
-
-    setTimeout(() => {
-      if (symbol) {
-        console.log(`Loading data for symbol: ${symbol}`);
-        // using the sample data
-        setDat(data);
-        setLoading(false);
-      } else {
-        console.log("No symbol provided, using default data");
-        setDat(data);
-        setLoading(false);
+    // Set initial active tab based on URL parameters
+    useEffect(() => {
+      if (tabParam === "sell") {
+        setActiveTab(1); // Set to Trading tab index
+        setActiveTradeTab(1); // Set to Sell tab within Trading
+      } else if (tabParam === "buy") {
+        setActiveTab(1); // Set to Trading tab index
+        setActiveTradeTab(0); // Set to Buy tab within Trading
       }
-    }, 500);
+    }, [tabParam]);
 
-    const fetchPortfolioData = async () => {
-      try {
-        const response = await fetch(`http://localhost:8081/api/portfolio/value/${userId}/`);
+    // Fetch stock data and portfolio data
+    useEffect(() => {
+      // using the sample data for loading
+      setLoading(true);
 
-        if (response.ok) {
-          const data = await response.json();
-          setPortfolioData({
-            userId: userId,
-            liquidCash: data.liquidCash || 10000,
-            totalPortfolioValue: data.totalPortfolioValue || 10000,
-            holdings: data.holdings || {},
-            sharesOwned: data.holdings?.[symbol]?.quantity || 0,
-            avgPrice: data.holdings?.[symbol]?.avgBuyPrice || 0
-          });
+      setTimeout(() => {
+        if (symbol) {
+          console.log(`Loading data for symbol: ${symbol}`);
+          // using the sample data
+          setDat(data);
+          setLoading(false);
         } else {
+          console.log("No symbol provided, using default data");
+          setDat(data);
+          setLoading(false);
+        }
+      }, 500);
+
+      // Fetch portfolio data
+      const fetchPortfolioData = async () => {
+        try {
+          console.log("Fetching portfolio with userId:", userId);
+
+          // Try with the correct API endpoint
+          const response = await fetch(`http://localhost:8081/api/portfolio/value/${userId}/`);
+
+          if (response.ok) {
+            const data = await response.json();
+            setPortfolioData({
+              userId: userId,
+              liquidCash: data.liquidCash || 10000,
+              totalPortfolioValue: data.totalPortfolioValue || 10000,
+              holdings: data.holdings || {},
+              sharesOwned: data.holdings?.[symbol]?.quantity || 0,
+              avgPrice: data.holdings?.[symbol]?.avgBuyPrice || 0
+            });
+          } else {
+            console.log("API response not OK, using demo data");
+            // Demo data if API fails
+            setPortfolioData({
+              userId: userId,
+              liquidCash: 9803.02,
+              totalPortfolioValue: 10000,
+              holdings: {
+                "AAPL": { quantity: 1, avgBuyPrice: 196.98 }
+              },
+              sharesOwned: symbol === "AAPL" ? 1 : 0,
+              avgPrice: symbol === "AAPL" ? 196.98 : 0
+            });
+          }
+        } catch (error) {
+          console.error("Error fetching portfolio data:", error);
           // Demo data if API fails
           setPortfolioData({
-            userId: "670c998f4cf44cf935375dc0",
+            userId: userId,
             liquidCash: 9803.02,
             totalPortfolioValue: 10000,
             holdings: {
@@ -45004,199 +45005,401 @@ const DetailedStock = () => {
             avgPrice: symbol === "AAPL" ? 196.98 : 0
           });
         }
+      };
+
+      fetchPortfolioData();
+    }, [symbol, userId]);
+
+    // Handle Buy Submit
+    const handleBuySubmit = async (orderData) => {
+      try {
+        const buyData = {
+          userId: userId,
+          symbol: displaySymbol,
+          quantity: orderData.shares,
+          price: orderData.price
+        };
+
+        console.log("Buy order data:", buyData);
+
+        // Try actual API call
+        try {
+          const response = await fetch("http://localhost:8081/api/portfolio/buy", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(buyData),
+          });
+
+          if (response.ok) {
+            const result = await response.json();
+            console.log("Buy order result:", result);
+
+            if (result.message === "Stock purchased successfully" && result.portfolio) {
+              // Update portfolio data with new holdings and liquid cash
+              setPortfolioData(prevData => ({
+                ...prevData,
+                holdings: result.portfolio.stocks || {},
+                liquidCash: result.portfolio.liquidCash,
+                sharesOwned: result.portfolio.stocks?.[displaySymbol]?.quantity || 0,
+                avgPrice: result.portfolio.stocks?.[displaySymbol]?.avgBuyPrice || 0
+              }));
+
+              alert("Buy order submitted successfully!");
+            } else {
+              alert("Buy order completed but portfolio data could not be updated.");
+            }
+          } else {
+            throw new Error("API call failed");
+          }
+        } catch (apiError) {
+          console.log("API call failed, using mock response");
+          // Mock successful response for testing
+          const mockResult = {
+            message: "Stock purchased successfully",
+            portfolio: {
+              stocks: {
+                ...portfolioData.holdings,
+                [displaySymbol]: {
+                  quantity: (portfolioData.sharesOwned || 0) + parseFloat(orderData.shares),
+                  avgBuyPrice: orderData.price
+                }
+              },
+              liquidCash: portfolioData.liquidCash - (orderData.shares * orderData.price)
+            }
+          };
+
+          // Update with mock data
+          setPortfolioData(prevData => ({
+            ...prevData,
+            holdings: mockResult.portfolio.stocks,
+            liquidCash: mockResult.portfolio.liquidCash,
+            sharesOwned: mockResult.portfolio.stocks[displaySymbol].quantity,
+            avgPrice: mockResult.portfolio.stocks[displaySymbol].avgBuyPrice
+          }));
+
+          alert("Buy order submitted successfully! (Mock response)");
+        }
       } catch (error) {
-        console.error("Error fetching portfolio data:", error);
-        // Demo data if API fails
-        setPortfolioData({
-          userId: "670c998f4cf44cf935375dc0",
-          liquidCash: 9803.02,
-          totalPortfolioValue: 10000,
-          holdings: {
-            "AAPL": { quantity: 1, avgBuyPrice: 196.98 }
-          },
-          sharesOwned: symbol === "AAPL" ? 1 : 0,
-          avgPrice: symbol === "AAPL" ? 196.98 : 0
-        });
+        console.error("Error submitting buy order:", error);
+        alert("Error submitting buy order. Please try again.");
       }
     };
 
-    fetchPortfolioData();
-  }, [symbol]);
+    // Handle Sell Submit
+    const handleSellSubmit = async (orderData) => {
+      try {
+        const sellData = {
+          userId: userId,
+          symbol: displaySymbol,
+          quantity: orderData.shares
+        };
 
+        console.log("Sell order data:", sellData);
 
-  if (loading) {
+        // Try actual API call
+        try {
+          const response = await fetch("http://localhost:8081/api/portfolio/sell", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(sellData),
+          });
+
+          if (response.ok) {
+            const result = await response.json();
+            console.log("Sell order result:", result);
+
+            if (result.message === "Stock sold successfully" && result.portfolio) {
+              // Update portfolio data with new holdings and liquid cash
+              setPortfolioData(prevData => ({
+                ...prevData,
+                holdings: result.portfolio.stocks || {},
+                liquidCash: result.portfolio.liquidCash,
+                sharesOwned: result.portfolio.stocks?.[displaySymbol]?.quantity || 0,
+                avgPrice: result.portfolio.stocks?.[displaySymbol]?.avgBuyPrice || 0
+              }));
+
+              alert("Sell order submitted successfully!");
+            } else {
+              alert("Sell order completed but portfolio data could not be updated.");
+            }
+          } else {
+            throw new Error("API call failed");
+          }
+        } catch (apiError) {
+          console.log("API call failed, using mock response");
+          // Mock successful response for testing
+          const mockResult = {
+            message: "Stock sold successfully",
+            portfolio: {
+              stocks: {
+                ...portfolioData.holdings
+              },
+              liquidCash: portfolioData.liquidCash + (orderData.shares * portfolioData.avgPrice)
+            }
+          };
+
+          // Update the mock stocks object to reduce quantity
+          if (mockResult.portfolio.stocks[displaySymbol]) {
+            const newQuantity = portfolioData.sharesOwned - orderData.shares;
+            if (newQuantity <= 0) {
+              delete mockResult.portfolio.stocks[displaySymbol];
+            } else {
+              mockResult.portfolio.stocks[displaySymbol] = {
+                quantity: newQuantity,
+                avgBuyPrice: portfolioData.avgPrice
+              };
+            }
+          }
+
+          // Update with mock data
+          setPortfolioData(prevData => ({
+            ...prevData,
+            holdings: mockResult.portfolio.stocks,
+            liquidCash: mockResult.portfolio.liquidCash,
+            sharesOwned: mockResult.portfolio.stocks[displaySymbol]?.quantity || 0,
+            avgPrice: mockResult.portfolio.stocks[displaySymbol]?.avgBuyPrice || 0
+          }));
+
+          alert("Sell order submitted successfully! (Mock response)");
+        }
+      } catch (error) {
+        console.error("Error submitting sell order:", error);
+        alert("Error submitting sell order. Please try again.");
+      }
+    };
+
+    if (loading) {
+      return (
+        <Container minW="100%" p="0" m="0" fontFamily="poppins">
+          <Navbar />
+          <Center h="70vh">
+            <Spinner size="xl" color="brand.600" />
+          </Center>
+        </Container>
+      );
+    }
+
+    const displaySymbol = symbol || dat?.["Meta Data"]?.["2. Symbol"] || "Unknown";
+    const stockDetails = stockDetailsData[displaySymbol] || {
+      symbol: displaySymbol,
+      companyName: "Company Name",
+      currentPrice: 100.00,
+      priceChange: "+0.00 (0.00%)",
+      metrics: [
+        { label: "Market Cap", value: "$100B", tooltipText: "Market capitalization" },
+        { label: "P/E Ratio", value: "20.5", tooltipText: "Price to earnings ratio" },
+        { label: "52W High", value: "$110.00", tooltipText: "52-week high price" },
+        { label: "52W Low", value: "$90.00", tooltipText: "52-week low price" },
+        { label: "Volume", value: "1.2M", tooltipText: "Trading volume" },
+        { label: "Avg Volume", value: "1.5M", tooltipText: "Average trading volume" }
+      ],
+      analystForecast: {
+        consensusRating: "Buy",
+        priceTarget: "$110.00"
+      }
+    };
+
+    // Format stock data for BuyTabs and SellTabs
+    const stockDataForTabs = {
+      symbol: displaySymbol,
+      name: stockDetails.companyName,
+      currentPrice: parseFloat(stockDetails.currentPrice),
+      change: parseFloat(stockDetails.priceChange.split(' ')[0]),
+      changePercent: parseFloat(stockDetails.priceChange.split('(')[1].split('%')[0]),
+      previousClose: parseFloat(stockDetails.currentPrice) - parseFloat(stockDetails.priceChange.split(' ')[0]),
+      high: parseFloat(stockDetails.currentPrice) * 1.02, // Just a dummy value
+      low: parseFloat(stockDetails.currentPrice) * 0.98,  // Just a dummy value
+    };
+
     return (
       <Container minW="100%" p="0" m="0" fontFamily="poppins">
         <Navbar />
-        <Center h="70vh">
-          <Spinner size="xl" color="brand.600" />
-        </Center>
+        <Box m="10">
+          <Tabs index={activeTab} onChange={setActiveTab} colorScheme="green" variant="enclosed">
+            <TabList mb="1em">
+              <Tab fontWeight="semibold">Overview</Tab>
+              <Tab fontWeight="semibold">Trading</Tab>
+              <Tab fontWeight="semibold">Analysis</Tab>
+              <Tab fontWeight="semibold">News</Tab>
+            </TabList>
+
+            <TabPanels>
+              {/* Overview Tab */}
+              <TabPanel p={0}>
+                {/* Stock Header */}
+                <Box
+                  borderRadius="lg"
+                  bg="white"
+                  boxShadow="0px -1px 3px rgba(0, 0, 0, 0.03), 0px 1px 3px rgba(0, 0, 0, 0.03), -1px 0px 3px rgba(0, 0, 0, 0.03), 1px 0px 3px rgba(0, 0, 0, 0.03)"
+                  mb={6}
+                  p={4}
+                >
+                  <Flex justifyContent="space-between" alignItems="center">
+                    <StockHeader
+                      symbol={stockDetails.symbol}
+                      companyName={stockDetails.companyName}
+                      currentPrice={stockDetails.currentPrice}
+                      priceChange={stockDetails.priceChange}
+                    />
+                    <Button
+                      colorScheme="green"
+                      size="md"
+                      px={6}
+                      onClick={() => {
+                        console.log("Buy button clicked");
+                        setActiveTab(1); // Switch to Trading tab
+                        setActiveTradeTab(0); // Set to Buy tab
+                      }}
+                    >
+                      BUY
+                    </Button>
+                  </Flex>
+                </Box>
+
+                {/* Chart Section */}
+                <Box
+                  borderRadius="lg"
+                  bg="white"
+                  boxShadow="sm"
+                  mb={6}
+                  overflow="hidden"
+                >
+                  <StockGraph
+                    stockData={dat}
+                    isLoading={false}
+                    symbol={displaySymbol}
+                  />
+                </Box>
+
+                {/* Bottom Information Panels */}
+                <Grid templateColumns={{ base: "1fr", md: "1fr 2fr" }} gap={4}>
+                  {/* Analyst Forecast Panel */}
+                  <AnalystForecast
+                    consensusRating={stockDetails.analystForecast.consensusRating}
+                    priceTarget={stockDetails.analystForecast.priceTarget}
+                  />
+
+                  {/* Performance Details Panel */}
+                  <Box
+                    borderRadius="lg"
+                    bg="white"
+                    boxShadow="0px -1px 3px rgba(0, 0, 0, 0.03), 0px 1px 3px rgba(0, 0, 0, 0.03), -1px 0px 3px rgba(0, 0, 0, 0.03), 1px 0px 3px rgba(0, 0, 0, 0.03)"
+                    p={4}
+                  >
+                    <Text fontSize="lg" fontWeight="semibold" mb={4}>Performance Details</Text>
+                    <PerformanceDetails metrics={stockDetails.metrics} />
+                  </Box>
+                </Grid>
+              </TabPanel>
+
+              {/* Trading Tab */}
+              <TabPanel p={0}>
+                {/* Stock Info Summary */}
+                <Box
+                  borderRadius="lg"
+                  bg="white"
+                  boxShadow="0px -1px 3px rgba(0, 0, 0, 0.03), 0px 1px 3px rgba(0, 0, 0, 0.03), -1px 0px 3px rgba(0, 0, 0, 0.03), 1px 0px 3px rgba(0, 0, 0, 0.03)"
+                  mb={6}
+                  p={4}
+                >
+                  <Flex justifyContent="space-between" alignItems="center">
+                    <StockHeader
+                      symbol={stockDetails.symbol}
+                      companyName={stockDetails.companyName}
+                      currentPrice={stockDetails.currentPrice}
+                      priceChange={stockDetails.priceChange}
+                    />
+                  </Flex>
+                </Box>
+
+                {/* Portfolio Summary */}
+                {portfolioData && (
+                  <Box
+                    borderRadius="lg"
+                    bg="white"
+                    boxShadow="sm"
+                    mb={6}
+                    p={4}
+                  >
+                    <Text fontSize="lg" fontWeight="semibold" mb={4}>Your Portfolio</Text>
+                    <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={4}>
+                      <Box>
+                        <Text color="gray.500" fontSize="sm">Available Cash</Text>
+                        <Text fontSize="xl" fontWeight="bold">${portfolioData.liquidCash.toFixed(2)}</Text>
+                      </Box>
+                      <Box>
+                        <Text color="gray.500" fontSize="sm">{displaySymbol} Shares Owned</Text>
+                        <Text fontSize="xl" fontWeight="bold">{portfolioData.sharesOwned || 0}</Text>
+                      </Box>
+                      <Box>
+                        <Text color="gray.500" fontSize="sm">Average Buy Price</Text>
+                        <Text fontSize="xl" fontWeight="bold">
+                          ${portfolioData.avgPrice ? portfolioData.avgPrice.toFixed(2) : '0.00'}
+                        </Text>
+                      </Box>
+                    </Grid>
+                  </Box>
+                )}
+
+                {/* Trading Forms */}
+                <Tabs index={activeTradeTab} onChange={setActiveTradeTab} variant="enclosed" colorScheme="green">
+                  <TabList>
+                    <Tab fontWeight="semibold">Buy</Tab>
+                    <Tab fontWeight="semibold">Sell</Tab>
+                  </TabList>
+                  <TabPanels>
+                    <TabPanel>
+                      <BuyTabs
+                        stockData={stockDataForTabs}
+                        portfolioData={portfolioData}
+                        onSubmit={handleBuySubmit}
+                      />
+                    </TabPanel>
+                    <TabPanel>
+                      <SellTabs
+                        stockData={stockDataForTabs}
+                        portfolioData={portfolioData}
+                        onSubmit={handleSellSubmit}
+                      />
+                    </TabPanel>
+                  </TabPanels>
+                </Tabs>
+              </TabPanel>
+
+              {/* Analysis Tab */}
+              <TabPanel>
+                <Box
+                  borderRadius="lg"
+                  bg="white"
+                  boxShadow="sm"
+                  p={6}
+                >
+                  <Text fontSize="xl" fontWeight="semibold" mb={4}>Technical Analysis</Text>
+                  <Text>Detailed technical analysis will be displayed here.</Text>
+                </Box>
+              </TabPanel>
+
+              {/* News Tab */}
+              <TabPanel>
+                <Box
+                  borderRadius="lg"
+                  bg="white"
+                  boxShadow="sm"
+                  p={6}
+                >
+                  <Text fontSize="xl" fontWeight="semibold" mb={4}>Recent News</Text>
+                  <Text>Latest news about {displaySymbol} will be displayed here.</Text>
+                </Box>
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+        </Box>
       </Container>
     );
-  }
-
-  /*
-  return (
-    <div>
-      <StockGraph stockData={dat} isLoading={false} symbol={dat.Symbol} />
-    </div>
-  );*/
-  const displaySymbol = symbol || dat?.["Meta Data"]?.["2. Symbol"] || "Unknown";
-  const stockDetails = stockDetailsData[displaySymbol];
-
-  const handleBuySubmit = async (orderData) => {
-    try {
-      const buyData = {
-        userId: portfolioData.userId,
-        symbol: displaySymbol,
-        quantity: orderData.shares,
-        price: orderData.price
-      };
-
-      // Replace with your actual API endpoint
-      const response = await fetch("http://localhost:8081/api/portfolio/buy", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(buyData),
-      });
-
-      const result = await response.json();
-      console.log("Buy order result:", result);
-
-      if (result.message === "Stock purchased successfully" && result.portfolio) {
-        // Update portfolio data with new holdings and liquid cash
-        setPortfolioData(prevData => ({
-          ...prevData,
-          holdings: result.portfolio.stocks || {},
-          liquidCash: result.portfolio.liquidCash,
-          sharesOwned: result.portfolio.stocks?.[displaySymbol]?.quantity || 0,
-          avgPrice: result.portfolio.stocks?.[displaySymbol]?.avgBuyPrice || 0
-        }));
-
-        alert("Buy order submitted successfully!");
-      } else {
-        alert("Buy order completed but portfolio data could not be updated.");
-      }
-    } catch (error) {
-      console.error("Error submitting buy order:", error);
-      alert("Error submitting buy order. Please try again.");
-    }
   };
-
-  const handleSellSubmit = async (orderData) => {
-    try {
-      const sellData = {
-        userId: portfolioData.userId,
-        symbol: displaySymbol,
-        quantity: orderData.shares
-      };
-
-      // Replace with your actual API endpoint
-      const response = await fetch("http://localhost:8081/api/portfolio/sell", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(sellData),
-      });
-
-      const result = await response.json();
-      console.log("Sell order result:", result);
-
-      if (result.message === "Stock sold successfully" && result.portfolio) {
-        // Update portfolio data with new holdings and liquid cash
-        setPortfolioData(prevData => ({
-          ...prevData,
-          holdings: result.portfolio.stocks || {},
-          liquidCash: result.portfolio.liquidCash,
-          sharesOwned: result.portfolio.stocks?.[displaySymbol]?.quantity || 0,
-          avgPrice: result.portfolio.stocks?.[displaySymbol]?.avgBuyPrice || 0
-        }));
-
-        alert("Sell order submitted successfully!");
-      } else {
-        alert("Sell order completed but portfolio data could not be updated.");
-      }
-    } catch (error) {
-      console.error("Error submitting sell order:", error);
-      alert("Error submitting sell order. Please try again.");
-    }
-  };
-
-return (
-  <Container minW="100%" p="0" m="0" fontFamily="poppins">
-    <Navbar />
-    <Box m="10">
-      {/* Outer Box for Stock Header */}
-      <Box
-        borderRadius="lg"
-        bg="white"
-        boxShadow="0px -1px 3px rgba(0, 0, 0, 0.03), 0px 1px 3px rgba(0, 0, 0, 0.03), -1px 0px 3px rgba(0, 0, 0, 0.03), 1px 0px 3px rgba(0, 0, 0, 0.03)"
-        mb={6}
-        p={4}
-      >
-        {/* Header */}
-        <Flex justifyContent="space-between" alignItems="center">
-          <StockHeader
-            symbol={stockDetails.symbol}
-            companyName={stockDetails.companyName}
-            currentPrice={stockDetails.currentPrice}
-            priceChange={stockDetails.priceChange}
-          />
-          <Button
-            colorScheme="green"
-            size="md"
-            px={6}
-            onClick={() => {
-              setActiveTab(1); // Switch to Trading tab
-              setActiveTradeTab(0); // Set to Buy tab
-            }}
-          >
-            BUY
-          </Button>
-        </Flex>
-      </Box>
-
-      {/* Chart Section */}
-      <Box
-        borderRadius="lg"
-        bg="white"
-        boxShadow="sm"
-        mb={6}
-        overflow="hidden"
-      >
-        <StockGraph
-          stockData={dat}
-          isLoading={false}
-          symbol={displaySymbol}
-        />
-      </Box>
-
-      {/* Bottom Information Panels */}
-      <Grid templateColumns={{ base: "1fr", md: "1fr 2fr" }} gap={4}>
-        {/* Analyst Forecast Panel */}
-          <AnalystForecast
-            consensusRating={stockDetails.analystForecast.consensusRating}
-            priceTarget={stockDetails.analystForecast.priceTarget}
-          />
-
-        {/* Performance Details Panel */}
-        <Box
-          borderRadius="lg"
-          bg="white"
-          boxShadow="0px -1px 3px rgba(0, 0, 0, 0.03), 0px 1px 3px rgba(0, 0, 0, 0.03), -1px 0px 3px rgba(0, 0, 0, 0.03), 1px 0px 3px rgba(0, 0, 0, 0.03)"
-          p={4}
-        >
-          <Text fontSize="lg" fontWeight="semibold" mb={4}>Performance Details</Text>
-          <PerformanceDetails metrics={stockDetails.metrics} />
-        </Box>
-      </Grid>
-    </Box>
-  </Container>
-);
-};
-
 
 export default DetailedStock;

@@ -111,7 +111,7 @@ const Portfolio = () => {
   const [stocksData, setStocksData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const isAuthenticated = useStore(state => state.isAuthenticated);
-  const user = useStore(state => state.user?.id);
+  const user = useStore(state => state.user);
 
   useEffect(() => {
     console.log("Current user in store:", user);
@@ -125,7 +125,7 @@ const Portfolio = () => {
         setIsLoading(true);
         try {
           // Get the user ID or use a fallback if not available
-          const userId = user?.id;
+          const userId = user;
           console.log("Fetching portfolio for user ID:", userId);
 
           // Get the auth token if needed
