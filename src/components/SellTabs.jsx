@@ -12,7 +12,7 @@ const SellTabs = ({ stockData, portfolioData }) => {
         userId: "", // portfolioData.userId,
       };
 
-      const result = fetch("/api/portfolio/sell", {
+      const result = fetch("http://localhost:8081/api/portfolio/sell/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

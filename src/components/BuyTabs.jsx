@@ -14,7 +14,7 @@ const BuyTabs = ({ stockData, portfolioData }) => {
         orderType: orderData.type
       };
 
-      const response = await fetch("/api/portfolio/buy", {
+      const response = await fetch("http://localhost:8081/api/portfolio/buy/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
