@@ -49,6 +49,49 @@ const Signup = () => {
       password,
     };
 
+    try {
+      console.log("Sending signup data:", signupData);
+      const success = await signup(signupData);
+      console.log("Signup response success:", success);
+
+      if (success) {
+        toast({
+          title: "Account created successfully!",
+          description: "You can now sign in.",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+        navigate("/login");
+      } else if (error) {
+        toast({
+          title: "Signup failed",
+          description: error,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      console.error("Error during signup:", error);
+      toast({
+        title: "Signup error",
+        description: "An unexpected error occurred",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+    /*
+    clearError();
+
+    const signupData = {
+      fullName,
+      email,
+      password,
+
+    };
+
     const success = await signup(signupData);
 
     if (success) {

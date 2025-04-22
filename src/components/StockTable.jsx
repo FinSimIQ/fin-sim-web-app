@@ -60,7 +60,8 @@ const StockTable = (props) => {
             <Tr
               key={index} // Add a key prop for React list rendering
               onClick={() => {
-                navigate(`/stocks/${stock.symbol}`);
+                // navigate(`/stocks/${stock.symbol}`);
+                navigate(`/stock?symbol=${stock.symbol}`);
               }}
               backgroundColor={index % 2 === 0 ? "white" : "#f9f9f9"}
               _hover={{ backgroundColor: "#f0f0f0", cursor: "pointer" }}

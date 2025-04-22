@@ -177,8 +177,8 @@ const Landing = () => {
               {isAuthenticated ? (
                 <>
                   <MenuItem as={ChakraLink} {...linkStyles}>
-                    <ChakraLink as={ReactRouterLink} to="/profile" {...linkStyles}>
-                      Profile
+                    <ChakraLink as={ReactRouterLink} to="/portfolio" {...linkStyles}>
+                      Portfolio
                     </ChakraLink>
                   </MenuItem>
                   <MenuItem onClick={handleLogout}>

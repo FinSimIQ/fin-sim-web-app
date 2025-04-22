@@ -52,6 +52,10 @@ const Navbar = () => {
 		navigate("/stockexplorer");
 	};
 
+	const handleProfileClick = () => {
+		navigate("/portfolio");
+	};
+
 	// Get initials for user's avatar
 	const getUserInitials = () => {
 		if (!user || !user.fullName) {
@@ -276,7 +280,7 @@ const Navbar = () => {
 							/>
 						</MenuButton>
 						<MenuList>
-							<MenuItem fontWeight="600">Profile</MenuItem>
+							<MenuItem fontWeight="600" onClick={handleProfileClick}>Portfolio</MenuItem>
 							<MenuItem fontWeight="600" onClick={handleLogout}>
 								Log Out
 							</MenuItem>

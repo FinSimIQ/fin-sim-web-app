@@ -1,30 +1,34 @@
 import React from "react";
 import { Box, Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react";
-import MarketSellForm from "./MarketSellForm";
-import LimitSellForm from "./LimitSellForm";
+import MarketBuyForm from "./MarketBuyForm";
+import LimitBuyForm from "./LimitBuyForm";
 
-const SellTabs = ({ stockData, portfolioData }) => {
-  const onSubmit = async () => {
+const BuyTabs = ({ stockData, portfolioData }) => {
+  const onSubmit = async (orderData) => {
     try {
-      const orderData = {
-        symbol: stockData.symbol,
-        quantity: stockData.quantity,
+      const buyData = {
         userId: "", // portfolioData.userId,
+        symbol: stockData.symbol,
+        quantity: orderData.shares,
+        price: orderData.price,
+        orderType: orderData.type
       };
 
-      const result = fetch("http://localhost:8081/api/portfolio/sell/", {
+      const response = await fetch("http://localhost:8081/api/portfolio/buy/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(orderData),
+        body: JSON.stringify(buyData),
       });
-      const response = await result.json();
 
-      // the response is a new portfolio object
-      // update the portfolio state in the parent component
+      const result = await response.json();
+
+      // Update the portfolio state in the parent component
+      // This should be handled in the calling component
+      return result;
     } catch (error) {
-      console.error("Error submitting order:", error);
+      console.error("Error submitting buy order:", error);
     }
   };
 
@@ -35,9 +39,9 @@ const SellTabs = ({ stockData, portfolioData }) => {
           <Tab
             _selected={{
               color: "white",
-              bg: "#316D60",
+              bg: "brand.500",
               borderBottom: "3px solid",
-              borderColor: "#316D60",
+              borderColor: "brand.500",
             }}
             borderRadius="none"
             fontWeight="semibold"
@@ -45,34 +49,34 @@ const SellTabs = ({ stockData, portfolioData }) => {
             py={2}
             mr={2}
           >
-            Market Sell
+            Market Buy
           </Tab>
           <Tab
             _selected={{
               color: "white",
-              bg: "#316D60",
+              bg: "brand.500",
               borderBottom: "3px solid",
-              borderColor: "#316D60",
+              borderColor: "brand.500",
             }}
             borderRadius="none"
             fontWeight="semibold"
             px={6}
             py={2}
           >
-            Limit Sell
+            Limit Buy
           </Tab>
         </TabList>
 
         <TabPanels>
           <TabPanel p={0}>
-            <MarketSellForm
+            <MarketBuyForm
               stockData={stockData}
               portfolioData={portfolioData}
               onSubmit={onSubmit}
             />
           </TabPanel>
           <TabPanel p={0}>
-            <LimitSellForm
+            <LimitBuyForm
               stockData={stockData}
               portfolioData={portfolioData}
               onSubmit={onSubmit}
@@ -84,4 +88,4 @@ const SellTabs = ({ stockData, portfolioData }) => {
   );
 };
 
-export default SellTabs;
+export default BuyTabs;
