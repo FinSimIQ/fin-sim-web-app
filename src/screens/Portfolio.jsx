@@ -13,13 +13,96 @@ import {
   Button,
   Flex,
   Heading,
-  Stack,
-  HStack,
-  Divider,
   useToast,
 } from "@chakra-ui/react";
 import Navbar from "../components/NavBar";
 import useStore from "../store/useStore";
+
+// Bottom Navigation component defined inline
+const PortfolioBottomNav = ({ portfolioData }) => {
+  const bgColor = "white";
+  const borderColor = "gray.200";
+
+  // Calculate total invested amount
+  const totalInvested = portfolioData ?
+    portfolioData.totalPortfolioValue - portfolioData.liquidCash : 0;
+
+  return (
+    <Box
+      position="fixed"
+      bottom="0"
+      left="0"
+      width="100%"
+      bg={bgColor}
+      borderTop="1px solid"
+      borderColor={borderColor}
+      boxShadow="0 -4px 10px rgba(0, 0, 0, 0.05)"
+      py={4}
+      zIndex={10}
+    >
+      <Flex
+        maxW="container.xl"
+        mx="auto"
+        px={4}
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Flex
+          justifyContent="space-between"
+          width={{ base: "100%", md: "80%" }}
+          gap={{ base: 2, md: 4 }}
+        >
+          <Box textAlign="center">
+            <Text color="gray.500" fontSize="xs">
+              Available Cash
+            </Text>
+            <Text fontSize={{ base: "md", md: "xl" }} fontWeight="bold">
+              ${portfolioData?.liquidCash.toFixed(2)}
+            </Text>
+          </Box>
+
+          <Text display={{ base: "none", md: "flex" }} alignSelf="center">+</Text>
+
+          <Box textAlign="center">
+            <Text color="gray.500" fontSize="xs">
+              Total Invested
+            </Text>
+            <Text fontSize={{ base: "md", md: "xl" }} fontWeight="bold">
+              ${totalInvested.toFixed(2)}
+            </Text>
+          </Box>
+
+          <Text display={{ base: "none", md: "flex" }} alignSelf="center">+</Text>
+
+          <Box textAlign="center">
+            <Text color="gray.500" fontSize="xs">
+              Profit/Loss
+            </Text>
+            <Text
+              fontSize={{ base: "md", md: "xl" }}
+              fontWeight="bold"
+              color={portfolioData?.unrealizedGains >= 0 ? "green.500" : "red.500"}
+            >
+              {portfolioData?.unrealizedGains >= 0 ? "+" : "-"}
+              ${Math.abs(portfolioData?.unrealizedGains || 0).toFixed(2)}
+            </Text>
+          </Box>
+
+          <Text display={{ base: "none", md: "flex" }} alignSelf="center">=</Text>
+
+          <Box textAlign="center">
+            <Text color="gray.500" fontSize="xs">
+              Portfolio Value
+            </Text>
+            <Text fontSize={{ base: "md", md: "xl" }} fontWeight="bold">
+              ${portfolioData?.totalPortfolioValue.toFixed(2)}
+            </Text>
+          </Box>
+        </Flex>
+      </Flex>
+    </Box>
+  );
+};
 
 const Portfolio = () => {
   const navigate = useNavigate();
@@ -28,44 +111,66 @@ const Portfolio = () => {
   const [stocksData, setStocksData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const user = useStore(state => state.user);
+  const isAuthenticated = useStore(state => state.isAuthenticated);
+
+  useEffect(() => {
+    console.log("Current user in store:", user);
+    console.log("User ID:", user?.id);
+    console.log("Is authenticated:", isAuthenticated);
+  }, [user, isAuthenticated]);
 
   // Fetch portfolio data
   useEffect(() => {
     const fetchPortfolioData = async () => {
-      setIsLoading(true);
-      try {
-        // Use the userId from auth or a fixed value for demo
-        const userId = user?.id || "670c998f4cf44cf935375dc0";
-        const response = await fetch(`http://localhost:8081/api/value/${userId}/`);
+        setIsLoading(true);
+        try {
+          // Get the user ID or use a fallback if not available
+          const userId = user?.id || "6808092f8c9d137dee1dc0ad";
+          console.log("Fetching portfolio for user ID:", userId);
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch portfolio data");
+          // Get the auth token if needed
+          const authToken = localStorage.getItem("authToken");
+
+          // Make the fetch request
+          const response = await fetch(`http://localhost:8081/api/portfolio/value/${userId}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              // Add authorization if needed
+              "Authorization": `Bearer ${authToken}`
+            }
+          });
+
+          if (!response.ok) {
+            console.error("API response:", response.status, response.statusText);
+            throw new Error("Failed to fetch portfolio data");
+          }
+
+          const data = await response.json();
+          console.log("Portfolio data received:", data);
+          setPortfolioData(data);
+
+          // Get additional stock details for each holding
+          const holdingSymbols = Object.keys(data.holdings || {});
+          if (holdingSymbols.length > 0) {
+            await fetchStocksData(holdingSymbols);
+          }
+        } catch (error) {
+          console.error("Error fetching portfolio:", error);
+          toast({
+            title: "Error",
+            description: "Failed to load portfolio data. Using demo data instead.",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
+
+          // Load demo data if API fails
+          loadDemoData();
+        } finally {
+          setIsLoading(false);
         }
-
-        const data = await response.json();
-        setPortfolioData(data);
-
-        // Get additional stock details for each holding
-        const holdingSymbols = Object.keys(data.holdings || {});
-        if (holdingSymbols.length > 0) {
-          await fetchStocksData(holdingSymbols);
-        }
-      } catch (error) {
-        console.error("Error fetching portfolio:", error);
-        toast({
-          title: "Error",
-          description: "Failed to load portfolio data. Using demo data instead.",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
-
-        // Load demo data if API fails
-        loadDemoData();
-      } finally {
-        setIsLoading(false);
-      }
-    };
+      };
 
     fetchPortfolioData();
   }, [toast, user]);
@@ -188,12 +293,8 @@ const Portfolio = () => {
   const isPortfolioEmpty = !portfolioData?.holdings ||
     Object.keys(portfolioData.holdings).length === 0;
 
-  // Calculate total invested amount (portfolio value - liquid cash)
-  const totalInvested = portfolioData ?
-    portfolioData.totalPortfolioValue - portfolioData.liquidCash : 0;
-
   return (
-    <Box minH="100vh" bg="gray.50" fontFamily="poppins">
+    <Box minH="100vh" bg="gray.50" fontFamily="poppins" pb="130px"> {/* Add padding bottom */}
       <Navbar />
 
       <Container maxW="container.xl" py={6}>
@@ -299,81 +400,12 @@ const Portfolio = () => {
             </Tbody>
           </Table>
         </Box>
-
-        {/* Portfolio Summary */}
-        {portfolioData && (
-          <Flex
-            justifyContent="space-between"
-            alignItems="center"
-            flexWrap="wrap"
-            gap={4}
-          >
-            <Stack
-              direction="row"
-              spacing={4}
-              alignItems="center"
-              bg="white"
-              p={4}
-              borderRadius="md"
-              boxShadow="sm"
-            >
-              <Box textAlign="center" minW="200px">
-                <Text color="gray.500" fontSize="sm">
-                  Available Cash
-                </Text>
-                <Text fontSize="2xl" fontWeight="bold">
-                  ${portfolioData.liquidCash.toFixed(2)}
-                </Text>
-              </Box>
-              <Text fontSize="lg">+</Text>
-              <Box textAlign="center" minW="200px">
-                <Text color="gray.500" fontSize="sm">
-                  Total Invested
-                </Text>
-                <Text fontSize="2xl" fontWeight="bold">
-                  ${totalInvested.toFixed(2)}
-                </Text>
-              </Box>
-              <Text fontSize="lg">+</Text>
-              <Box textAlign="center" minW="200px">
-                <Text color="gray.500" fontSize="sm">
-                  Profit/Loss
-                </Text>
-                <Text
-                  fontSize="2xl"
-                  fontWeight="bold"
-                  color={portfolioData.unrealizedGains >= 0 ? "green.500" : "red.500"}
-                >
-                  {portfolioData.unrealizedGains >= 0 ? "+" : "-"}
-                  ${Math.abs(portfolioData.unrealizedGains).toFixed(2)}
-                </Text>
-              </Box>
-              <Text fontSize="lg">=</Text>
-              <Box textAlign="center" minW="200px">
-                <Text color="gray.500" fontSize="sm">
-                  Portfolio Value
-                </Text>
-                <Text fontSize="2xl" fontWeight="bold">
-                  ${portfolioData.totalPortfolioValue.toFixed(2)}
-                </Text>
-              </Box>
-            </Stack>
-          </Flex>
-        )}
-
-        {/* Explore Stocks Button */}
-        {!isPortfolioEmpty && (
-          <Box mt={6}>
-            <Button
-              colorScheme="green"
-              size="lg"
-              onClick={handleExploreStocks}
-            >
-              Explore More Stocks
-            </Button>
-          </Box>
-        )}
       </Container>
+
+      {/* Add the bottom navigation bar */}
+      {portfolioData && !isPortfolioEmpty && (
+        <PortfolioBottomNav portfolioData={portfolioData} />
+      )}
     </Box>
   );
 };
