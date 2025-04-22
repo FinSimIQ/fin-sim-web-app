@@ -1,6 +1,7 @@
 import StockGraph from "../components/StockGraph";
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import useStore from "../store/useStore";
 import { Container, Box, Spinner, Center, Text, Grid, Flex, Button, Tabs,
   TabList,
   TabPanels,
@@ -44919,6 +44920,11 @@ const DetailedStock = () => {
   const queryParams = new URLSearchParams(location.search);
   const symbol = queryParams.get("symbol");
   const tabParam = queryParams.get("tab");
+  const user = useStore(state => state.user);
+  // Use a string ID, not the object itself
+  const userId = typeof user === 'string' ? user :
+                (user && user.id ? user.id : "670c998f4cf44cf935375dc0");
+
 
   /*
   useEffect(() => {
@@ -44973,8 +44979,7 @@ const DetailedStock = () => {
 
     const fetchPortfolioData = async () => {
       try {
-        const userId = "670c998f4cf44cf935375dc0"; // Replace with actual user ID
-        const response = await fetch(`http://localhost:8081/api/value/${userId}/`);
+        const response = await fetch(`http://localhost:8081/api/portfolio/value/${userId}/`);
 
         if (response.ok) {
           const data = await response.json();
