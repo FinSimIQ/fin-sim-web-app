@@ -470,7 +470,7 @@ const StockGraph = ({ stockData, symbol, isLoading = false }) => {
     <Box
       borderRadius="lg"
       bg={bgColor}
-      boxShadow="md"
+      boxShadow="0px 0px 10px rgba(0, 0, 0, 0.1)"
       p={6}
       width="100%"
       position="relative"
@@ -478,7 +478,7 @@ const StockGraph = ({ stockData, symbol, isLoading = false }) => {
     >
       {/* Header */}
       <Flex justify="space-between" align="center" mb={4}>
-        <Text fontSize="md" fontWeight="medium" color={textColor}>
+        <Text fontSize="lg" fontWeight="semibold" color={textColor}>
           Performance
         </Text>
       </Flex>

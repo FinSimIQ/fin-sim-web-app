@@ -23,6 +23,7 @@ import DetailedStock from "../screens/DetailedStock";
 import StockExplorer from "../screens/StockExplorer";
 import { usePageTracking } from "../hooks/usePageTracking";
 import ProtectedRoute from "../components/ProtectedRoute";
+import Portfolio from "../screens/Portfolio";
 
 const RootLayout = () => {
   usePageTracking();
@@ -90,8 +91,20 @@ const AppNavigator = (props) => {
             </ProtectedRoute>
           }
         />
-        <Route path="/stockexplorer" element={<StockExplorer />} />
+        <Route
+          path="/stockexplorer"
+          element={<StockExplorer />}
+        />
+        <Route
+          path="/portfolio"
+          element={
+            <ProtectedRoute>
+              <Portfolio />
+            </ProtectedRoute>
+          }
+        />
       </Route>
+
     )
   );
   return <RouterProvider router={router} />;
