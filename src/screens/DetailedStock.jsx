@@ -44910,34 +44910,29 @@ import SellTabs from "../components/SellTabs";
   };
 
   const DetailedStock = () => {
-    // Required hooks
     const navigate = useNavigate();
     const location = useLocation();
     const user = useStore(state => state.user);
 
-    // Get the userId correctly
     const userId = user && user.id ? user.id : "670c998f4cf44cf935375dc0";
 
-    // State
     const [dat, setDat] = useState(data);
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState(0);
     const [activeTradeTab, setActiveTradeTab] = useState(0); // 0 for buy, 1 for sell
     const [portfolioData, setPortfolioData] = useState(null);
 
-    // URL parameters
     const queryParams = new URLSearchParams(location.search);
     const symbol = queryParams.get("symbol");
     const tabParam = queryParams.get("tab");
 
-    // Set initial active tab based on URL parameters
     useEffect(() => {
       if (tabParam === "sell") {
-        setActiveTab(1); // Set to Trading tab index
-        setActiveTradeTab(1); // Set to Sell tab within Trading
+        setActiveTab(1);
+        setActiveTradeTab(1);
       } else if (tabParam === "buy") {
-        setActiveTab(1); // Set to Trading tab index
-        setActiveTradeTab(0); // Set to Buy tab within Trading
+        setActiveTab(1);
+        setActiveTradeTab(0);
       }
     }, [tabParam]);
 
@@ -44964,7 +44959,6 @@ import SellTabs from "../components/SellTabs";
         try {
           console.log("Fetching portfolio with userId:", userId);
 
-          // Try with the correct API endpoint
           const response = await fetch(`http://localhost:8081/api/portfolio/value/${userId}/`);
 
           if (response.ok) {
@@ -45022,7 +45016,6 @@ import SellTabs from "../components/SellTabs";
 
         console.log("Buy order data:", buyData);
 
-        // Try actual API call
         try {
           const response = await fetch("http://localhost:8081/api/portfolio/buy", {
             method: "POST",
@@ -45098,7 +45091,6 @@ import SellTabs from "../components/SellTabs";
 
         console.log("Sell order data:", sellData);
 
-        // Try actual API call
         try {
           const response = await fetch("http://localhost:8081/api/portfolio/sell", {
             method: "POST",

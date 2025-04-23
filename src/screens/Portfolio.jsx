@@ -18,7 +18,6 @@ import {
 import Navbar from "../components/NavBar";
 import useStore from "../store/useStore";
 
-// Bottom Navigation component defined inline
 const PortfolioBottomNav = ({ portfolioData }) => {
   const bgColor = "white";
   const borderColor = "gray.200";
@@ -124,11 +123,9 @@ const Portfolio = () => {
     const fetchPortfolioData = async () => {
         setIsLoading(true);
         try {
-          // Get the user ID or use a fallback if not available
           const userId = user?.id;
           console.log("Fetching portfolio for user ID:", userId);
 
-          // Get the auth token if needed
           const authToken = localStorage.getItem("authToken");
 
           // Make the fetch request
@@ -136,7 +133,6 @@ const Portfolio = () => {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              // Add authorization if needed
               "Authorization": `Bearer ${authToken}`
             }
           });
@@ -175,9 +171,9 @@ const Portfolio = () => {
     fetchPortfolioData();
   }, [toast, user]);
 
-  // Load demo data for development
+
   const loadDemoData = () => {
-    // Demo portfolio data matching the API structure
+    // Demo portfolio data
     const demoPortfolio = {
       liquidCash: 9803.02,
       totalPortfolioValue: 10000,
@@ -223,10 +219,8 @@ const Portfolio = () => {
   // Fetch current stock data for holdings
   const fetchStocksData = async (symbols) => {
     try {
-      // In reality, you might batch these requests or use a different API
       const stockDetails = {};
 
-      // For demo purposes, just use dummy data instead of real API calls
       symbols.forEach(symbol => {
         stockDetails[symbol] = {
           symbol: symbol,
@@ -268,7 +262,6 @@ const Portfolio = () => {
   };
 
   const getRandomPrice = (symbol) => {
-    // Base values for demo stocks to ensure consistent prices
     const baseValues = {
       AAPL: 195.42,
       MSFT: 415.10,
@@ -402,7 +395,7 @@ const Portfolio = () => {
         </Box>
       </Container>
 
-      {/* Add the bottom navigation bar */}
+      {/* Bottom navigation bar */}
       {portfolioData && !isPortfolioEmpty && (
         <PortfolioBottomNav portfolioData={portfolioData} />
       )}
