@@ -45223,8 +45223,6 @@ import SellTabs from "../components/SellTabs";
             <TabList mb="1em">
               <Tab fontWeight="semibold">Overview</Tab>
               <Tab fontWeight="semibold">Trading</Tab>
-              <Tab fontWeight="semibold">Analysis</Tab>
-              <Tab fontWeight="semibold">News</Tab>
             </TabList>
 
             <TabPanels>
@@ -45321,7 +45319,7 @@ import SellTabs from "../components/SellTabs";
                   <Box
                     borderRadius="lg"
                     bg="white"
-                    boxShadow="sm"
+                    boxShadow="md"
                     mb={6}
                     p={4}
                   >
@@ -45368,32 +45366,6 @@ import SellTabs from "../components/SellTabs";
                     </TabPanel>
                   </TabPanels>
                 </Tabs>
-              </TabPanel>
-
-              {/* Analysis Tab */}
-              <TabPanel>
-                <Box
-                  borderRadius="lg"
-                  bg="white"
-                  boxShadow="sm"
-                  p={6}
-                >
-                  <Text fontSize="xl" fontWeight="semibold" mb={4}>Technical Analysis</Text>
-                  <Text>Detailed technical analysis will be displayed here.</Text>
-                </Box>
-              </TabPanel>
-
-              {/* News Tab */}
-              <TabPanel>
-                <Box
-                  borderRadius="lg"
-                  bg="white"
-                  boxShadow="sm"
-                  p={6}
-                >
-                  <Text fontSize="xl" fontWeight="semibold" mb={4}>Recent News</Text>
-                  <Text>Latest news about {displaySymbol} will be displayed here.</Text>
-                </Box>
               </TabPanel>
             </TabPanels>
           </Tabs>

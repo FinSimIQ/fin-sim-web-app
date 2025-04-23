@@ -29,7 +29,7 @@ const SellTabs = ({ stockData, portfolioData }) => {
   };
 
   return (
-    <Box bg="white" borderRadius="lg" boxShadow="sm" p={4}>
+    <Box bg="white" borderRadius="lg" boxShadow="md" p={4}>
       <Tabs variant="unstyled">
         <TabList borderBottom="1px solid" borderColor="gray.200" mb={4}>
           <Tab
